@@ -1,0 +1,44 @@
+PRODUCTOS
+-ID del producto (automático - Integer)
+-Nombre del producto (String)
+-Categoría del producto (Drop liste clase cateogoría)
+-Cantidad en stock (int)
+-Precio (double)
+
+
+CLIENTES
+-Cédula (Integer)
+-Nombre (String)
+-Apellido (String)
+-Fecha de nacimiento (LocalDate - opcional)
+-Correo (String - expresión regular - opcional)
+-Teléfono (String - opcional)
+-Compras registradas (HashMap <Integer, VENTA>, no se muestra en el formulario solo en la tabla)
+
+
+PROVEEDORES
+-Nit (Integer)
+-Nombre del proveedor (String)
+-Compra registradas (HashMap <Integer, Compra>)
+
+
+VENTA (A CLIENTES)
+-ID de la venta  (automático - Integer)
+-Fecha de la venta (automático por defecto con posibilidad de editar - LocalDate)
+-Cédula del cliente (Integer)
+-Nombre (String - automático)
+-Apellido (String - automático)
+-Lista de productos vendiddos (HashMap <Integer, Producto>) # Pensar en visualización y edición de los productos añadidos
+
+
+COMPRA (A PROOVEDORES)
+-ID de la compra (automático - Integer)
+-Fecha de la compra (automático por defecto con posibilidad de editar - LocalDate)
+-Nit del proveedor (Integer)
+-Nombre del proveedor (String - automático) 
+-Lista de productos comprados (HashMap <Integer, Producto>) # Pensar en visualización y edición de los productos añadidos
+
+
+Stock
+Drop para filtrar por categoría del producto 
+*Listar Productos en Stock*
