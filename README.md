@@ -1,3 +1,4 @@
+![Univalle-logo](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC3YWKqIvxxaFHqEjZjm0bK9YdAKt8a1113QHLDndM&s "Univalle-logo")
 # Proyecto 4 - Supermercado Universidad del Valle
 Fundamentos de Programación Orientada a Eventos - Universidad del Valle.
 
