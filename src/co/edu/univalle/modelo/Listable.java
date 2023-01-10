@@ -1,7 +1,7 @@
 /*
     Archivo: Listable.java
     Fundamentos de Programación Orientada a Eventos - 750014C Grupo 01
-    Proyecto 3 - Servicio de Salud Universidad del Valle
+    Proyecto 4 - Supermercado Universidad del Valle
 
     Autores: 
     Juan Camilo Narvaez Tascon - juan.narvaez.tascon@correounivalle.edu.co - 2140112-3743

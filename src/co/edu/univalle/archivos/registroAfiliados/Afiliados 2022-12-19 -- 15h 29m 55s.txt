@@ -1,2 +1,0 @@
-C.C;1155870302;Daniel;Carvajal;1990-10-05;Cali;Colombia;32;M;O;+;Soltero;Carrera 13 # 5 - 20;Palmira;3183546011;Contributivo;Univalle;
-C.C;1144582933;Alejandra;Muñoz;1990-10-05;Cali;Colombia;32;F;A;-;Soltero;Carrera 13 # 5 - 20;Palmira;3183546011;Contributivo;Univalle;
