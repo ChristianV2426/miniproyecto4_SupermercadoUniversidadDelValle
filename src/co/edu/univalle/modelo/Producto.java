@@ -33,22 +33,22 @@ import java.text.DecimalFormat;
 public class Producto implements Listable, Serializable {
     public static final long serialVersionUID = 1L;
     private static final int totalDatos = 5;
-    private Integer idProducto;
+    private Integer identificacion;
     private String nombreProducto;
     private String categoriaProducto;
     private int cantidadStock;
     private BigDecimal precioVenta;
     
-    public Producto(Integer idProducto, String nombreProducto, String categoriaProducto, BigDecimal precioVenta) {
-        this.idProducto = idProducto;
+    public Producto(Integer identificacion, String nombreProducto, String categoriaProducto, BigDecimal precioVenta) {
+        this.identificacion = identificacion;
         this.nombreProducto = nombreProducto;
         this.categoriaProducto = categoriaProducto;
         this.cantidadStock = 0;  // Cuando recién se crea un producto desde la categoría PRODUCTOS, el stock es cero. Hay que agregar stock comprándole producto a los proovedores.
         this.precioVenta = precioVenta;
     }
 
-    public Integer getIdProducto() {
-        return idProducto;
+    public Integer getIdentificacion() {
+        return identificacion;
     }
 
     public String getNombreProducto() {
@@ -90,7 +90,7 @@ public class Producto implements Listable, Serializable {
     public String getDato(int idDato){
         switch(idDato){
             case 0: 
-                return String.valueOf(idProducto);
+                return String.valueOf(identificacion);
             case 1:
                 return String.valueOf(nombreProducto);
             case 2: 
@@ -107,7 +107,7 @@ public class Producto implements Listable, Serializable {
     
     @Override
     public String toString(){
-        String cadena = String.valueOf(idProducto) + " " + String.valueOf(nombreProducto);
+        String cadena = String.valueOf(identificacion) + " " + String.valueOf(nombreProducto);
         return cadena;
     }
 }

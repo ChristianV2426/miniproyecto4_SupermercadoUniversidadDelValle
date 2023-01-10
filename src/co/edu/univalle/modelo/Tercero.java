@@ -34,22 +34,22 @@ import java.util.*;
 public abstract class Tercero implements Listable, Serializable{
     public static final long serialVersionUID = 1L;
     private static final int totalDatos = 5;
-    private Integer documento;
+    private Integer identificacion;
     private String nombre;
     private String correoElectronico;
     private String telefono;
     private HashMap<Integer, Transaccion> transaccionesRealizadas;
     
-    public Tercero(Integer documento, String nombre, String correoElectronico, String telefono) {
-        this.documento = documento;
+    public Tercero(Integer identificacion, String nombre, String correoElectronico, String telefono) {
+        this.identificacion = identificacion;
         this.nombre = nombre;
         this.correoElectronico = correoElectronico;
         this.telefono = telefono;
-        this.transaccionesRealizadas = new HashMap<Integer, Transaccion>();
+        this.transaccionesRealizadas = new HashMap<>();
     }
 
-    public Integer getDocumento() {
-        return documento;
+    public Integer getIdentificacion() {
+        return identificacion;
     }
 
     public String getNombre() {
@@ -81,10 +81,10 @@ public abstract class Tercero implements Listable, Serializable{
     }
 
     public boolean agregarTransaccion(Transaccion transaccion){
-        if (transaccionesRealizadas.containsKey(transaccion.getIdTransaccion()))
+        if (transaccionesRealizadas.containsKey(transaccion.getIdentificacion()))
             return false;
         
-        transaccionesRealizadas.put(transaccion.getIdTransaccion(), transaccion);
+        transaccionesRealizadas.put(transaccion.getIdentificacion(), transaccion);
         return true;
     }
 
@@ -95,7 +95,7 @@ public abstract class Tercero implements Listable, Serializable{
     public String getDato(int idDato){
         switch(idDato){
             case 0:
-                return String.valueOf(documento);
+                return String.valueOf(identificacion);
             case 1: 
                 return String.valueOf(nombre);
             case 2:
@@ -111,7 +111,7 @@ public abstract class Tercero implements Listable, Serializable{
     
     @Override
     public String toString(){
-        String cadena = String.valueOf(documento) + " " + String.valueOf(nombre);
+        String cadena = String.valueOf(identificacion) + " " + String.valueOf(nombre);
         return cadena;
     }
 }

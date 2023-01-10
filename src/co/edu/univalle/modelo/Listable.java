@@ -25,6 +25,7 @@
 package co.edu.univalle.modelo;
 
 public interface Listable{
+    public abstract Integer getIdentificacion();
     public abstract int getTotalDatos();
     public abstract String getDato(int idDato);
 }

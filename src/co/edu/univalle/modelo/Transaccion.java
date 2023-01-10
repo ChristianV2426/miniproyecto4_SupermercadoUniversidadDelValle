@@ -37,15 +37,15 @@ import java.math.*;
 public abstract class Transaccion implements Listable, Serializable{
     public static final long serialVersionUID = 1L;
     private static final int totalDatos = 6;
-    private Integer idTransaccion;
+    private Integer identificacion;
     private LocalDate fechaTransaccion;
     private Integer documentoDelTercero;
     private String nombreDelTercero;
     private HashMap<Integer, Integer> listaProductos;
     private BigDecimal costoTransaccion; 
 
-    public Transaccion(Integer idTransaccion, LocalDate fechaTransaccion, Integer documentoDelTercero, String nombreDelTercero, HashMap<Integer, Integer> listaProductos, BigDecimal costoTransaccion){
-        this.idTransaccion = idTransaccion;
+    public Transaccion(Integer identificacion, LocalDate fechaTransaccion, Integer documentoDelTercero, String nombreDelTercero, HashMap<Integer, Integer> listaProductos, BigDecimal costoTransaccion){
+        this.identificacion = identificacion;
         this.fechaTransaccion = fechaTransaccion;
         this.documentoDelTercero = documentoDelTercero;
         this.nombreDelTercero = nombreDelTercero;
@@ -53,8 +53,8 @@ public abstract class Transaccion implements Listable, Serializable{
         this.costoTransaccion = costoTransaccion;
     }
 
-    public Integer getIdTransaccion() {
-        return idTransaccion;
+    public Integer getIdentificacion() {
+        return identificacion;
     }
 
     public LocalDate getFechaTransaccion() {
@@ -84,7 +84,7 @@ public abstract class Transaccion implements Listable, Serializable{
     public String getDato(int idDato){
         switch(idDato){
             case 0:
-                return String.valueOf(idTransaccion);
+                return String.valueOf(identificacion);
             case 1:
                 return String.valueOf(fechaTransaccion);
             case 2:
@@ -102,7 +102,7 @@ public abstract class Transaccion implements Listable, Serializable{
 
     @Override
     public String toString(){
-        String cadena = String.valueOf(idTransaccion) + " " + String.valueOf(fechaTransaccion) + " total de productos: " + String.valueOf(listaProductos.size());
+        String cadena = String.valueOf(identificacion) + " " + String.valueOf(fechaTransaccion) + " total de productos: " + String.valueOf(listaProductos.size());
         return cadena;
     }
     
