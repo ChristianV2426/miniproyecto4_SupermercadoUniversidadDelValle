@@ -52,7 +52,6 @@ import co.edu.univalle.controlador.*;
     private JButton botonEditar = new JButton("Editar");
     private JButton botonEliminar = new JButton("Eliminar");
     private JButton botonExportar = new JButton("Exportar");
-    private JButton botonImportar = new JButton("Importar");
 
     // Productos:
     private JTextField fieldIdProductos = new JTextField(4);
@@ -126,9 +125,6 @@ import co.edu.univalle.controlador.*;
         panelPieIzquierdo.add(botonEditar);
 
         panelPieDerecho.add(botonExportar);
-        panelPieDerecho.add(botonImportar);
-
-        panelPieDerecho.setVisible(false);
 
         // Coloreados  
         cabeceraTitulo.setBackground(new Color(41, 126, 255));
@@ -145,8 +141,9 @@ import co.edu.univalle.controlador.*;
         centerPanel.add(panelInferiorIzquierdo);
         centerPanel.add(panelInferiorDerecho);
         southPanel.add(panelPieIzquierdo);
-        southPanel.add(panelPieDerecho);
+        southPanel.add(panelPieDerecho);  
         
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
     // Métodos
@@ -157,6 +154,8 @@ import co.edu.univalle.controlador.*;
         botonEditar.addActionListener(listenControles);
         botonEliminar.addActionListener(listenControles);
         botonExportar.addActionListener(listenControles);
+        buttonListaProductosCompra.addActionListener(listenControles);
+        buttonListaProductosVenta.addActionListener(listenControles);
     }
     
     public void setTablaDatos(JTable tablaDatos){
@@ -265,9 +264,6 @@ import co.edu.univalle.controlador.*;
         return buttonListaProductosCompra;
     }
 
-
-    
-
     public JComboBox<String> getDropCategorias(){
         return dropCategorias;
     }
@@ -288,10 +284,6 @@ import co.edu.univalle.controlador.*;
 
     public JButton getBotonExportar(){
         return botonExportar;
-    }
-
-    public JButton getBotonImportar(){
-        return botonImportar;
     }
 
     public void setPane(JScrollPane pane){

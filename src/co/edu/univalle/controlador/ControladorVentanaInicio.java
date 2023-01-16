@@ -13,6 +13,7 @@ import java.awt.*;
 
 public class ControladorVentanaInicio {
     // Atributos:
+    private VentanaListar ventanaListados = new VentanaListar(); 
     private String tipoCategoria;
     private VentanaInicio ventanaInicio;
     private JTable tablaDatos = new JTable();
@@ -57,6 +58,7 @@ public class ControladorVentanaInicio {
         // Mostrar Pantalla Inicial.
         ventanaInicio.setVisible(true);
         this.ventanaInicio.addListener(new CalculateListener());
+        ventanaListados.addListener(new CalculateListener());
 
         // Se inicializan los arreglos asociados a los servicion médicos.
         // String[] arregloServiciosMedicos = entidadSalud.getDaoServiciosMedicos().obtenerArreglo();
@@ -72,9 +74,9 @@ public class ControladorVentanaInicio {
         public void actionPerformed(ActionEvent evento) {
             if (evento.getActionCommand().equalsIgnoreCase("Agregar")){
                 if(tipoCategoria == "Afiliados"){
-                    agregarAfiliado();
+                    // agregarAfiliado();
                 } else if(tipoCategoria == "Medicos"){
-                    agregarMedico();
+                    // agregarMedico();
                 } else if(tipoCategoria == "Servicios medicos"){
                     // agregarServicioMedico();
                 } else if(tipoCategoria == "Consultorios"){
@@ -137,6 +139,15 @@ public class ControladorVentanaInicio {
                 pintarFormulario(tipoCategoria);
                 limpiarFormulario(tipoCategoria);
                 ventanaInicio.getFieldIdProductos().setText(String.valueOf(serialCitas));
+            } else if (evento.getActionCommand().equalsIgnoreCase("Listar")){
+                pane = ventanaListados.getPane();
+                tablaDatos = ventanaListados.getTablaDatos();
+                pane.removeAll();
+                tablaDatos.removeAll();
+                pane = new JScrollPane(ventanaListados.getTablaDatos());
+                ventanaListados.setPane(pane);
+                ventanaListados.mostrarListado(tipoCategoria);
+                ventanaListados.setTablaDatos(tablaDatos);
             } 
         }
     }
@@ -210,9 +221,6 @@ public class ControladorVentanaInicio {
         ventanaInicio.getPanelInferior().removeAll();
         ventanaInicio.getPanelInferior().removeAll();
 
-        ventanaInicio.getBotonExportar().setVisible(false);
-        ventanaInicio.getBotonImportar().setVisible(false);
-        ventanaInicio.getPanelPieInferior().setVisible(false);
         pane.removeAll();
         tablaDatos.removeAll();
         

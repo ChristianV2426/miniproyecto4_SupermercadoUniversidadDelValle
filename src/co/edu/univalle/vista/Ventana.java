@@ -32,7 +32,6 @@ public abstract class Ventana extends JFrame {
 
     public Ventana(){
         setTitle("Servicio de Salud - Universidad del Valle");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000,655);
         setResizable(false);
         setLocationRelativeTo(null);
