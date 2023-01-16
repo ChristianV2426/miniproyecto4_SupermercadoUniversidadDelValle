@@ -36,7 +36,7 @@ import co.edu.univalle.controlador.*;
     
     private JPanel contenedorCategoria = new JPanel();
     private JLabel labelCategoria = new JLabel("Categoría");
-    private String[] opcionesCategoria = {"Afiliados", "Medicos", "Servicios medicos", "Consultorios", "Citas"};
+    private String[] opcionesCategoria = {"Productos", "Clientes", "Proveedores", "Venta", "Compra"};
     private JComboBox<String> dropCategorias = new JComboBox<>(opcionesCategoria);
 
     // Labels:
@@ -54,49 +54,39 @@ import co.edu.univalle.controlador.*;
     private JButton botonExportar = new JButton("Exportar");
     private JButton botonImportar = new JButton("Importar");
 
-    // Citas:
-    private JTextField fieldIdCitas = new JTextField(4);
-    private JTextField fieldAfiliadoCitas = new JTextField(12);
-    private JTextField fieldFechaCitas = new JTextField(12);
-    private JTextField fieldHoraCitas = new JTextField(12);
+    // Productos:
+    private JTextField fieldIdProductos = new JTextField(4);
+    private JTextField fieldNombresProductos = new JTextField(12);
+    private JTextField fieldCantidadProductos = new JTextField(12);
+    private JTextField fieldPrecioProductos = new JTextField(12);
     
-    // Consultorios:
-    private JTextField fieldIdConsultorio = new JTextField(4);
-    private JTextField fieldNumeroConsultorio = new JTextField(12);
-    private JTextField fieldServicioConsultorio = new JTextField(12);
+    // Clientes:
+    private JTextField fieldIdClientes = new JTextField(4);
+    private JTextField fieldNombresClientes = new JTextField(12);
+    private JTextField fieldCorreoClientes = new JTextField(12);
+    private JTextField fieldTelefonoClientes = new JTextField(12);
 
-    // Servicios médicos:
-    private JTextField fieldIdServicioMedico = new JTextField(4);
-    private JTextField fieldNombreServicio = new JTextField(12);
-    private JTextField areaDescripcionServicio = new JTextField(20);
-    
-    // Médicos:
-    private JTextField fieldNombreMedico = new JTextField(12);
-    private JTextField fieldApellidoMedico = new JTextField(12);
-    
-    private JTextField fieldNumeroDocumentoMedico = new JTextField(12);
-    private JTextField fieldFechaNacimientoMedico = new JTextField(12);
-    private JTextField fieldEdadMedico = new JTextField(2);
-    
-    private JTextField fieldUniversidadMedico = new JTextField(12);
-    private JTextField fieldTelefonoMedico = new JTextField(12);
-    private JTextField fieldDisponibilidadMedico = new JTextField(12);
+    // Proveedores:
+    private JTextField fieldIdProveedor = new JTextField(4);
+    private JTextField fieldNombreProveedor = new JTextField(12);
+    private JTextField fieldCorreoProveedor = new JTextField(12);
+    private JTextField fieldTelefonoProveedor = new JTextField(12);
 
-    // Afiliados:
-    private JTextField fieldNombreAfiliado = new JTextField(12);
-    private JTextField fieldApellidoAfiliado = new JTextField(12);
-    private JTextField fieldLugarNacimientoAfiliado = new JTextField(12);
-    
-    private JTextField fieldNumeroDocumentoAfiliado = new JTextField(12);
-    private JTextField fieldFechaNacimientoAfiliado = new JTextField(12);
-    
-    private JTextField fieldEdadAfiliado = new JTextField(2);
-    
-    private JTextField fieldDireccionAfiliado = new JTextField(12);
-    private JTextField fieldCiudadResidenciaAfiliado = new JTextField(12);
-    private JTextField fieldTelefonoAfiliado = new JTextField(12);
-    
-    private JTextField fieldEpsAfiliado = new JTextField(12);
+    // Venta:
+    private JTextField fieldIdVenta = new JTextField(12);
+    private JTextField fieldFechaVenta = new JTextField(12);
+    private JTextField fieldCedulaClienteVenta = new JTextField(12);
+    private JTextField fieldNombresClienteVenta = new JTextField(12);
+    private JTextField fieldCostoVenta = new JTextField(6);
+    private JButton buttonListaProductosVenta = new JButton("Listar");
+
+    // Compra:
+    private JTextField fieldIdCompra = new JTextField(12);
+    private JTextField fieldFechaCompra = new JTextField(12);
+    private JTextField fieldNitProveedorCompra = new JTextField(12);
+    private JTextField fieldNombreProveedorCompra = new JTextField(12);
+    private JTextField fieldCostoCompra = new JTextField(6);
+    private JButton buttonListaProductosCompra = new JButton("Listar");
 
     // Constructor:
     public VentanaInicio() {
@@ -108,9 +98,6 @@ import co.edu.univalle.controlador.*;
             panelInferiorIzquierdo.add(contenedorTexto[contadorTextosPanelFormulario]);
         }
 
-        fieldIdCitas.setEditable(false);
-        fieldEdadMedico.setEditable(false);
-        fieldEdadAfiliado.setEditable(false);
         tituloProyecto.setFont(new Font("Arial", Font.PLAIN, 24));
         tituloProyecto.setForeground(Color.WHITE);
         tituloProyecto.setHorizontalAlignment(JLabel.CENTER);
@@ -179,124 +166,115 @@ import co.edu.univalle.controlador.*;
     public JTable getTablaDatos(){
         return tablaDatos;
     }
-
-    public JTextField getFieldAfiliadosCitas(){
-        return fieldAfiliadoCitas;
+    
+    // Productos
+    public JTextField getFieldNombresProductos(){
+        return fieldNombresProductos;
     }
 
-    public JTextField getFieldLugarNacimientoAfiliado(){
-        return fieldLugarNacimientoAfiliado;
+    public JTextField getFieldCantidadProductos(){
+        return fieldCantidadProductos;
     }
 
-    public JTextField getFieldFechaCitas(){
-        return fieldFechaCitas;
+    public JTextField getFieldPrecioProductos(){
+        return fieldPrecioProductos;
     }
 
-    public JTextField getFieldHoraCitas(){
-        return fieldHoraCitas;
+    public JTextField getFieldIdProductos(){
+        return fieldIdProductos;
     }
 
-    public JTextField getFieldNumeroConsultorio(){
-        return fieldNumeroConsultorio;
+    // Clientes
+    public JTextField getFieldIdClientes(){
+        return fieldIdClientes;
     }
 
-    public JTextField getFieldServicioConsultorio(){
-        return fieldServicioConsultorio;
+    public JTextField getFieldNombresClientes(){
+        return fieldNombresClientes;
     }
 
-    public JTextField getFieldIdConsultorio(){
-        return fieldIdConsultorio;
+    public JTextField getFieldCorreoClientes(){
+        return fieldCorreoClientes;
     }
 
-    public JTextField getFieldIdCitas(){
-        return fieldIdCitas;
+    public JTextField getFieldTelefonoClientes(){
+        return fieldTelefonoClientes;
     }
 
-    public JTextField getFieldIdServicioMedico(){
-        return fieldIdServicioMedico;
+    // Proveedores
+    public JTextField getFieldIdProveedor(){
+        return fieldIdProveedor;
     }
 
-    public JTextField getFieldNombreServicio(){
-        return fieldNombreServicio;
+    public JTextField getFieldNombreProveedor(){
+        return fieldNombreProveedor;
     }
 
-    public JTextField getFieldNombreMedico(){
-        return fieldNombreMedico;
+    public JTextField getFieldCorreoProveedor(){
+        return fieldCorreoProveedor;
     }
 
-    public JTextField getFieldApellidoMedico(){
-        return fieldApellidoMedico;
+    public JTextField getFieldTelefonoProveedor(){
+        return fieldTelefonoProveedor;
+    }
+
+    // Venta
+    public JTextField getFieldIdVenta(){
+        return fieldIdVenta;
+    }
+
+    public JTextField getFieldFechaVenta(){
+        return fieldFechaVenta;
     }
 
 
-    public JTextField getFieldNumeroDocumentoMedico(){
-        return fieldNumeroDocumentoMedico;
+    public JTextField getFieldCedulaClienteVenta(){
+        return fieldCedulaClienteVenta;
     }
 
-    public JTextField getFieldFechaNacimientoMedico(){
-        return fieldFechaNacimientoMedico;
+    public JTextField getFieldNombresClienteVenta(){
+        return fieldNombresClienteVenta;
     }
 
-    public JTextField getFieldEdadMedico(){
-        return fieldEdadMedico;
+    public JTextField getFieldCostoVenta(){
+        return fieldCostoVenta;
     }
 
-    public JTextField getFieldNombreAfiliado(){
-        return fieldNombreAfiliado;
+    // Compra
+    public JTextField getFieldIdCompra(){
+        return fieldIdCompra;
     }
     
-    public JTextField getFieldApellidoAfiliado(){
-        return fieldApellidoAfiliado;
+    public JTextField getFieldFechaCompra(){
+        return fieldFechaCompra;
     }
 
-    public JTextField getFieldNumeroDocumentoAfiliado(){
-        return fieldNumeroDocumentoAfiliado;
+    public JTextField getFieldNitProveedorCompra(){
+        return fieldNitProveedorCompra;
     }
 
-    public JTextField getFieldFechaNacimientoAfiliado(){
-        return fieldFechaNacimientoAfiliado;
+    public JTextField getFieldNombreProveedorCompra(){
+        return fieldNombreProveedorCompra;
     }
 
-    public JTextField getFieldEdadAfiliado(){
-        return fieldEdadAfiliado;
+    public JTextField getFieldCostoCompra(){
+        return fieldCostoCompra;
     }
 
-    public JTextField getAreaDescripcionServicio(){
-        return areaDescripcionServicio;
+    public JButton getbuttonListaProductosCompra(){
+        return buttonListaProductosCompra;
     }
 
+
+    
 
     public JComboBox<String> getDropCategorias(){
         return dropCategorias;
     }
 
 
-    public JTextField getFieldUniversidadMedico(){
-        return fieldUniversidadMedico;
-    }
-
-    public JTextField getFieldTelefonoMedico(){
-        return fieldTelefonoMedico;
-    }
-
-    public JTextField getFieldDisponibilidadMedico(){
-        return fieldDisponibilidadMedico;
-    }
-
-    public JTextField getFieldDireccionAfiliado(){
-        return fieldDireccionAfiliado;
-    }
-
-    public JTextField getFieldCiudadResidenciaAfiliado(){
-        return fieldCiudadResidenciaAfiliado;
-    }
-
-    public JTextField getFieldTelefonoAfiliado(){
-        return fieldTelefonoAfiliado;
-    }
-
-    public JTextField getFieldEpsAfiliado(){
-        return fieldEpsAfiliado;
+    public JButton getbuttonListaProductosVenta(){
+        return buttonListaProductosVenta;
     }
 
     public JLabel[] getLabelTexto(){
