@@ -7,7 +7,7 @@ import co.edu.univalle.vista.VentanaInicio;
 
 public class ControladorClientes {
     private static String[] labelClientes = {"Cédula ", "Nombre y apellido ", "Correo ", "Teléfono "};
-
+    String encabezadoClientes[] = {"Cédula", "Nombre completo", "Correo", "Teléfono", "Compras registradas"};
     
     public static void pintar(VentanaInicio ventanaInicio) {
         ventanaInicio.getLabelTexto()[0].setText(labelClientes[0]);

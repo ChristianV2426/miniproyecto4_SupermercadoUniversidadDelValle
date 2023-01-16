@@ -7,7 +7,7 @@ import co.edu.univalle.vista.VentanaInicio;
 
 public class ControladorProveedores {
     private static String[] labelProveedores = {"NIT ", "Nombre ", "Correo ", "Teléfono "};
-
+    String encabezadoProveedores[] = {"NIT", "Nombre completo", "Correo", "Teléfono", "Compras registradas"};
     
     public static void pintar(VentanaInicio ventanaInicio) {
         ventanaInicio.getLabelTexto()[0].setText(labelProveedores[0]);

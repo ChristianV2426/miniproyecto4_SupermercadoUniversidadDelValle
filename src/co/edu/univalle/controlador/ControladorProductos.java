@@ -9,6 +9,7 @@ public class ControladorProductos {
     private static String[] labelProductos = {"Id cita ", "Nombre ", "Categoría ", "Cantidad ", "Precio "};
     private static String[] opcionesCategoriaProducto = {"Seleccionar", "Categoría 1", "Categoría 2", "Categoría 3"};
     private static JComboBox<String> dropCategoriaProducto = new JComboBox<>(opcionesCategoriaProducto);
+    String encabezadoProductos[] = {"Id producto", "Nombre producto","Categoría","Cantidad","Precio"};
     
     
     public static void pintar(VentanaInicio ventanaInicio) {

@@ -5,7 +5,8 @@ import co.edu.univalle.vista.VentanaInicio;
 public class ControladorCompra {
     
     private static String[] labelCompra = {"ID de la compra ", "Fecha de la compra ", "NIT del proveedor ", "Nombre del proveedor ", "Costo de la compra ", "Lista de productos comprador "};
-
+ 
+    String encabezadoCompra[] = {"ID de la compra", "Fecha de la compra", "NIT del proveedor", "Nombre del proveedor", "Costo de la compra"};
     
     public static void pintar(VentanaInicio ventanaInicio) {
         ventanaInicio.getLabelTexto()[0].setText(labelCompra[0]);

@@ -20,11 +20,6 @@ public class ControladorVentanaInicio {
     private JScrollPane pane = new JScrollPane();
     private JLabel labelFormatoFecha = new JLabel(" AAAA-MM-DD");
     private JLabel labelFormatoHora = new JLabel(" HH:MM (Sistema horario de 24 horas)");
-    String encabezadoCitas[] = {"Id cita", "Documento afiliado","Servicio médico","Médico","Consultorio","Fecha", "Hora"};
-    String encabezadoConsultorios[] = {"Id consultorio", "Número del consultorio", "Sede", "Servicio que se puede prestar"};
-    String encabezadoServiciosMedicos[] = {"Id del servicio", "Nombre del servicio", "Descripción del servicio"};
-    String encabezadoMedicos[] = {"Tipo de documento", "Número de documento", "Nombre", "Apellido", "Fecha de nacimiento", "Edad", "Sexo", "Servicio médico", "Universidad", "Teléfono"};
-    String encabezadoAfiliados[] = {"Tipo de documento", "Número de documento", "Nombre", "Apellido", "Fecha de nacimiento", "Lugar de nacimiento", "País de Nacimiento", "Edad", "Sexo", "Grupo sanguineo", "RH", "Estado civil", "Dirección", "Ciudad de residencia", "Teléfono", "Tipo de régimen", "EPS"};
 
     private JComboBox<String> dropServicioMedicoCitas;    
 
