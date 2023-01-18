@@ -99,6 +99,7 @@ public class ControladorVentanaInicio {
                 pintarFormulario(tipoCategoria);
                 
             } else if (evento.getActionCommand().equalsIgnoreCase("Eliminar")){
+                System.out.println("FSDFSDF");
                 if(tipoCategoria == "Afiliados"){
                     eliminarAfiliado();
                 } else if(tipoCategoria == "Medicos"){
@@ -492,6 +493,7 @@ public class ControladorVentanaInicio {
     // }
 
     public void agregarMedico(){
+
         // if(revisarFieldsMedico())
         // {
         //     String tipoDeDocumento = dropTipoDocumetoMedico.getSelectedItem().toString();
