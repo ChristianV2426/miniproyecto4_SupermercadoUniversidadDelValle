@@ -1,3 +1,28 @@
+/*
+    Archivo: VentanaListar.java
+    Fundamentos de Programación Orientada a Eventos - 750014C Grupo 01
+    Proyecto 4 - Supermercado Universidad del Valle
+
+    Autores: 
+    Juan Camilo Narvaez Tascon - juan.narvaez.tascon@correounivalle.edu.co - 2140112-3743
+    Christian David Vargas Gutiérrez - vargas.christian@correounivalle.edu.co - 2179172-3743
+
+    Profesor:
+    Ing. M.Sc. Luis Yovany Romo Portilla
+
+    Licencia: GNU-GPL
+*/
+
+/**
+    CLASE: VentanaListar
+
+    INTENCIÓN: Esta es una ventana auxiliar que se utilizará al momento de agregar los productos de una venta (a un cliente)
+    o de una compra (a un proveedor).
+
+    RELACIONES:
+    -Hereda de la clase Ventana, y por lo tanto es un JFrame.
+ */
+
 package co.edu.univalle.vista;
 
 import java.awt.*;
@@ -81,11 +106,11 @@ public class VentanaListar extends Ventana {
     public void mostrarListado(String categoria){
         contenedorTexto[0].add(fieldId);
         contenedorTexto[1].add(fieldCantidad);
-        if(categoria == "Venta"){
-            setTitle("Servicio de Salud - Listado de productos vendidos");
+        if(categoria == "Ventas (a clientes)"){
+            setTitle("Supermercado Universidad del Valle - Listado de productos vendidos");
 
-        } else if(categoria == "Compra"){
-            setTitle("Servicio de Salud - Listado de productos comprados");
+        } else if(categoria == "Compras (a proveedores)"){
+            setTitle("Supermercado Universidad del Valle - Listado de productos comprados");
             labelTexto[2].setText("Costo ");
             contenedorTexto[2].add(fieldCosto);
         }
@@ -109,4 +134,5 @@ public class VentanaListar extends Ventana {
         this.pane = pane;
         panelInferiorDerecho.add(pane);
     }
+
 }

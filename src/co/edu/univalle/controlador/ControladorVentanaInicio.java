@@ -39,7 +39,7 @@ import java.awt.*;
 
 public class ControladorVentanaInicio {
     // Atributos:
-    // private VentanaListar ventanaListados = new VentanaListar(); 
+    private VentanaListar ventanaListados = new VentanaListar(); 
     private String tipoCategoria;
     private VentanaInicio ventanaInicio;
     private JTable tablaDatos = new JTable();
@@ -80,7 +80,7 @@ public class ControladorVentanaInicio {
         // Mostrar Pantalla Inicial.
         ventanaInicio.setVisible(true);
         this.ventanaInicio.addListener(new CalculateListener());
-        // ventanaListados.addListener(new CalculateListener());
+        ventanaListados.addListener(new CalculateListener());
 
         tipoCategoria = (String)ventanaInicio.getDropCategorias().getSelectedItem();
         pintarFormulario(tipoCategoria);
@@ -209,14 +209,14 @@ public class ControladorVentanaInicio {
                 limpiarFormulario(tipoCategoria);
 
             } else if (evento.getActionCommand().equalsIgnoreCase("Listar")){
-                // pane = ventanaListados.getPane();
-                // tablaDatos = ventanaListados.getTablaDatos();
-                // pane.removeAll();
-                // tablaDatos.removeAll();
-                // pane = new JScrollPane(ventanaListados.getTablaDatos());
-                // ventanaListados.setPane(pane);
-                // ventanaListados.mostrarListado(tipoCategoria);
-                // ventanaListados.setTablaDatos(tablaDatos);
+                pane = ventanaListados.getPane();
+                tablaDatos = ventanaListados.getTablaDatos();
+                pane.removeAll();
+                tablaDatos.removeAll();
+                pane = new JScrollPane(ventanaListados.getTablaDatos());
+                ventanaListados.setPane(pane);
+                ventanaListados.mostrarListado(tipoCategoria);
+                ventanaListados.setTablaDatos(tablaDatos);
             } 
         }
     }
