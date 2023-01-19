@@ -99,8 +99,7 @@ public class ControladorVentanaInicio {
                 pintarFormulario(tipoCategoria);
                 
             } else if (evento.getActionCommand().equalsIgnoreCase("Eliminar")){
-                System.out.println("FSDFSDF");
-                if(tipoCategoria == "Afiliados"){
+                if(tipoCategoria == "Productos"){
                     eliminarAfiliado();
                 } else if(tipoCategoria == "Medicos"){
                     eliminarMedico();

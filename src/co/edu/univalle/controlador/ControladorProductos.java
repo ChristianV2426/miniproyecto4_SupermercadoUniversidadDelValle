@@ -41,4 +41,6 @@ public class ControladorProductos {
         ventanaInicio.getFieldCantidadProductos().setText("");
         ventanaInicio.getFieldPrecioProductos().setText("");
     }
+
+    
 }
