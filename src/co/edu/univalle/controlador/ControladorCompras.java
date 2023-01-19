@@ -26,6 +26,10 @@ package co.edu.univalle.controlador;
 
 import co.edu.univalle.modelo.*;
 import co.edu.univalle.vista.*;
+import java.time.*;
+import javax.swing.*;
+import java.math.*;
+import java.time.format.DateTimeParseException;
 
 public class ControladorCompras {
     
@@ -66,17 +70,53 @@ public class ControladorCompras {
     }
 
     public static boolean revisarFieldsCompras(VentanaInicio ventanaInicio){
+        String stringFechaCompra = ventanaInicio.getFieldFechaCompra().getText();
+        try{
+            LocalDate.parse(stringFechaCompra);
+
+        } catch(DateTimeParseException exception){
+            JOptionPane.showMessageDialog(null,"Por favor ingrese una fecha válida, con el formato AAAA-MM-DD.\nEjemplo: 1990-01-01", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String stringIdProveedor = ventanaInicio.getFieldNitProveedorCompra().getText();
+        try{
+            Integer.valueOf(stringIdProveedor);
+
+        } catch (NumberFormatException exception){
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un número de NIT válido, sin puntos ni espacios, solo números.\nEjemplo: 77581411", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+
+
+        String stringCostoTransaccion = ventanaInicio.getFieldCostoCompra().getText();
+        try{
+            BigDecimal.valueOf(Double.valueOf(stringCostoTransaccion));
+
+        } catch (NumberFormatException exception){
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un precio de compra válido. El precio debe escribirse sin puntos ni espacios, solo números.\nEjemplo: 45000 (cuarenta y cinco mil pesos)", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
         return true;
     }
     
     public static Compra crearCompra(VentanaInicio ventanaInicio){
+        String stringIdCompra = ventanaInicio.getFieldIdCompra().getText();
+        Integer idCompra = Integer.valueOf(stringIdCompra);
+        String stringFechaCompra = ventanaInicio.getFieldFechaCompra().getText();
+        LocalDate fechaCompra = LocalDate.parse(stringFechaCompra);
+        String stringIdProveedor = ventanaInicio.getFieldNitProveedorCompra().getText();
+        Integer idProveedor = Integer.valueOf(stringIdProveedor);
+        String nombreProveedor = ventanaInicio.getFieldNombreProveedorCompra().getText();
 
+        String stringCostoTransaccion = ventanaInicio.getFieldCostoCompra().getText();
+        BigDecimal costoTransaccion = BigDecimal.valueOf(Double.valueOf(stringCostoTransaccion));
+
+
+        // Compra compra = new Compra(idCompra, fechaCompra, idProveedor, nombreProveedor, null, costoTransaccion, null);
         return null;
     }
 
-    public static boolean revisarIDCompra(VentanaInicio ventanaInicio){
-
-        return true;
-    }
 }
