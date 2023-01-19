@@ -81,6 +81,8 @@ public class VentanaListar extends Ventana {
 
         panelPieDerecho.setVisible(false);
 
+        fieldCantidad.setEditable(false);
+
         // Coloreados  
         contenedorCategoria.setBackground(new Color(41, 126, 255));
         panelInferiorIzquierdo.setBackground(Color.WHITE);
