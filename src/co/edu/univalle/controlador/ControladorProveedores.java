@@ -63,16 +63,51 @@ public class ControladorProveedores {
     }
 
     public static boolean revisarFieldsProveedores(VentanaInicio ventanaInicio){
+        if(!revisarIDProveedor(ventanaInicio))
+            return false;
+
+        String nombreProveedor = ventanaInicio.getFieldNombreProveedor().getText();
+        if(nombreProveedor.isEmpty() || nombreProveedor.isBlank() || nombreProveedor == null){
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un nombre de proveedor válido.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String correoProveedor = ventanaInicio.getFieldCorreoProveedor().getText();
+        if(correoProveedor.isEmpty() || correoProveedor.isBlank() || correoProveedor == null){
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un correo electrónico válido.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String telefonoProveedor = ventanaInicio.getFieldTelefonoProveedor().getText();
+        if(telefonoProveedor.isEmpty() || telefonoProveedor.isBlank() || telefonoProveedor == null){
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un teléfono válido.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }  
 
         return true;
     }
 
     public static Proveedor crearProveedor(VentanaInicio ventanaInicio){
+        String stringIdProveedor = ventanaInicio.getFieldIdProveedor().getText();
+        Integer idProveedor = Integer.valueOf(stringIdProveedor);
+        String nombreProveedor = ventanaInicio.getFieldNombreProveedor().getText();
+        String correoProveedor = ventanaInicio.getFieldCorreoProveedor().getText();
+        String telefonoProveedor = ventanaInicio.getFieldTelefonoProveedor().getText();
 
-        return null;
+        Proveedor proveedor = new Proveedor(idProveedor, nombreProveedor, correoProveedor, telefonoProveedor);
+
+        return proveedor;
     }
 
     public static boolean revisarIDProveedor(VentanaInicio ventanaInicio){
+        String stringIdProveedor = ventanaInicio.getFieldIdProveedor().getText();
+        try{
+            Integer.valueOf(stringIdProveedor);
+
+        } catch (NumberFormatException exception){
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un número de NIT válido, sin puntos ni espacios, solo números.\nEjemplo: 77581411", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
         return true;
     }

@@ -62,17 +62,52 @@ public class ControladorClientes {
     }
 
     public static boolean revisarFieldsClientes(VentanaInicio ventanaInicio){
+        if(!revisarIDCliente(ventanaInicio))
+            return false;
+
+        String nombreCliente = ventanaInicio.getFieldNombresClientes().getText();
+        if(nombreCliente.isEmpty() || nombreCliente.isBlank() || nombreCliente == null){
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un nombre de cliente válido.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String correoCliente = ventanaInicio.getFieldCorreoClientes().getText();
+        if(correoCliente.isEmpty() || correoCliente.isBlank() || correoCliente == null){
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un correo electrónico válido.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String telefonoCliente = ventanaInicio.getFieldTelefonoClientes().getText();
+        if(telefonoCliente.isEmpty() || telefonoCliente.isBlank() || telefonoCliente == null){
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un teléfono válido.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }  
 
         return true;
     }
 
     public static Cliente crearCliente(VentanaInicio ventanaInicio){
+        String stringIdCliente = ventanaInicio.getFieldIdClientes().getText();
+        Integer idCliente = Integer.valueOf(stringIdCliente);
+        String nombreCliente = ventanaInicio.getFieldNombresClientes().getText();
+        String correoCliente = ventanaInicio.getFieldCorreoClientes().getText();
+        String telefonoCliente = ventanaInicio.getFieldTelefonoClientes().getText();
 
-        return null;
+        Cliente cliente = new Cliente(idCliente, nombreCliente, correoCliente, telefonoCliente);
+
+        return cliente;
     }
 
     public static boolean revisarIDCliente(VentanaInicio ventanaInicio){
+        String stringIdCliente = ventanaInicio.getFieldIdClientes().getText();
+        try{
+            Integer.valueOf(stringIdCliente);
 
+        } catch (NumberFormatException exception){
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un número de documento válido, sin puntos ni espacios, solo números.\nEjemplo: 1144000000", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
         return true;
     }
     

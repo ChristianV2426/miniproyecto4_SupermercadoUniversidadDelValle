@@ -26,11 +26,12 @@ package co.edu.univalle.controlador;
 
 import co.edu.univalle.modelo.*;
 import co.edu.univalle.vista.*;
+import java.math.*;
 import javax.swing.*;
 
 
 public class ControladorProductos {
-    private static String[] labelProductos = {"ID del producto ", "Nombre del producto ", "Categoría ", "Cantidad en Stock ", "Precio de venta "};
+    private static String[] labelProductos = {"ID del producto ", "Nombre del producto ", "Categoría ", "Cantidad en Stock ", "Precio de venta $ "};
     private static String[] opcionesCategoriaProducto = {"Seleccionar", "Categoría 1", "Categoría 2", "Categoría 3"};
     private static JComboBox<String> dropCategoriaProducto = new JComboBox<>(opcionesCategoriaProducto);
     private static String encabezadoProductos[] = {"ID del producto", "Nombre producto", "Categoría", "Cantidad en Stock", "Precio de venta"};
@@ -70,18 +71,41 @@ public class ControladorProductos {
     }
 
     public static boolean revisarFieldsProductos(VentanaInicio ventanaInicio){
+        String nombreProducto = ventanaInicio.getFieldNombresProductos().getText();
+        if(nombreProducto.isEmpty() || nombreProducto.isBlank() || nombreProducto == null){
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un nombre de producto válido.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String categoria = dropCategoriaProducto.getSelectedItem().toString();
+        if(categoria.equals("Seleccionar")){
+            JOptionPane.showMessageDialog(null,"Por favor seleccione una categoría de producto.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;    
+        }
+
+        String stringPrecioDeVenta = ventanaInicio.getFieldPrecioProductos().getText();
+        try{
+            BigDecimal.valueOf(Double.valueOf(stringPrecioDeVenta));
+
+        } catch (NumberFormatException exception) {
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un precio de venta válido. El precio debe escribirse sin puntos ni espacios, solo números.\nEjemplo: 45000 (cuarenta y cinco mil pesos)", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
         return true;
     }
 
     public static Producto crearProducto(VentanaInicio ventanaInicio){
-        
-        return null;
-    }
+        String stringIDProducto = ventanaInicio.getFieldIdProductos().getText();
+        Integer idProducto = Integer.valueOf(stringIDProducto);
+        String nombreProducto = ventanaInicio.getFieldNombresProductos().getText();
+        String categoria = dropCategoriaProducto.getSelectedItem().toString();
+        String stringPrecioDeVenta = ventanaInicio.getFieldPrecioProductos().getText();
+        BigDecimal precioVenta = BigDecimal.valueOf(Double.valueOf(stringPrecioDeVenta));
 
-    public static boolean revisarIDProducto(VentanaInicio ventanaInicio){
-        
-        return true;
+        Producto producto = new Producto(idProducto, nombreProducto, categoria, precioVenta);
+
+        return producto;
     }
     
 }

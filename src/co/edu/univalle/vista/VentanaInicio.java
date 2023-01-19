@@ -37,7 +37,7 @@ import co.edu.univalle.controlador.*;
     private JScrollPane pane = new JScrollPane();
 
     private JPanel cabeceraTitulo = new JPanel();
-    private JLabel tituloProyecto = new JLabel("Súper Mercado");
+    private JLabel tituloProyecto = new JLabel("Supermercado");
     private JLabel subtituloProyecto = new JLabel("Universidad del Valle");
     
     private JPanel contenedorCategoria = new JPanel();

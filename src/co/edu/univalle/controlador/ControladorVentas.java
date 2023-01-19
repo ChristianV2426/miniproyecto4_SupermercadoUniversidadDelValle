@@ -26,6 +26,10 @@ package co.edu.univalle.controlador;
 
 import co.edu.univalle.modelo.*;
 import co.edu.univalle.vista.*;
+import javax.swing.*;
+import java.math.*;
+import java.time.*;
+import java.time.format.DateTimeParseException;
 
 public class ControladorVentas {
     
@@ -67,18 +71,54 @@ public class ControladorVentas {
     }
     
     public static boolean revisarFieldsVentas(VentanaInicio ventanaInicio){
+        String stringFechaVenta = ventanaInicio.getFieldFechaVenta().getText();
+        try{
+            LocalDate.parse(stringFechaVenta);
+
+        } catch(DateTimeParseException exception){
+            JOptionPane.showMessageDialog(null,"Por favor ingrese una fecha válida, con el formato AAAA-MM-DD.\nEjemplo: 1990-01-01", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        String stringIdCliente = ventanaInicio.getFieldCedulaClienteVenta().getText();
+        try{
+            Integer.valueOf(stringIdCliente);
+
+        } catch (NumberFormatException exception){
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un número de documento válido, sin puntos ni espacios, solo números.\nEjemplo: 1144000000", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+
+
+        String stringCostoTransaccion = ventanaInicio.getFieldCostoVenta().getText();
+        try{
+            BigDecimal.valueOf(Double.valueOf(stringCostoTransaccion));
+
+        } catch (NumberFormatException exception){
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un precio de venta válido. El precio debe escribirse sin puntos ni espacios, solo números.\nEjemplo: 45000 (cuarenta y cinco mil pesos)", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
         return true;
     }
 
     public static Venta crearVenta(VentanaInicio ventanaInicio){
+        String stringIdVenta = ventanaInicio.getFieldIdVenta().getText();
+        Integer idVenta = Integer.valueOf(stringIdVenta);
+        String stringFechaVenta = ventanaInicio.getFieldFechaVenta().getText();
+        LocalDate fechaVenta = LocalDate.parse(stringFechaVenta);
+        String stringIdCliente = ventanaInicio.getFieldCedulaClienteVenta().getText();
+        Integer idCliente = Integer.valueOf(stringIdCliente);
+        String nombreCliente = ventanaInicio.getFieldNombresClienteVenta().getText();
+
+        String stringCostoTransaccion = ventanaInicio.getFieldCostoVenta().getText();
+        BigDecimal costoTransaccion = BigDecimal.valueOf(Double.valueOf(stringCostoTransaccion));
+
+        // Venta venta = new Venta(idVenta, fechaVenta, idCliente, nombreCliente, null, costoTransaccion)
 
         return null;
     }
 
-    public static boolean revisarIDVenta(VentanaInicio ventanaInicio){
-
-        return true;
-    }
 
 }

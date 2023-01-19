@@ -93,7 +93,15 @@ public class ControladorVentanaInicio {
                 if(tipoCategoria == "Productos"){
                     if(ControladorProductos.revisarFieldsProductos(ventanaInicio)){
                         Producto nuevoProducto = ControladorProductos.crearProducto(ventanaInicio);
+                        Integer idProducto = nuevoProducto.getIdentificacion();
+                        String nombrePrdoucto = nuevoProducto.getNombreProducto();
+                        if(supermercado.getProductos().añadir(nuevoProducto)){
+                            JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + " " + nombrePrdoucto + " agregado correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
+                            limpiarFormulario(tipoCategoria);
 
+                        } else {
+                            JOptionPane.showMessageDialog(null,"El producto " + idProducto + " " + nombrePrdoucto + " ya se encuentra registrado en el sistema, no lo puede volver a registrar.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
 
                 } else if(tipoCategoria == "Clientes"){
@@ -129,7 +137,15 @@ public class ControladorVentanaInicio {
                 if(tipoCategoria == "Productos"){
                     if(ControladorProductos.revisarFieldsProductos(ventanaInicio)){
                         Producto nuevoProducto = ControladorProductos.crearProducto(ventanaInicio);
+                        Integer idProducto = nuevoProducto.getIdentificacion();
+                        String nombrePrdoucto = nuevoProducto.getNombreProducto();
+                        if(supermercado.getProductos().elementoPresente(idProducto) && supermercado.getProductos().actualizar(idProducto, nuevoProducto)){
+                            JOptionPane.showMessageDialog(null,"¡Datos del producto " + idProducto + " " + nombrePrdoucto + " actualizados correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
+                            limpiarFormulario(tipoCategoria);
 
+                        } else {
+                            JOptionPane.showMessageDialog(null,"El producto " + idProducto + " " + nombrePrdoucto + " no se encuentra registrado en el sistema, primero debe registrarlo.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                     
                 } else if(tipoCategoria == "Clientes"){
@@ -161,9 +177,7 @@ public class ControladorVentanaInicio {
                 
             } else if (evento.getActionCommand().equalsIgnoreCase("Eliminar")){
                 if(tipoCategoria == "Productos"){
-                    if(ControladorProductos.revisarIDProducto(ventanaInicio)){
 
-                    }
 
                 } else if(tipoCategoria == "Clientes"){
                     if(ControladorClientes.revisarIDCliente(ventanaInicio)){
@@ -176,15 +190,10 @@ public class ControladorVentanaInicio {
                     }
 
                 } else if(tipoCategoria == "Ventas (a clientes)"){
-                    if(ControladorVentas.revisarIDVenta(ventanaInicio)){
 
-                    }
 
                 } else if (tipoCategoria == "Compras (a proveedores)"){
-                    if(ControladorCompras.revisarFieldsCompras(ventanaInicio)){
 
-                    }
-                    
                 }
                 pintarFormulario(tipoCategoria);
                 
@@ -215,6 +224,13 @@ public class ControladorVentanaInicio {
                 tablaDatos.removeAll();
                 pane = new JScrollPane(ventanaListados.getTablaDatos());
                 ventanaListados.setPane(pane);
+                if(tipoCategoria == "Ventas (a clientes)"){
+
+                    
+                } else if(tipoCategoria == "Compras (a proveedores)"){
+
+
+                }
                 ventanaListados.mostrarListado(tipoCategoria);
                 ventanaListados.setTablaDatos(tablaDatos);
             } 
@@ -286,7 +302,7 @@ public class ControladorVentanaInicio {
             ControladorCompras.pintar(ventanaInicio);
             String[][] datosCompras = supermercado.getCompras().getListables();
             tablaDatos = new JTable(asignarModelo(datosCompras, ControladorCompras.getEncabezadoCompra()));
-            // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             
             ventanaInicio.getContenedorTexto()[1].add(labelFormatoFecha);
         } 
