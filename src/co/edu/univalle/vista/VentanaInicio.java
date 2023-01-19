@@ -1,20 +1,26 @@
 /*
     Archivo: VentanaInicio.java
     Fundamentos de Programación Orientada a Eventos - 750014C Grupo 01
-    Proyecto 3 - Servicio de Salud
+    Proyecto 4 - Supermercado Universidad del Valle
+
     Autores: 
     Juan Camilo Narvaez Tascon - juan.narvaez.tascon@correounivalle.edu.co - 2140112-3743
     Christian David Vargas Gutiérrez - vargas.christian@correounivalle.edu.co - 2179172-3743
+
     Profesor:
     Ing. M.Sc. Luis Yovany Romo Portilla
+
     Licencia: GNU-GPL
- */
+*/
 
 /**
     CLASE: VentanaInicio
-    INTENCIÓN: --
+
+    INTENCIÓN: Esta es la ventana principal del programa. Acá se definen los componentes de la interfaz gráfica que pasarán a ser controlados
+    desde la capa de control del programa.
+    
     RELACIONES:
-    -Es una Ventana.
+    -Hereda de la clase Ventana, y por lo tanto es un JFrame.
  */
 
  package co.edu.univalle.vista;
@@ -36,7 +42,7 @@ import co.edu.univalle.controlador.*;
     
     private JPanel contenedorCategoria = new JPanel();
     private JLabel labelCategoria = new JLabel("Categoría");
-    private String[] opcionesCategoria = {"Productos", "Clientes", "Proveedores", "Venta", "Compra"};
+    private String[] opcionesCategoria = {"Productos", "Clientes", "Proveedores", "Ventas (a clientes)", "Compras (a proveedores)"};
     private JComboBox<String> dropCategorias = new JComboBox<>(opcionesCategoria);
 
     // Labels:
@@ -54,25 +60,25 @@ import co.edu.univalle.controlador.*;
     private JButton botonExportar = new JButton("Exportar");
 
     // Productos:
-    private JTextField fieldIdProductos = new JTextField(4);
+    private JTextField fieldIdProductos = new JTextField(6);
     private JTextField fieldNombresProductos = new JTextField(12);
     private JTextField fieldCantidadProductos = new JTextField(12);
     private JTextField fieldPrecioProductos = new JTextField(12);
     
     // Clientes:
-    private JTextField fieldIdClientes = new JTextField(4);
+    private JTextField fieldIdClientes = new JTextField(12);
     private JTextField fieldNombresClientes = new JTextField(12);
     private JTextField fieldCorreoClientes = new JTextField(12);
     private JTextField fieldTelefonoClientes = new JTextField(12);
 
     // Proveedores:
-    private JTextField fieldIdProveedor = new JTextField(4);
+    private JTextField fieldIdProveedor = new JTextField(12);
     private JTextField fieldNombreProveedor = new JTextField(12);
     private JTextField fieldCorreoProveedor = new JTextField(12);
     private JTextField fieldTelefonoProveedor = new JTextField(12);
 
     // Venta:
-    private JTextField fieldIdVenta = new JTextField(12);
+    private JTextField fieldIdVenta = new JTextField(6);
     private JTextField fieldFechaVenta = new JTextField(12);
     private JTextField fieldCedulaClienteVenta = new JTextField(12);
     private JTextField fieldNombresClienteVenta = new JTextField(12);
@@ -80,7 +86,7 @@ import co.edu.univalle.controlador.*;
     private JButton buttonListaProductosVenta = new JButton("Listar");
 
     // Compra:
-    private JTextField fieldIdCompra = new JTextField(12);
+    private JTextField fieldIdCompra = new JTextField(6);
     private JTextField fieldFechaCompra = new JTextField(12);
     private JTextField fieldNitProveedorCompra = new JTextField(12);
     private JTextField fieldNombreProveedorCompra = new JTextField(12);
@@ -105,6 +111,16 @@ import co.edu.univalle.controlador.*;
         subtituloProyecto.setHorizontalAlignment(JLabel.CENTER);
         labelCategoria.setForeground(Color.WHITE);
 
+        fieldCostoCompra.setEditable(false);
+        fieldCostoVenta.setEditable(false);
+
+        fieldIdProductos.setEditable(false);
+        fieldIdVenta.setEditable(false);
+        fieldIdCompra.setEditable(false);
+
+        fieldNombreProveedorCompra.setEditable(false);
+        fieldNombresClienteVenta.setEditable(false);
+
         // Configuración de páneles:
         northPanel.setLayout(new GridLayout(2, 1));
         centerPanel.setLayout(new GridLayout(1, 2, 10, 0));
@@ -127,8 +143,8 @@ import co.edu.univalle.controlador.*;
         panelPieDerecho.add(botonExportar);
 
         // Coloreados  
-        cabeceraTitulo.setBackground(new Color(41, 126, 255));
-        contenedorCategoria.setBackground(new Color(41, 126, 255));
+        cabeceraTitulo.setBackground(new Color(0,153,51));
+        contenedorCategoria.setBackground(new Color(0,153,51));
         panelInferiorIzquierdo.setBackground(Color.WHITE);
         // panelInferiorDerecho.setBackground(Color.CYAN);
         // southPanel.setBackground(Color.PINK);
@@ -301,6 +317,5 @@ import co.edu.univalle.controlador.*;
 
     public JPanel[] getContenedorTexto(){
         return contenedorTexto;
-    }
-    
+    }  
  }

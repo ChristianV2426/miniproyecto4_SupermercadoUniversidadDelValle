@@ -1,26 +1,31 @@
 /*
     Archivo: Ventana.java
     Fundamentos de Programación Orientada a Eventos - 750014C Grupo 01
-    Proyecto 3 - Servicio de Salud
+    Proyecto 4 - Supermercado Universidad del Valle
+
     Autores: 
     Juan Camilo Narvaez Tascon - juan.narvaez.tascon@correounivalle.edu.co - 2140112-3743
     Christian David Vargas Gutiérrez - vargas.christian@correounivalle.edu.co - 2179172-3743
+
     Profesor:
     Ing. M.Sc. Luis Yovany Romo Portilla
+
     Licencia: GNU-GPL
-    */
+*/
     
-    /**
-     CLASE: Ventana
-     INTENCIÓN: Esta clase definirá los valores iniciales de todas las ventanas derivadas.
-     RELACIONES:
-     -Es un JFrame. 
-     */
+/**
+    CLASE: Ventana
+
+    INTENCIÓN: Esta clase definirá los valores iniciales de todas las ventanas derivadas.
+    
+    RELACIONES:
+    -Es un JFrame. 
+*/  
     
 package co.edu.univalle.vista;
+
 import java.awt.*;
 import javax.swing.*;
-
 
 public abstract class Ventana extends JFrame {
     // Páneles distributivos:
@@ -31,7 +36,7 @@ public abstract class Ventana extends JFrame {
     protected JPanel southPanel = new JPanel(); 
 
     public Ventana(){
-        setTitle("Servicio de Salud - Universidad del Valle");
+        setTitle("Supermercado - Universidad del Valle");
         setSize(1000,655);
         setResizable(false);
         setLocationRelativeTo(null);
@@ -49,4 +54,5 @@ public abstract class Ventana extends JFrame {
         add(westPanel, BorderLayout.WEST);
         add(southPanel, BorderLayout.SOUTH); 
     }
+    
 }
