@@ -30,7 +30,7 @@ import javax.swing.*;
 
 
 public class ControladorClientes {
-    private static String[] labelClientes = {"Cédula ", "Nombre del cliente ", "Correo ", "Teléfono "};
+    private static String[] labelClientes = {"Cédula", "Nombre del cliente", "Correo", "Teléfono"};
     private static String[] encabezadoClientes = {"Cédula", "Nombre del cliente", "Correo", "Teléfono", "Transacciones registradas"};
     
     public static void pintar(VentanaInicio ventanaInicio) {

@@ -29,7 +29,7 @@ import co.edu.univalle.vista.*;
 
 public class ControladorVentas {
     
-    private static String[] labelVenta = {"ID de la venta ", "Fecha de la venta ", "Cédula del cliente ", "Nombre del cliente ", "Valor de la factura ", "Lista de productos "};
+    private static String[] labelVenta = {"ID de la venta", "Fecha de la venta", "Cédula del cliente", "Nombre del cliente", "Valor de la factura", "Lista de productos"};
     private static String encabezadoVenta[] = {"ID de la venta", "Fecha de la venta", "Cédula del cliente", "Nombre del cliente", "Número de productos", "Valor de la factura"};
     
     public static void pintar(VentanaInicio ventanaInicio) {

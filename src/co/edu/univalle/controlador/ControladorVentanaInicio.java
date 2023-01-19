@@ -44,7 +44,7 @@ public class ControladorVentanaInicio {
     private VentanaInicio ventanaInicio;
     private JTable tablaDatos = new JTable();
     private JScrollPane pane = new JScrollPane();
-    private JLabel labelFormatoFecha = new JLabel(" AAAA-MM-DD");
+    private JLabel labelFormatoFecha = new JLabel("AAAA-MM-DD");
     String rutaArchivoBinario = "./src/co/edu/univalle/archivos/supermercado.bin";
     private Supermercado supermercado = null;
     private Integer serialProducto;

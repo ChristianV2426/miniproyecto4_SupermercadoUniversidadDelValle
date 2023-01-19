@@ -29,7 +29,7 @@ import co.edu.univalle.vista.*;
 
 public class ControladorCompras {
     
-    private static String[] labelCompra = {"ID de la compra ", "Fecha de la compra ", "NIT del proveedor ", "Nombre del proveedor ", "Valor de la factura ", "Lista de productos "};
+    private static String[] labelCompra = {"ID de la compra", "Fecha de la compra", "NIT del proveedor", "Nombre del proveedor", "Valor de la factura", "Lista de productos"};
     private static String[] encabezadoCompra = {"ID de la compra", "Fecha de la compra", "NIT del proveedor", "Nombre del proveedor", "Número de productos", "Valor de la factura"};
     
     public static void pintar(VentanaInicio ventanaInicio) {

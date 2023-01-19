@@ -32,7 +32,7 @@ import javax.swing.*;
 
 
 public class ControladorProveedores {
-    private static String[] labelProveedores = {"NIT ", "Nombre del proveedor ", "Correo ", "Teléfono "};
+    private static String[] labelProveedores = {"NIT", "Nombre del proveedor", "Correo", "Teléfono"};
     private static String encabezadoProveedores[] = {"NIT", "Nombre del proveedor", "Correo", "Teléfono", "Transacciones registradas"};
     
     public static void pintar(VentanaInicio ventanaInicio) {
