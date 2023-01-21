@@ -325,36 +325,7 @@ public class ControladorVentanaInicio {
 
 
             } else if (evento.getActionCommand().equalsIgnoreCase("Listar")){
-                ControladorListar.limpiar(ventanaListados, tipoCategoria);
-
-                tablaDatos = ventanaListados.getTablaDatos();
-                pane = ventanaListados.getPane();
-                pane.removeAll();
-                tablaDatos.removeAll();
-
-                
-                if(tipoCategoria == "Ventas (a clientes)"){
-                    // String[][] datosProductos = supermercado.getProductos().getListables();
-                    String[][] datosListadoVeentas = {{"1","20"}}; // Datos de prueba
-                    // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-                    tablaDatos = new JTable(ControladorVentanaInicio.asignarModelo(datosListadoVeentas, ControladorListar.getEncabezadoListaVenta()));
-                    // ControladorProductos.pintar(ventanaInicio);
-        
-        
-                } else if (tipoCategoria == "Compras (a proveedores)") {
-                    // String[][] datosClientes = supermercado.getClientes().getListables();
-                    String[][] datosListadoCompras = {{"2","30","5000"}}; // Datos de prueba
-                    tablaDatos = new JTable(asignarModelo(datosListadoCompras, ControladorListar.getEncabezadoListaCompra()));
-                    // ControladorClientes.pintar(ventanaInicio);
-                    // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        
-                }
-
-                tablaDatos.addMouseListener(new CalculateMouseListener());
-                ventanaListados.setTablaDatos(tablaDatos);
-                pane = new JScrollPane(ventanaListados.getTablaDatos());
-                ventanaListados.setPane(pane);
-                ventanaListados.mostrarListado(tipoCategoria); // Correspondiente a pintar
+                pintarListado(tipoCategoria);
             }
         }
     }
@@ -375,6 +346,40 @@ public class ControladorVentanaInicio {
         } else if (tipoCategoria == "Compras (a proveedores)") {
             ControladorCompras.limpiar(ventanaInicio, serialCompra);
         } 
+    }
+
+    public void pintarListado(String tipoCategoria){
+        ControladorListar.limpiar(ventanaListados, tipoCategoria);
+
+        tablaDatos = ventanaListados.getTablaDatos();
+        pane = ventanaListados.getPane();
+        pane.removeAll();
+        tablaDatos.removeAll();
+
+        
+        if(tipoCategoria == "Ventas (a clientes)"){
+            // String[][] datosProductos = supermercado.getProductos().getListables();
+            String[][] datosListadoVeentas = {{"1","20"}}; // Datos de prueba
+            // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            tablaDatos = new JTable(ControladorVentanaInicio.asignarModelo(datosListadoVeentas, ControladorListar.getEncabezadoListaVenta()));
+            // ControladorProductos.pintar(ventanaInicio);
+
+
+        } else if (tipoCategoria == "Compras (a proveedores)") {
+            // String[][] datosClientes = supermercado.getClientes().getListables();
+            String[][] datosListadoCompras = {{"2","30","5000"}}; // Datos de prueba
+            tablaDatos = new JTable(asignarModelo(datosListadoCompras, ControladorListar.getEncabezadoListaCompra()));
+            // ControladorClientes.pintar(ventanaInicio);
+            // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        }
+
+        ventanaListados.setTablaDatos(tablaDatos);
+        pane = new JScrollPane(ventanaListados.getTablaDatos());
+        ventanaListados.setPane(pane);
+
+        tablaDatos.addMouseListener(new CalculateMouseListener());
+        ventanaListados.mostrarListado(tipoCategoria); // Correspondiente a pintar
     }
 
     public void pintarFormulario(String tipoCategoria){
