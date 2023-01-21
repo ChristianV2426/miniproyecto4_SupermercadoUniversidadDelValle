@@ -37,9 +37,10 @@ public class ControladorProductos {
     private static String encabezadoProductos[] = {"ID del producto", "Nombre producto", "Categoría", "Cantidad en Stock", "Precio de venta"};
     
     
-    public static void pintar(VentanaInicio ventanaInicio) {
+    public static void pintar(VentanaInicio ventanaInicio, Integer serialProducto) {
         ventanaInicio.getLabelTexto()[0].setText(labelProductos[0]);
         ventanaInicio.getContenedorTexto()[0].add(ventanaInicio.getFieldIdProductos());
+        ventanaInicio.getFieldIdProductos().setText(String.valueOf(serialProducto));
 
         ventanaInicio.getLabelTexto()[1].setText(labelProductos[1]);
         ventanaInicio.getContenedorTexto()[1].add(ventanaInicio.getFieldNombresProductos());

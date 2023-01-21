@@ -97,6 +97,7 @@ public class ControladorVentanaInicio {
                         String nombrePrdoucto = nuevoProducto.getNombreProducto();
                         if(supermercado.getProductos().añadir(nuevoProducto)){
                             JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + " " + nombrePrdoucto + " agregado correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
+                            serialProducto++;
                             limpiarFormulario(tipoCategoria);
 
                         } else {
@@ -107,13 +108,29 @@ public class ControladorVentanaInicio {
                 } else if(tipoCategoria == "Clientes"){
                     if(ControladorClientes.revisarFieldsClientes(ventanaInicio)){
                         Cliente nuevoCliente = ControladorClientes.crearCliente(ventanaInicio);
+                        Integer idCliente = nuevoCliente.getIdentificacion();
+                        String nombreCliente = nuevoCliente.getNombre();
+                        if(supermercado.getClientes().añadir(nuevoCliente)){
+                            JOptionPane.showMessageDialog(null,"¡El cliente " + idCliente + " " + nombreCliente + " agregado correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
+                            limpiarFormulario(tipoCategoria);
 
+                        } else {
+                            JOptionPane.showMessageDialog(null,"El cliente " + idCliente + " " + nombreCliente + " ya se encuentra registrado en el sistema, no lo puede volver a registrar.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
 
                 } else if(tipoCategoria == "Proveedores"){
                     if(ControladorProveedores.revisarFieldsProveedores(ventanaInicio)){
                         Proveedor nuevoProveedor = ControladorProveedores.crearProveedor(ventanaInicio);
+                        Integer idProveedor = nuevoProveedor.getIdentificacion();
+                        String nombreProveedor = nuevoProveedor.getNombre();
+                        if(supermercado.getProveedores().añadir(nuevoProveedor)){
+                            JOptionPane.showMessageDialog(null,"¡El proveedor " + idProveedor + " " + nombreProveedor + " agregado correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
+                            limpiarFormulario(tipoCategoria);
 
+                        } else {
+                            JOptionPane.showMessageDialog(null,"¡El proveedor " + idProveedor + " " + nombreProveedor + " ya se encuentra registrado en el sistema, no lo puede volver a registrar.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
 
                 } else if(tipoCategoria == "Ventas (a clientes)"){
@@ -151,13 +168,29 @@ public class ControladorVentanaInicio {
                 } else if(tipoCategoria == "Clientes"){
                     if(ControladorClientes.revisarFieldsClientes(ventanaInicio)){
                         Cliente nuevoCliente = ControladorClientes.crearCliente(ventanaInicio);
+                        Integer idCliente = nuevoCliente.getIdentificacion();
+                        String nombreCliente = nuevoCliente.getNombre();
+                        if(supermercado.getClientes().elementoPresente(idCliente) && supermercado.getClientes().actualizar(idCliente, nuevoCliente)){
+                            JOptionPane.showMessageDialog(null,"¡Datos del cliente " + idCliente + " " + nombreCliente + " actualizados correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
+                            limpiarFormulario(tipoCategoria);
 
+                        } else {
+                            JOptionPane.showMessageDialog(null,"El cliente " + idCliente + " " + nombreCliente + " no se encuentra registrado en el sistema, primero debe registrarlo.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
 
                 } else if(tipoCategoria == "Proveedores"){
                     if(ControladorProveedores.revisarFieldsProveedores(ventanaInicio)){
                         Proveedor nuevoProveedor = ControladorProveedores.crearProveedor(ventanaInicio);
+                        Integer idProveedor = nuevoProveedor.getIdentificacion();
+                        String nombreProveedor = nuevoProveedor.getNombre();
+                        if(supermercado.getProveedores().elementoPresente(idProveedor) && supermercado.getProveedores().actualizar(idProveedor, nuevoProveedor)){
+                            JOptionPane.showMessageDialog(null,"¡Datos del proveedor " + idProveedor + " " + nombreProveedor + " actualizados correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
+                            limpiarFormulario(tipoCategoria);
 
+                        } else {
+                            JOptionPane.showMessageDialog(null,"El proveedor " + idProveedor + " " + nombreProveedor + " no se encuentra registrado en el sistema, primero debe registrarlo.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
 
                 } else if(tipoCategoria == "Ventas (a clientes)"){
@@ -177,16 +210,60 @@ public class ControladorVentanaInicio {
                 
             } else if (evento.getActionCommand().equalsIgnoreCase("Eliminar")){
                 if(tipoCategoria == "Productos"){
+                    String stringIDProducto = ventanaInicio.getFieldIdProductos().getText();
+                    Integer idProducto = Integer.valueOf(stringIDProducto);
+                    if(supermercado.getProductos().elementoPresente(idProducto)){
+                        String nombreProducto = supermercado.getProductos().getElemento(idProducto).getNombreProducto();
+                        int continuar = JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar el producto " + idProducto + " " + nombreProducto + "? \nEsta acción no se puede deshacer.", "¿Desea proceder con la eliminación?", JOptionPane.YES_NO_OPTION);
+                        if(continuar == JOptionPane.YES_OPTION && supermercado.getProductos().eliminar(idProducto))
+                            JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + " " + nombreProducto + " fue eliminado correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
 
+                    } else {
+                        JOptionPane.showMessageDialog(null,"El producto " + idProducto + " no se encuentra registrado en el sistema, no puede eliminarla.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                    }
 
                 } else if(tipoCategoria == "Clientes"){
                     if(ControladorClientes.revisarIDCliente(ventanaInicio)){
+                        String stringIdCliente = ventanaInicio.getFieldIdClientes().getText();
+                        Integer idCliente = Integer.valueOf(stringIdCliente);
+                        if(supermercado.getClientes().elementoPresente(idCliente)){
+                            int numeroTransaccionesRealizadas = supermercado.getClientes().getElemento(idCliente).getNumeroTransaccionesRealizadas();
+                            if(numeroTransaccionesRealizadas == 0){
+                                int continuar = JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar al cliente " + idCliente + "? \nEsta acción no se puede deshacer.", "¿Desea proceder con la eliminación?", JOptionPane.YES_NO_OPTION);
+                                if(continuar == JOptionPane.YES_OPTION && supermercado.getClientes().eliminar(idCliente)){
+                                    JOptionPane.showMessageDialog(null,"¡El cliente " + idCliente + " fue eliminado correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
+                                    limpiarFormulario(tipoCategoria);
+                                }
+                                         
+                            } else {
+                                JOptionPane.showMessageDialog(null,"¡No puede eliminar al cliente " + idCliente + " " + " ya que el cliente tiene\n" + numeroTransaccionesRealizadas + " transacciones registradas en el sistema.", "Advertencia", JOptionPane.ERROR_MESSAGE); 
+                            }
 
+                        } else {
+                            JOptionPane.showMessageDialog(null,"¡El cliente " + idCliente + " " + " no se encuentra registrado en el sistema, no puede eliminarlo.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
 
                 } else if(tipoCategoria == "Proveedores"){
                     if(ControladorProveedores.revisarIDProveedor(ventanaInicio)){
+                        String stringIdProveedor = ventanaInicio.getFieldIdProveedor().getText();
+                        Integer idProveedor = Integer.valueOf(stringIdProveedor);
+                        if(supermercado.getProveedores().elementoPresente(idProveedor)){
+                            int numeroTransaccionesRealizadas = supermercado.getProveedores().getElemento(idProveedor).getNumeroTransaccionesRealizadas();
+                            if(numeroTransaccionesRealizadas == 0){
+                                int continuar = JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar al proveedor " + idProveedor + "? \nEsta acción no se puede deshacer.", "¿Desea proceder con la eliminación?", JOptionPane.YES_NO_OPTION);
+                                if(continuar == JOptionPane.YES_OPTION && supermercado.getProveedores().eliminar(idProveedor)){
+                                    JOptionPane.showMessageDialog(null,"¡El proveedor " + idProveedor + " fue eliminado correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
+                                    limpiarFormulario(tipoCategoria);
+                                }
+                                            
+                            } else {
+                                JOptionPane.showMessageDialog(null,"¡No puede eliminar al proveedor " + idProveedor + " " + " ya que el proveedor tiene\n" + numeroTransaccionesRealizadas + " transacciones registradas en el sistema.", "Advertencia", JOptionPane.ERROR_MESSAGE); 
+                            }
 
+                        } else {
+                            JOptionPane.showMessageDialog(null,"¡El proveedor " + idProveedor + " " + " no se encuentra registrado en el sistema, no puede eliminarlo.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
 
                 } else if(tipoCategoria == "Ventas (a clientes)"){
@@ -214,8 +291,9 @@ public class ControladorVentanaInicio {
 
             } else if (evento.getSource() == ventanaInicio.getDropCategorias()){
                 tipoCategoria = (String)ventanaInicio.getDropCategorias().getSelectedItem();
-                pintarFormulario(tipoCategoria);
                 limpiarFormulario(tipoCategoria);
+                pintarFormulario(tipoCategoria);
+
 
             } else if (evento.getActionCommand().equalsIgnoreCase("Listar")){
                 pane = ventanaListados.getPane();
@@ -272,7 +350,7 @@ public class ControladorVentanaInicio {
         tablaDatos.removeAll();
         
         if(tipoCategoria == "Productos"){
-            ControladorProductos.pintar(ventanaInicio);
+            ControladorProductos.pintar(ventanaInicio, serialProducto);
             String[][] datosProductos = supermercado.getProductos().getListables();
             tablaDatos = new JTable(asignarModelo(datosProductos, ControladorProductos.getEncabezadoProductos()));
             // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -291,7 +369,7 @@ public class ControladorVentanaInicio {
             // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         } else if (tipoCategoria == "Ventas (a clientes)") {
-            ControladorVentas.pintar(ventanaInicio);
+            ControladorVentas.pintar(ventanaInicio, serialVenta);
             String[][] datosVentas = supermercado.getVentas().getListables();
             tablaDatos = new JTable(asignarModelo(datosVentas, ControladorVentas.getEncabezadoVenta()));
             // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -299,7 +377,7 @@ public class ControladorVentanaInicio {
             ventanaInicio.getContenedorTexto()[1].add(labelFormatoFecha);
 
         } else if (tipoCategoria == "Compras (a proveedores)") {
-            ControladorCompras.pintar(ventanaInicio);
+            ControladorCompras.pintar(ventanaInicio, serialCompra);
             String[][] datosCompras = supermercado.getCompras().getListables();
             tablaDatos = new JTable(asignarModelo(datosCompras, ControladorCompras.getEncabezadoCompra()));
             tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);

@@ -109,7 +109,7 @@ public class ManejadorArchivos {
 
         PrintWriter escritorDeArchivo = null;
         String pieDePagina = "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n";
-        String constante = "%-40s";
+        String configuracionImpresion = "%-40s";
         try{
             escritorDeArchivo = new PrintWriter(new FileWriter(rutaDirectorio + "/Copia Seguridad " + identificador + ".txt"));
 
@@ -121,14 +121,14 @@ public class ManejadorArchivos {
             escritorDeArchivo.print("------------------------------------------------------------------------------------------------ LISTA DE PRODUCTOS -------------------------------------------------------------------------------------------------\n\n");
             String[] columnasProductos = {"ID producto", "Producto", "Categoría", "Cantidad en Stock", "Precio de venta"};
             for(String columna : columnasProductos)
-                escritorDeArchivo.printf(constante, columna);
+                escritorDeArchivo.printf(configuracionImpresion, columna);
             
             escritorDeArchivo.print("\n");
             
             if(listaProductos != null){
                 for(String[] producto : listaProductos){
                     for(String dato : producto){
-                        escritorDeArchivo.printf(constante, dato);
+                        escritorDeArchivo.printf(configuracionImpresion, dato);
                     }
                     escritorDeArchivo.print("\n");
                 }
@@ -139,14 +139,14 @@ public class ManejadorArchivos {
             escritorDeArchivo.print("------------------------------------------------------------------------------------------------ LISTA DE CLIENTES -------------------------------------------------------------------------------------------------\n\n");
             String[] columnasClientes = {"Documento", "Nombre y apellidos", "Correo Electrónico", "Teléfono", "Número de transacciones"};
             for(String columna : columnasClientes)
-                escritorDeArchivo.printf(constante, columna);
+                escritorDeArchivo.printf(configuracionImpresion, columna);
             
             escritorDeArchivo.print("\n");
 
             if(listaClientes != null){
                 for(String[] cliente : listaClientes){
                     for(String dato : cliente){
-                        escritorDeArchivo.printf(constante, dato);
+                        escritorDeArchivo.printf(configuracionImpresion, dato);
                     }
                     escritorDeArchivo.print("\n");
                 }
@@ -157,14 +157,14 @@ public class ManejadorArchivos {
             escritorDeArchivo.print("------------------------------------------------------------------------------------------------ LISTA DE PROVEEDORES ---------------------------------------------------------------------------------------------\n\n");
             String[] columnasProveedores = {"NIT", "Nombre de la empresa", "Correo Electrónico", "Teléfono", "Número de transacciones"};
             for(String columna : columnasProveedores)
-                escritorDeArchivo.printf(constante, columna);
+                escritorDeArchivo.printf(configuracionImpresion, columna);
             
             escritorDeArchivo.print("\n");
 
             if(listaProveedores != null){
                 for(String[] proveedor : listaProveedores){
                     for(String dato : proveedor){
-                        escritorDeArchivo.printf(constante, dato);
+                        escritorDeArchivo.printf(configuracionImpresion, dato);
                     }
                     escritorDeArchivo.print("\n");
                 }
@@ -175,14 +175,14 @@ public class ManejadorArchivos {
             escritorDeArchivo.print("------------------------------------------------------------------------------------------------ LISTA DE VENTAS -------------------------------------------------------------------------------------------------\n\n");
             String[] columnasVentas = {"ID venta", "Fecha", "Documento del cliente", "Nombre y apellidos", "Número de productos de la venta", "Precio total"};
             for(String columna : columnasVentas)
-                escritorDeArchivo.printf(constante, columna);
+                escritorDeArchivo.printf(configuracionImpresion, columna);
             
             escritorDeArchivo.print("\n");
 
             if(listaVentas != null){
                 for(String[] venta : listaVentas){
                     for(String dato : venta){
-                        escritorDeArchivo.printf(constante, dato);
+                        escritorDeArchivo.printf(configuracionImpresion, dato);
                     }
                     escritorDeArchivo.print("\n");
                 }
@@ -193,14 +193,14 @@ public class ManejadorArchivos {
             escritorDeArchivo.print("------------------------------------------------------------------------------------------------ LISTA DE COMPRAS -------------------------------------------------------------------------------------------------\n\n");
             String[] columnasCompras = {"ID compra", "Fecha", "NIT", "Nombre de la empresa", "Número de productos de la compra", "Precio total"};
             for(String columna : columnasCompras)
-                escritorDeArchivo.printf(constante, columna);
+                escritorDeArchivo.printf(configuracionImpresion, columna);
             
             escritorDeArchivo.print("\n");
 
             if(listaCompras != null){
                 for(String[] compra : listaCompras){
                     for(String dato : compra){
-                        escritorDeArchivo.printf(constante, dato);
+                        escritorDeArchivo.printf(configuracionImpresion, dato);
                     }
                     escritorDeArchivo.print("\n");
                 }

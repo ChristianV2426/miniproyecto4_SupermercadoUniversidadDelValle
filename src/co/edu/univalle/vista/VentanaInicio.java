@@ -115,6 +115,7 @@ import co.edu.univalle.controlador.*;
         fieldCostoVenta.setEditable(false);
 
         fieldIdProductos.setEditable(false);
+        fieldCantidadProductos.setEditable(false);
         fieldIdVenta.setEditable(false);
         fieldIdCompra.setEditable(false);
 

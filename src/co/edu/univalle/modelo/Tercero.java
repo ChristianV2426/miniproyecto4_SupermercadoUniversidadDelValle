@@ -88,6 +88,10 @@ public abstract class Tercero implements Listable, Serializable{
         return true;
     }
 
+    public int getNumeroTransaccionesRealizadas(){
+        return transaccionesRealizadas.size();
+    }
+
     public int getTotalDatos(){
         return totalDatos;
     }

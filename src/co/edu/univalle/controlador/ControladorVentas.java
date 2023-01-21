@@ -36,9 +36,10 @@ public class ControladorVentas {
     private static String[] labelVenta = {"ID de la venta ", "Fecha de la venta ", "Cédula del cliente ", "Nombre del cliente ", "Valor de la factura ", "Lista de productos "};
     private static String encabezadoVenta[] = {"ID de la venta", "Fecha de la venta", "Cédula del cliente", "Nombre del cliente", "Número de productos", "Valor de la factura"};
     
-    public static void pintar(VentanaInicio ventanaInicio) {
+    public static void pintar(VentanaInicio ventanaInicio, Integer serialVenta) {
         ventanaInicio.getLabelTexto()[0].setText(labelVenta[0]);
         ventanaInicio.getContenedorTexto()[0].add(ventanaInicio.getFieldIdVenta());
+        ventanaInicio.getFieldIdVenta().setText(String.valueOf(serialVenta));
 
         ventanaInicio.getLabelTexto()[1].setText(labelVenta[1]);
         ventanaInicio.getContenedorTexto()[1].add(ventanaInicio.getFieldFechaVenta());

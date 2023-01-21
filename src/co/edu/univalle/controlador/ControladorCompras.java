@@ -36,9 +36,10 @@ public class ControladorCompras {
     private static String[] labelCompra = {"ID de la compra ", "Fecha de la compra ", "NIT del proveedor ", "Nombre del proveedor ", "Valor de la factura ", "Lista de productos "};
     private static String[] encabezadoCompra = {"ID de la compra", "Fecha de la compra", "NIT del proveedor", "Nombre del proveedor", "Número de productos", "Valor de la factura"};
     
-    public static void pintar(VentanaInicio ventanaInicio) {
+    public static void pintar(VentanaInicio ventanaInicio, Integer serialCompra) {
         ventanaInicio.getLabelTexto()[0].setText(labelCompra[0]);
         ventanaInicio.getContenedorTexto()[0].add(ventanaInicio.getFieldIdCompra());
+        ventanaInicio.getFieldIdCompra().setText(String.valueOf(serialCompra));
 
         ventanaInicio.getLabelTexto()[1].setText(labelCompra[1]);
         ventanaInicio.getContenedorTexto()[1].add(ventanaInicio.getFieldFechaCompra());
