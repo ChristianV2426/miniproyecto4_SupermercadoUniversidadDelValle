@@ -43,11 +43,11 @@ public class ControladorCompras {
         ventanaInicio.getContenedorTexto()[0].add(ventanaInicio.getFieldIdCompra());
         ventanaInicio.getFieldIdCompra().setText(String.valueOf(serialCompra));
 
-        ventanaInicio.getLabelTexto()[1].setText(labelCompra[1]);
-        ventanaInicio.getContenedorTexto()[1].add(ventanaInicio.getFieldFechaCompra());
+        ventanaInicio.getLabelTexto()[2].setText(labelCompra[1]);
+        ventanaInicio.getContenedorTexto()[2].add(ventanaInicio.getFieldFechaCompra());
         
-        ventanaInicio.getLabelTexto()[2].setText(labelCompra[2]);
-        ventanaInicio.getContenedorTexto()[2].add(ventanaInicio.getFieldNitProveedorCompra());
+        ventanaInicio.getLabelTexto()[1].setText(labelCompra[2]);
+        ventanaInicio.getContenedorTexto()[1].add(ventanaInicio.getFieldNitProveedorCompra());
 
         ventanaInicio.getLabelTexto()[3].setText(labelCompra[3]);
         ventanaInicio.getContenedorTexto()[3].add(ventanaInicio.getFieldNombreProveedorCompra());

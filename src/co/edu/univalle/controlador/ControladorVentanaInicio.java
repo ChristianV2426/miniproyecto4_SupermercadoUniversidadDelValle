@@ -80,10 +80,29 @@ public class ControladorVentanaInicio {
         // Mostrar Pantalla Inicial.
         ventanaInicio.setVisible(true);
         this.ventanaInicio.addListener(new CalculateListener());
+        this.ventanaInicio.addFocusListener(new CalculateFocus());
         ventanaListados.addListener(new CalculateListener());
 
         tipoCategoria = (String)ventanaInicio.getDropCategorias().getSelectedItem();
         pintarFormulario(tipoCategoria);
+    }
+
+    class CalculateFocus implements FocusListener{
+
+        @Override
+        public void focusGained(FocusEvent e) {
+            // TODO Auto-generated method stub
+            
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            if(tipoCategoria == "Ventas (a clientes)"){
+                ventanaInicio.getFieldNombresClienteVenta().setText("rutaArchivoBinario");
+            } else if(tipoCategoria == "Compras (a proveedores)"){
+
+            }
+        }
     }
 
     class CalculateListener implements ActionListener{
@@ -336,8 +355,6 @@ public class ControladorVentanaInicio {
                 pane = new JScrollPane(ventanaListados.getTablaDatos());
                 ventanaListados.setPane(pane);
                 ventanaListados.mostrarListado(tipoCategoria); // Correspondiente a pintar
-            } else if (evento.getSource() == ventanaInicio.getFieldCedulaClienteVenta()) {
-                System.out.println("Entra");
             }
         }
     }
@@ -420,7 +437,7 @@ public class ControladorVentanaInicio {
             ventanaInicio.setPane(pane);
             
             ControladorVentas.pintar(ventanaInicio, serialVenta);
-            ventanaInicio.getContenedorTexto()[1].add(labelFormatoFecha);
+            ventanaInicio.getContenedorTexto()[2].add(labelFormatoFecha);
 
 
         } else if (tipoCategoria == "Compras (a proveedores)") {
@@ -433,8 +450,7 @@ public class ControladorVentanaInicio {
             ventanaInicio.setPane(pane);
 
             ControladorCompras.pintar(ventanaInicio, serialCompra);
-            ventanaInicio.getContenedorTexto()[1].add(labelFormatoFecha);
-            
+            ventanaInicio.getContenedorTexto()[2].add(labelFormatoFecha);
         } 
         
         // Se actualiza la tabla:
