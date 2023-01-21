@@ -44,7 +44,7 @@ public class ControladorVentanaInicio {
     private VentanaInicio ventanaInicio;
     private JTable tablaDatos = new JTable();
     private JScrollPane pane = new JScrollPane();
-    private JLabel labelFormatoFecha = new JLabel(" AAAA-MM-DD");
+    private JLabel labelFormatoFecha = new JLabel("AAAA-MM-DD");
     String rutaArchivoBinario = "./src/co/edu/univalle/archivos/supermercado.bin";
     private Supermercado supermercado = null;
     private Integer serialProducto;
@@ -89,7 +89,7 @@ public class ControladorVentanaInicio {
     class CalculateListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent evento) {
-            if (evento.getActionCommand().equalsIgnoreCase("Agregar")){
+            if (evento.getActionCommand().equalsIgnoreCase("Agregar") && !ventanaListados.isActive()){
                 if(tipoCategoria == "Productos"){
                     if(ControladorProductos.revisarFieldsProductos(ventanaInicio)){
                         Producto nuevoProducto = ControladorProductos.crearProducto(ventanaInicio);
@@ -147,10 +147,17 @@ public class ControladorVentanaInicio {
                 }
                 pintarFormulario(tipoCategoria);
 
-            } else if (evento.getActionCommand().equalsIgnoreCase("limpiar")){
+            } else if (evento.getActionCommand().equalsIgnoreCase("Agregar") && ventanaListados.isActive()){
+                if(tipoCategoria == "Ventas (a clientes)"){
+        
+                } else if(tipoCategoria == "Compras (a proveedores)"){
+
+                }
+            
+            } else if (evento.getActionCommand().equalsIgnoreCase("limpiar") && !ventanaListados.isActive()){
                 limpiarFormulario(tipoCategoria);
     
-            } else if (evento.getActionCommand().equalsIgnoreCase("Editar")){
+            } else if (evento.getActionCommand().equalsIgnoreCase("Editar") && !ventanaListados.isActive()){
                 if(tipoCategoria == "Productos"){
                     if(ControladorProductos.revisarFieldsProductos(ventanaInicio)){
                         Producto nuevoProducto = ControladorProductos.crearProducto(ventanaInicio);
@@ -208,7 +215,7 @@ public class ControladorVentanaInicio {
                 }
                 pintarFormulario(tipoCategoria);
                 
-            } else if (evento.getActionCommand().equalsIgnoreCase("Eliminar")){
+            } else if (evento.getActionCommand().equalsIgnoreCase("Eliminar") && !ventanaListados.isActive()){
                 if(tipoCategoria == "Productos"){
                     String stringIDProducto = ventanaInicio.getFieldIdProductos().getText();
                     Integer idProducto = Integer.valueOf(stringIDProducto);
@@ -296,21 +303,36 @@ public class ControladorVentanaInicio {
 
 
             } else if (evento.getActionCommand().equalsIgnoreCase("Listar")){
-                pane = ventanaListados.getPane();
+                ControladorListar.limpiar(ventanaListados, tipoCategoria);
+
                 tablaDatos = ventanaListados.getTablaDatos();
+                pane = ventanaListados.getPane();
                 pane.removeAll();
                 tablaDatos.removeAll();
+
+                
+                if(tipoCategoria == "Ventas (a clientes)"){
+                    // String[][] datosProductos = supermercado.getProductos().getListables();
+                    String[][] datosListadoVeentas = {{"1","20"}}; // Datos de prueba
+                    // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                    tablaDatos = new JTable(ControladorVentanaInicio.asignarModelo(datosListadoVeentas, ControladorListar.getEncabezadoListaVenta()));
+                    // ControladorProductos.pintar(ventanaInicio);
+        
+        
+                } else if (tipoCategoria == "Compras (a proveedores)") {
+                    // String[][] datosClientes = supermercado.getClientes().getListables();
+                    String[][] datosListadoCompras = {{"2","30","5000"}}; // Datos de prueba
+                    tablaDatos = new JTable(asignarModelo(datosListadoCompras, ControladorListar.getEncabezadoListaCompra()));
+                    // ControladorClientes.pintar(ventanaInicio);
+                    // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        
+                }
+
+                tablaDatos.addMouseListener(new CalculateMouseListener());
+                ventanaListados.setTablaDatos(tablaDatos);
                 pane = new JScrollPane(ventanaListados.getTablaDatos());
                 ventanaListados.setPane(pane);
-                if(tipoCategoria == "Ventas (a clientes)"){
-
-                    
-                } else if(tipoCategoria == "Compras (a proveedores)"){
-
-
-                }
-                ventanaListados.mostrarListado(tipoCategoria);
-                ventanaListados.setTablaDatos(tablaDatos);
+                ventanaListados.mostrarListado(tipoCategoria); // Correspondiente a pintar
             } 
         }
     }
@@ -350,39 +372,39 @@ public class ControladorVentanaInicio {
         tablaDatos.removeAll();
         
         if(tipoCategoria == "Productos"){
-            ControladorProductos.pintar(ventanaInicio, serialProducto);
             String[][] datosProductos = supermercado.getProductos().getListables();
-            tablaDatos = new JTable(asignarModelo(datosProductos, ControladorProductos.getEncabezadoProductos()));
             // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            tablaDatos = new JTable(ControladorVentanaInicio.asignarModelo(datosProductos, ControladorProductos.getEncabezadoProductos()));
+            ControladorProductos.pintar(ventanaInicio, serialProducto);
 
 
         } else if (tipoCategoria == "Clientes") {
-            ControladorClientes.pintar(ventanaInicio);
             String[][] datosClientes = supermercado.getClientes().getListables();
             tablaDatos = new JTable(asignarModelo(datosClientes, ControladorClientes.getEncabezadoClientes()));
+            ControladorClientes.pintar(ventanaInicio);
             // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
         } else if (tipoCategoria == "Proveedores") {
-            ControladorProveedores.pintar(ventanaInicio);
             String[][] datosProveedores = supermercado.getProveedores().getListables();
             tablaDatos = new JTable(asignarModelo(datosProveedores, ControladorProveedores.getEncabezadoProveedores()));
             // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            ControladorProveedores.pintar(ventanaInicio);
 
         } else if (tipoCategoria == "Ventas (a clientes)") {
-            ControladorVentas.pintar(ventanaInicio, serialVenta);
             String[][] datosVentas = supermercado.getVentas().getListables();
             tablaDatos = new JTable(asignarModelo(datosVentas, ControladorVentas.getEncabezadoVenta()));
-            // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
+            tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            ControladorVentas.pintar(ventanaInicio, serialVenta);
             ventanaInicio.getContenedorTexto()[1].add(labelFormatoFecha);
 
+
         } else if (tipoCategoria == "Compras (a proveedores)") {
-            ControladorCompras.pintar(ventanaInicio, serialCompra);
             String[][] datosCompras = supermercado.getCompras().getListables();
             tablaDatos = new JTable(asignarModelo(datosCompras, ControladorCompras.getEncabezadoCompra()));
             tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            
+            ControladorCompras.pintar(ventanaInicio, serialCompra);
             ventanaInicio.getContenedorTexto()[1].add(labelFormatoFecha);
+            
         } 
         
         // Se actualiza la tabla:
@@ -397,21 +419,20 @@ public class ControladorVentanaInicio {
         @Override
         public void mouseClicked(MouseEvent e) {
             DefaultTableModel modeloTabla = (DefaultTableModel)ventanaInicio.getTablaDatos().getModel();
+            DefaultTableModel modeloTablaListado = (DefaultTableModel)ventanaListados.getTablaDatos().getModel();
 
             if(tipoCategoria == "Productos"){
-
-
+                ControladorProductos.asignarTabla(modeloTabla, ventanaInicio);
             } else if (tipoCategoria == "Clientes") {
-
-
+                ControladorClientes.asignarTabla(modeloTabla, ventanaInicio);
             } else if (tipoCategoria == "Proveedores") {
-
-
-            } else if (tipoCategoria == "Ventas (a clientes)") {
-
-
-            } else if (tipoCategoria == "Compras (a proveedores)") {
-
+                ControladorProveedores.asignarTabla(modeloTabla, ventanaInicio);
+            } else if (tipoCategoria == "Ventas (a clientes)" && !ventanaListados.isActive()) {
+                ControladorVentas.asignarTabla(modeloTabla, ventanaInicio);
+            } else if (tipoCategoria == "Compras (a proveedores)" && !ventanaListados.isActive()) {
+                ControladorCompras.asignarTabla(modeloTabla, ventanaInicio);
+            } else if ((tipoCategoria == "Ventas (a clientes)" && ventanaListados.isActive()) || (tipoCategoria == "Compras (a proveedores)" && ventanaListados.isActive())) {
+                ControladorListar.asignarTabla(modeloTablaListado, ventanaListados, tipoCategoria);
             } 
         }
 
@@ -440,7 +461,7 @@ public class ControladorVentanaInicio {
         }
     }
 
-    private TableModel asignarModelo(String[][] datos, String[] encabezado) {
+    public static TableModel asignarModelo(String[][] datos, String[] encabezado) {
         TableModel model = new DefaultTableModel(datos, encabezado)
         {
             public boolean isCellEditable(int row, int column)

@@ -27,10 +27,11 @@ package co.edu.univalle.controlador;
 import co.edu.univalle.vista.*;
 import co.edu.univalle.modelo.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 
 public class ControladorClientes {
-    private static String[] labelClientes = {"Cédula ", "Nombre del cliente ", "Correo ", "Teléfono "};
+    private static String[] labelClientes = {"Cédula", "Nombre del cliente", "Correo", "Teléfono"};
     private static String[] encabezadoClientes = {"Cédula", "Nombre del cliente", "Correo", "Teléfono", "Transacciones registradas"};
     
     public static void pintar(VentanaInicio ventanaInicio) {
@@ -111,4 +112,15 @@ public class ControladorClientes {
         return true;
     }
     
+    public static void asignarTabla(DefaultTableModel modeloTabla, VentanaInicio ventanaInicio) {
+        String tablaCedulaCliente = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 0).toString();
+        String tablaNombreCliente = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 1).toString();
+        String tablaCorreoCliente = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 2).toString();
+        String tablaTelefonoCliente = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 3).toString();
+
+        ventanaInicio.getFieldIdClientes().setText(tablaCedulaCliente);
+        ventanaInicio.getFieldNombresClientes().setText(tablaNombreCliente);
+        ventanaInicio.getFieldCorreoClientes().setText(tablaCorreoCliente);
+        ventanaInicio.getFieldTelefonoClientes().setText(tablaTelefonoCliente);
+    }
 }

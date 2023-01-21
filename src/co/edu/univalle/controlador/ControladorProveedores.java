@@ -29,10 +29,11 @@ package co.edu.univalle.controlador;
 import co.edu.univalle.vista.*;
 import co.edu.univalle.modelo.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 
 public class ControladorProveedores {
-    private static String[] labelProveedores = {"NIT ", "Nombre del proveedor ", "Correo ", "Teléfono "};
+    private static String[] labelProveedores = {"NIT", "Nombre del proveedor", "Correo", "Teléfono"};
     private static String encabezadoProveedores[] = {"NIT", "Nombre del proveedor", "Correo", "Teléfono", "Transacciones registradas"};
     
     public static void pintar(VentanaInicio ventanaInicio) {
@@ -110,6 +111,18 @@ public class ControladorProveedores {
         }
 
         return true;
+    }
+
+    public static void asignarTabla(DefaultTableModel modeloTabla, VentanaInicio ventanaInicio) {
+        String tablaNitProveedor = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 0).toString();
+        String tablaNombreProveedor = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 1).toString();
+        String tablaCorreoProveedor = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 2).toString();
+        String tablaTelefonoProveedor = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 3).toString();
+
+        ventanaInicio.getFieldIdProveedor().setText(tablaNitProveedor);
+        ventanaInicio.getFieldNombreProveedor().setText(tablaNombreProveedor);
+        ventanaInicio.getFieldCorreoProveedor().setText(tablaCorreoProveedor);
+        ventanaInicio.getFieldTelefonoProveedor().setText(tablaTelefonoProveedor);
     }
 
 }

@@ -24,6 +24,8 @@
 
 package co.edu.univalle.controlador;
 
+import javax.swing.table.DefaultTableModel;
+
 import co.edu.univalle.modelo.*;
 import co.edu.univalle.vista.*;
 import java.time.*;
@@ -33,7 +35,7 @@ import java.time.format.DateTimeParseException;
 
 public class ControladorCompras {
     
-    private static String[] labelCompra = {"ID de la compra ", "Fecha de la compra ", "NIT del proveedor ", "Nombre del proveedor ", "Valor de la factura ", "Lista de productos "};
+    private static String[] labelCompra = {"ID de la compra", "Fecha de la compra", "NIT del proveedor", "Nombre del proveedor", "Valor de la factura", "Lista de productos"};
     private static String[] encabezadoCompra = {"ID de la compra", "Fecha de la compra", "NIT del proveedor", "Nombre del proveedor", "Número de productos", "Valor de la factura"};
     
     public static void pintar(VentanaInicio ventanaInicio, Integer serialCompra) {
@@ -120,4 +122,22 @@ public class ControladorCompras {
         return null;
     }
 
+    public static boolean revisarIDCompra(VentanaInicio ventanaInicio){
+
+        return true;
+    }
+
+    public static void asignarTabla(DefaultTableModel modeloTabla, VentanaInicio ventanaInicio) {
+        String tablaIdCompra = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 0).toString();
+        String tablaFechaCompra = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 1).toString();
+        String tablaNitProveedorCompra = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 2).toString();
+        String tablaNombreProveedorCompra = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 3).toString();
+        String tablaValorFacturaCompra = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 5).toString();
+
+        ventanaInicio.getFieldIdCompra().setText(tablaIdCompra);
+        ventanaInicio.getFieldFechaCompra().setText(tablaFechaCompra);
+        ventanaInicio.getFieldNitProveedorCompra().setText(tablaNitProveedorCompra);
+        ventanaInicio.getFieldNombreProveedorCompra().setText(tablaNombreProveedorCompra);
+        ventanaInicio.getFieldCostoCompra().setText(tablaValorFacturaCompra);
+    }
 }

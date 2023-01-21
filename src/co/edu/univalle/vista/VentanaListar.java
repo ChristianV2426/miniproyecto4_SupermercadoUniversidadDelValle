@@ -57,7 +57,8 @@ public class VentanaListar extends Ventana {
     
     // Constructor:
     public VentanaListar() {
-        setSize(800,400);
+        setSize(1000,400);
+        // setResizable(true);
 
         // Configuración componentes:
         for(int contadorTextosPanelFormulario = 0; contadorTextosPanelFormulario < 15; contadorTextosPanelFormulario++) {
@@ -124,6 +125,18 @@ public class VentanaListar extends Ventana {
         this.tablaDatos = tablaDatos;
     }
     
+    public JTextField getId(){
+        return fieldId;
+    }
+
+    public JTextField getCosto(){
+        return fieldCosto;
+    }
+
+    public JTextField getCantidad(){
+        return fieldCantidad;
+    }
+
     public JTable getTablaDatos(){
         return tablaDatos;
     }

@@ -97,16 +97,17 @@ import co.edu.univalle.controlador.*;
     public VentanaInicio() {
         // Configuración componentes:
         for(int contadorTextosPanelFormulario = 0; contadorTextosPanelFormulario < 15; contadorTextosPanelFormulario++) {
-            contenedorTexto[contadorTextosPanelFormulario].setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+            contenedorTexto[contadorTextosPanelFormulario].setLayout(new FlowLayout(FlowLayout.LEFT, 16, 1));
+            labelTexto[contadorTextosPanelFormulario].setFont(new Font("Verdana", Font.PLAIN, 14));
             contenedorTexto[contadorTextosPanelFormulario].add(labelTexto[contadorTextosPanelFormulario]);
             contenedorTexto[contadorTextosPanelFormulario].setBackground(Color.WHITE); // Coloreado
             panelInferiorIzquierdo.add(contenedorTexto[contadorTextosPanelFormulario]);
         }
 
-        tituloProyecto.setFont(new Font("Arial", Font.PLAIN, 24));
+        tituloProyecto.setFont(new Font("Verdana", Font.PLAIN, 24));
         tituloProyecto.setForeground(Color.WHITE);
         tituloProyecto.setHorizontalAlignment(JLabel.CENTER);
-        subtituloProyecto.setFont(new Font("Arial", Font.PLAIN, 18));
+        subtituloProyecto.setFont(new Font("Verdana", Font.PLAIN, 18));
         subtituloProyecto.setForeground(Color.WHITE);
         subtituloProyecto.setHorizontalAlignment(JLabel.CENTER);
         labelCategoria.setForeground(Color.WHITE);
