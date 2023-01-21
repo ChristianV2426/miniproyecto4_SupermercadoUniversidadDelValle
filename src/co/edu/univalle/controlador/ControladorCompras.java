@@ -24,6 +24,8 @@
 
 package co.edu.univalle.controlador;
 
+import javax.swing.table.DefaultTableModel;
+
 import co.edu.univalle.modelo.*;
 import co.edu.univalle.vista.*;
 
@@ -78,5 +80,19 @@ public class ControladorCompras {
     public static boolean revisarIDCompra(VentanaInicio ventanaInicio){
 
         return true;
+    }
+
+    public static void asignarTabla(DefaultTableModel modeloTabla, VentanaInicio ventanaInicio) {
+        String tablaIdCompra = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 0).toString();
+        String tablaFechaCompra = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 1).toString();
+        String tablaNitProveedorCompra = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 2).toString();
+        String tablaNombreProveedorCompra = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 3).toString();
+        String tablaValorFacturaCompra = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 5).toString();
+
+        ventanaInicio.getFieldIdCompra().setText(tablaIdCompra);
+        ventanaInicio.getFieldFechaCompra().setText(tablaFechaCompra);
+        ventanaInicio.getFieldNitProveedorCompra().setText(tablaNitProveedorCompra);
+        ventanaInicio.getFieldNombreProveedorCompra().setText(tablaNombreProveedorCompra);
+        ventanaInicio.getFieldCostoCompra().setText(tablaValorFacturaCompra);
     }
 }

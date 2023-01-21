@@ -24,6 +24,8 @@
 
 package co.edu.univalle.controlador;
 
+import javax.swing.table.DefaultTableModel;
+
 import co.edu.univalle.modelo.*;
 import co.edu.univalle.vista.*;
 
@@ -81,4 +83,17 @@ public class ControladorVentas {
         return true;
     }
 
+    public static void asignarTabla(DefaultTableModel modeloTabla, VentanaInicio ventanaInicio) {
+        String tablaIdVenta = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 0).toString();
+        String tablaFechaVenta = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 1).toString();
+        String tablaCedulaClienteVenta = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 2).toString();
+        String tablaNombreClienteVenta = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 3).toString();
+        String tablaValorFacturaVenta = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 5).toString();
+
+        ventanaInicio.getFieldIdVenta().setText(tablaIdVenta);
+        ventanaInicio.getFieldFechaVenta().setText(tablaFechaVenta);
+        ventanaInicio.getFieldCedulaClienteVenta().setText(tablaCedulaClienteVenta);
+        ventanaInicio.getFieldNombresClienteVenta().setText(tablaNombreClienteVenta);
+        ventanaInicio.getFieldCostoVenta().setText(tablaValorFacturaVenta);
+    }
 }

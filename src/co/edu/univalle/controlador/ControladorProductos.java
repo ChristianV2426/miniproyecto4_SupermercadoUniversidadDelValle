@@ -27,6 +27,7 @@ package co.edu.univalle.controlador;
 import co.edu.univalle.modelo.*;
 import co.edu.univalle.vista.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 
 public class ControladorProductos {
@@ -55,9 +56,7 @@ public class ControladorProductos {
     }
 
     public static void limpiar(VentanaInicio ventanaInicio) {
-
         // ventanaInicio.getContenedorTexto()[2].setVisible(false); // Se hace para solucionar bugs de swing
-
         ventanaInicio.getFieldIdProductos().setText("");
         ventanaInicio.getFieldNombresProductos().setText("");
         dropCategoriaProducto.setSelectedItem("Seleccionar");
@@ -83,5 +82,18 @@ public class ControladorProductos {
         
         return true;
     }
-    
+
+    public static void asignarTabla(DefaultTableModel modeloTabla, VentanaInicio ventanaInicio) {
+        String tablaIdProductos = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 0).toString();
+        String tablaNombreProductos = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 1).toString();
+        String tablaCategoriaProductos = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 2).toString();
+        String tablaCantidadProductos = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 3).toString();
+        String tablaPrecioProductos = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 4).toString();
+
+        ventanaInicio.getFieldIdProductos().setText(tablaIdProductos);
+        ventanaInicio.getFieldNombresProductos().setText(tablaNombreProductos);
+        dropCategoriaProducto.setSelectedItem(tablaCategoriaProductos);
+        ventanaInicio.getFieldCantidadProductos().setText(tablaCantidadProductos);
+        ventanaInicio.getFieldPrecioProductos().setText(tablaPrecioProductos);
+    }
 }
