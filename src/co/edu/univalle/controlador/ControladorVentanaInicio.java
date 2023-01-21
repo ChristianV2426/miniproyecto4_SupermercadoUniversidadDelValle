@@ -157,6 +157,9 @@ public class ControladorVentanaInicio {
             } else if (evento.getActionCommand().equalsIgnoreCase("limpiar") && !ventanaListados.isActive()){
                 limpiarFormulario(tipoCategoria);
     
+            }else if (evento.getActionCommand().equalsIgnoreCase("limpiar") && ventanaListados.isActive()){
+                ControladorListar.limpiar(ventanaListados, tipoCategoria);
+
             } else if (evento.getActionCommand().equalsIgnoreCase("Editar") && !ventanaListados.isActive()){
                 if(tipoCategoria == "Productos"){
                     if(ControladorProductos.revisarFieldsProductos(ventanaInicio)){
@@ -339,7 +342,7 @@ public class ControladorVentanaInicio {
 
     public void limpiarFormulario(String tipoCategoria){
         if(tipoCategoria == "Productos"){
-            ControladorProductos.limpiar(ventanaInicio);
+            ControladorProductos.limpiar(ventanaInicio, serialProducto);
 
         } else if (tipoCategoria == "Clientes") {
             ControladorClientes.limpiar(ventanaInicio);
@@ -348,10 +351,10 @@ public class ControladorVentanaInicio {
             ControladorProveedores.limpiar(ventanaInicio);
 
         } else if (tipoCategoria == "Ventas (a clientes)") {
-            ControladorVentas.limpiar(ventanaInicio);
+            ControladorVentas.limpiar(ventanaInicio, serialVenta);
 
         } else if (tipoCategoria == "Compras (a proveedores)") {
-            ControladorCompras.limpiar(ventanaInicio);
+            ControladorCompras.limpiar(ventanaInicio, serialCompra);
         } 
     }
 

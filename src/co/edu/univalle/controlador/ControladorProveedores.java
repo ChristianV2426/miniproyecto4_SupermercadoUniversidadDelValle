@@ -54,6 +54,7 @@ public class ControladorProveedores {
     public static void limpiar(VentanaInicio ventanaInicio) {
         ventanaInicio.getFieldIdProveedor().setText("");
         ventanaInicio.getFieldIdProveedor().setEditable(true);
+        ventanaInicio.getFieldIdProveedor().setEditable(true);
         ventanaInicio.getFieldNombreProveedor().setText("");
         ventanaInicio.getFieldTelefonoProveedor().setText("");
         ventanaInicio.getFieldCorreoProveedor().setText("");
@@ -120,6 +121,7 @@ public class ControladorProveedores {
         String tablaTelefonoProveedor = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 3).toString();
 
         ventanaInicio.getFieldIdProveedor().setText(tablaNitProveedor);
+        ventanaInicio.getFieldIdProveedor().setEditable(false);
         ventanaInicio.getFieldNombreProveedor().setText(tablaNombreProveedor);
         ventanaInicio.getFieldCorreoProveedor().setText(tablaCorreoProveedor);
         ventanaInicio.getFieldTelefonoProveedor().setText(tablaTelefonoProveedor);

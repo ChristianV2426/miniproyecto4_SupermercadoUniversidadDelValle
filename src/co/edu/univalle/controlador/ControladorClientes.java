@@ -53,6 +53,8 @@ public class ControladorClientes {
 
         ventanaInicio.getFieldIdClientes().setText("");
         ventanaInicio.getFieldIdClientes().setEditable(true);
+
+        ventanaInicio.getFieldIdClientes().setEditable(true);
         ventanaInicio.getFieldNombresClientes().setText("");
         ventanaInicio.getFieldTelefonoClientes().setText("");
         ventanaInicio.getFieldCorreoClientes().setText("");
@@ -119,6 +121,7 @@ public class ControladorClientes {
         String tablaTelefonoCliente = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 3).toString();
 
         ventanaInicio.getFieldIdClientes().setText(tablaCedulaCliente);
+        ventanaInicio.getFieldIdClientes().setEditable(false);
         ventanaInicio.getFieldNombresClientes().setText(tablaNombreCliente);
         ventanaInicio.getFieldCorreoClientes().setText(tablaCorreoCliente);
         ventanaInicio.getFieldTelefonoClientes().setText(tablaTelefonoCliente);

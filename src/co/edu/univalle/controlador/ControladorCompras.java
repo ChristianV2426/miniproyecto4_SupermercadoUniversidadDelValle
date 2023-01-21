@@ -60,8 +60,8 @@ public class ControladorCompras {
 
     }
 
-    public static void limpiar(VentanaInicio ventanaInicio) {
-        ventanaInicio.getFieldIdCompra().setText("");
+    public static void limpiar(VentanaInicio ventanaInicio, Integer serialCompra) {
+        ventanaInicio.getFieldIdCompra().setText(String.valueOf(serialCompra));
         ventanaInicio.getFieldFechaCompra().setText("");
         ventanaInicio.getFieldNitProveedorCompra().setText("");
         ventanaInicio.getFieldNombreProveedorCompra().setText("");

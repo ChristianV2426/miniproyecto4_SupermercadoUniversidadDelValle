@@ -60,8 +60,8 @@ public class ControladorVentas {
 
     }
 
-    public static void limpiar(VentanaInicio ventanaInicio) {
-        ventanaInicio.getFieldIdVenta().setText("");
+    public static void limpiar(VentanaInicio ventanaInicio, Integer serialVenta) {
+        ventanaInicio.getFieldIdVenta().setText(String.valueOf(serialVenta));
         ventanaInicio.getFieldFechaVenta().setText("");
         ventanaInicio.getFieldCedulaClienteVenta().setText("");
         ventanaInicio.getFieldNombresClienteVenta().setText("");

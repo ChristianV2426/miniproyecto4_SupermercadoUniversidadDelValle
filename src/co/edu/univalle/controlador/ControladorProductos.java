@@ -57,9 +57,9 @@ public class ControladorProductos {
         ventanaInicio.getContenedorTexto()[4].add(ventanaInicio.getFieldPrecioProductos());
     }
 
-    public static void limpiar(VentanaInicio ventanaInicio) {
+    public static void limpiar(VentanaInicio ventanaInicio, Integer serialProducto) {
         // ventanaInicio.getContenedorTexto()[2].setVisible(false); // Se hace para solucionar bugs de swing
-        ventanaInicio.getFieldIdProductos().setText("");
+        ventanaInicio.getFieldIdProductos().setText(String.valueOf(serialProducto));
         ventanaInicio.getFieldNombresProductos().setText("");
         dropCategoriaProducto.setSelectedItem("Seleccionar");
         ventanaInicio.getFieldCantidadProductos().setText("");
