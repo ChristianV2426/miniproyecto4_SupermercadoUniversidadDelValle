@@ -166,6 +166,10 @@ import co.edu.univalle.controlador.*;
     
     // Métodos
     public void addListener(ActionListener listenControles){
+
+        fieldCedulaClienteVenta.addActionListener(listenControles);
+        fieldNitProveedorCompra.addActionListener(listenControles);
+
         dropCategorias.addActionListener(listenControles);
         botonAgregar.addActionListener(listenControles);
         botonLimpiar.addActionListener(listenControles);

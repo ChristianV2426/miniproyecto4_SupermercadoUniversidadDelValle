@@ -336,7 +336,9 @@ public class ControladorVentanaInicio {
                 pane = new JScrollPane(ventanaListados.getTablaDatos());
                 ventanaListados.setPane(pane);
                 ventanaListados.mostrarListado(tipoCategoria); // Correspondiente a pintar
-            } 
+            } else if (evento.getSource() == ventanaInicio.getFieldCedulaClienteVenta()) {
+                System.out.println("Entra");
+            }
         }
     }
 
@@ -375,15 +377,25 @@ public class ControladorVentanaInicio {
         tablaDatos.removeAll();
         
         if(tipoCategoria == "Productos"){
+
             String[][] datosProductos = supermercado.getProductos().getListables();
             // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             tablaDatos = new JTable(ControladorVentanaInicio.asignarModelo(datosProductos, ControladorProductos.getEncabezadoProductos()));
+            
+            ventanaInicio.setTablaDatos(tablaDatos);
+            pane = new JScrollPane(ventanaInicio.getTablaDatos());
+            ventanaInicio.setPane(pane);
+            
             ControladorProductos.pintar(ventanaInicio, serialProducto);
-
 
         } else if (tipoCategoria == "Clientes") {
             String[][] datosClientes = supermercado.getClientes().getListables();
             tablaDatos = new JTable(asignarModelo(datosClientes, ControladorClientes.getEncabezadoClientes()));
+            
+            ventanaInicio.setTablaDatos(tablaDatos);
+            pane = new JScrollPane(ventanaInicio.getTablaDatos());
+            ventanaInicio.setPane(pane);
+            
             ControladorClientes.pintar(ventanaInicio);
             // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
@@ -391,12 +403,22 @@ public class ControladorVentanaInicio {
             String[][] datosProveedores = supermercado.getProveedores().getListables();
             tablaDatos = new JTable(asignarModelo(datosProveedores, ControladorProveedores.getEncabezadoProveedores()));
             // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            
+            ventanaInicio.setTablaDatos(tablaDatos);
+            pane = new JScrollPane(ventanaInicio.getTablaDatos());
+            ventanaInicio.setPane(pane);
+            
             ControladorProveedores.pintar(ventanaInicio);
 
         } else if (tipoCategoria == "Ventas (a clientes)") {
             String[][] datosVentas = supermercado.getVentas().getListables();
             tablaDatos = new JTable(asignarModelo(datosVentas, ControladorVentas.getEncabezadoVenta()));
             tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            
+            ventanaInicio.setTablaDatos(tablaDatos);
+            pane = new JScrollPane(ventanaInicio.getTablaDatos());
+            ventanaInicio.setPane(pane);
+            
             ControladorVentas.pintar(ventanaInicio, serialVenta);
             ventanaInicio.getContenedorTexto()[1].add(labelFormatoFecha);
 
@@ -405,6 +427,11 @@ public class ControladorVentanaInicio {
             String[][] datosCompras = supermercado.getCompras().getListables();
             tablaDatos = new JTable(asignarModelo(datosCompras, ControladorCompras.getEncabezadoCompra()));
             tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            
+            ventanaInicio.setTablaDatos(tablaDatos);
+            pane = new JScrollPane(ventanaInicio.getTablaDatos());
+            ventanaInicio.setPane(pane);
+
             ControladorCompras.pintar(ventanaInicio, serialCompra);
             ventanaInicio.getContenedorTexto()[1].add(labelFormatoFecha);
             
@@ -412,9 +439,6 @@ public class ControladorVentanaInicio {
         
         // Se actualiza la tabla:
         tablaDatos.addMouseListener(new CalculateMouseListener());
-        ventanaInicio.setTablaDatos(tablaDatos);
-        pane = new JScrollPane(ventanaInicio.getTablaDatos());
-        ventanaInicio.setPane(pane);
     }
 
     // Asigna los valores de la tabla a los respectivos fields.
