@@ -61,7 +61,7 @@ public class ControladorListar {
         return encabezadoListaCompra;
     }
 
-    public static boolean revisarFieldsProductoEnVenta(VentanaListar ventanaListados){
+    public static boolean revisarIdProducto(VentanaListar ventanaListados){
         String stringIdProducto = ventanaListados.getId().getText();
         try{
             Integer.valueOf(stringIdProducto);
@@ -70,6 +70,13 @@ public class ControladorListar {
             JOptionPane.showMessageDialog(null,"Por favor ingrese un número de identificación de producto válido, sin puntos ni espacios, solo números.\nEjemplo: 1250", "Advertencia", JOptionPane.ERROR_MESSAGE);
             return false;
         }
+
+        return true;
+    }
+
+    public static boolean revisarFieldsProductoEnVenta(VentanaListar ventanaListados){
+        if(!revisarIdProducto(ventanaListados))
+            return false;
 
         String stringCantidadProducto = ventanaListados.getCantidad().getText();
         try{

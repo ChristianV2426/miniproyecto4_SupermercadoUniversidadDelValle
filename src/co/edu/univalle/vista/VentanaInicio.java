@@ -139,7 +139,7 @@ public class VentanaInicio extends Ventana{
         panelPieIzquierdo.add(botonLimpiar);
         panelPieIzquierdo.add(botonEditar);
         panelPieIzquierdo.add(botonEliminar);
-        panelPieIzquierdo.add(botonEditar);
+        // panelPieIzquierdo.add(botonEditar);
 
         panelPieDerecho.add(botonExportar);
 

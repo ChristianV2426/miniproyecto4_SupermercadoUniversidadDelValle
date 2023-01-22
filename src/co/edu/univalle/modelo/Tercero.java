@@ -88,6 +88,14 @@ public abstract class Tercero implements Listable, Serializable{
         return true;
     }
 
+    public boolean eliminarTransaccion(Transaccion transaccion){
+        if (!transaccionesRealizadas.containsKey(transaccion.getIdentificacion()))
+            return false;
+        
+        transaccionesRealizadas.remove(transaccion.getIdentificacion());
+        return true;
+    }
+
     public int getNumeroTransaccionesRealizadas(){
         return transaccionesRealizadas.size();
     }
