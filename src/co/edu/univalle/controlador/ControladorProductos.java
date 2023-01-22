@@ -85,10 +85,12 @@ public class ControladorProductos {
 
         String stringPrecioDeVenta = ventanaInicio.getFieldPrecioProductos().getText();
         try{
-            BigDecimal.valueOf(Double.valueOf(stringPrecioDeVenta));
+            BigDecimal precioVenta = BigDecimal.valueOf(Double.valueOf(stringPrecioDeVenta));
+            if(precioVenta.compareTo(BigDecimal.ZERO) <= 0)
+                throw new NumberFormatException(); 
 
         } catch (NumberFormatException exception) {
-            JOptionPane.showMessageDialog(null,"Por favor ingrese un precio de venta válido. El precio debe escribirse sin puntos ni espacios, solo números.\nEjemplo: 45000 (cuarenta y cinco mil pesos)", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un precio de venta válido. El precio debe escribirse sin puntos ni espacios, solo números mayores a cero.\nEjemplo: 45000 (cuarenta y cinco mil pesos)", "Advertencia", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 

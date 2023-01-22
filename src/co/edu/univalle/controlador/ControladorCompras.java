@@ -31,6 +31,7 @@ import co.edu.univalle.vista.*;
 import java.time.*;
 import javax.swing.*;
 import java.math.*;
+import java.util.*;
 import java.time.format.DateTimeParseException;
 
 public class ControladorCompras {
@@ -45,6 +46,7 @@ public class ControladorCompras {
 
         ventanaInicio.getLabelTexto()[1].setText(labelCompra[1]);
         ventanaInicio.getContenedorTexto()[1].add(ventanaInicio.getFieldFechaCompra());
+        ventanaInicio.getFieldFechaCompra().setText(String.valueOf(LocalDate.now()));
         
         ventanaInicio.getLabelTexto()[2].setText(labelCompra[2]);
         ventanaInicio.getContenedorTexto()[2].add(ventanaInicio.getFieldNitProveedorCompra());
@@ -91,21 +93,27 @@ public class ControladorCompras {
             return false;
         }
 
-
+        String nombreProveedor = ventanaInicio.getFieldNombreProveedorCompra().getText();
+        if(nombreProveedor.isEmpty() || nombreProveedor.isBlank()){
+            JOptionPane.showMessageDialog(null,"El número de NIT ingresado no corresponde a ningún proveedor registrado en el sistema.\nPor favor verfique que ingresó un número de NIT válido, o registre al proveedor desde la categoría \"Proveedores\".", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
         String stringCostoTransaccion = ventanaInicio.getFieldCostoCompra().getText();
         try{
-            BigDecimal.valueOf(Double.valueOf(stringCostoTransaccion));
+            BigDecimal costoTransaccion = BigDecimal.valueOf(Double.valueOf(stringCostoTransaccion));
+            if(costoTransaccion == BigDecimal.ZERO)
+                throw new NumberFormatException();
 
         } catch (NumberFormatException exception){
-            JOptionPane.showMessageDialog(null,"Por favor ingrese un precio de compra válido. El precio debe escribirse sin puntos ni espacios, solo números.\nEjemplo: 45000 (cuarenta y cinco mil pesos)", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"El valor de la factura debe ser un número diferente de cero. Debe agregar al menos un producto a la lista de productos de la compra.\nAgregue una lista de productos, haciendo clic sobre el botón \"Listar\".", "Advertencia", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         return true;
     }
     
-    public static Compra crearCompra(VentanaInicio ventanaInicio){
+    public static Compra crearCompra(VentanaInicio ventanaInicio, HashMap<Integer, Integer> listaProductos, HashMap<Integer, BigDecimal> listaPrecios){
         String stringIdCompra = ventanaInicio.getFieldIdCompra().getText();
         Integer idCompra = Integer.valueOf(stringIdCompra);
         String stringFechaCompra = ventanaInicio.getFieldFechaCompra().getText();
@@ -113,13 +121,12 @@ public class ControladorCompras {
         String stringIdProveedor = ventanaInicio.getFieldNitProveedorCompra().getText();
         Integer idProveedor = Integer.valueOf(stringIdProveedor);
         String nombreProveedor = ventanaInicio.getFieldNombreProveedorCompra().getText();
-
         String stringCostoTransaccion = ventanaInicio.getFieldCostoCompra().getText();
         BigDecimal costoTransaccion = BigDecimal.valueOf(Double.valueOf(stringCostoTransaccion));
 
 
-        // Compra compra = new Compra(idCompra, fechaCompra, idProveedor, nombreProveedor, null, costoTransaccion, null);
-        return null;
+        Compra compra = new Compra(idCompra, fechaCompra, idProveedor, nombreProveedor, listaProductos, costoTransaccion, listaPrecios);
+        return compra;
     }
 
     public static boolean revisarIDCompra(VentanaInicio ventanaInicio){

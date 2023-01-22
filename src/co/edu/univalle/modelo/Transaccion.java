@@ -42,6 +42,7 @@ public abstract class Transaccion implements Listable, Serializable{
     private Integer documentoDelTercero;
     private String nombreDelTercero;
     private HashMap<Integer, Integer> listaProductos;
+    private int numeroProductos = 0;
     private BigDecimal costoTransaccion; 
 
     public Transaccion(Integer identificacion, LocalDate fechaTransaccion, Integer documentoDelTercero, String nombreDelTercero, HashMap<Integer, Integer> listaProductos, BigDecimal costoTransaccion){
@@ -50,6 +51,7 @@ public abstract class Transaccion implements Listable, Serializable{
         this.documentoDelTercero = documentoDelTercero;
         this.nombreDelTercero = nombreDelTercero;
         this.listaProductos = listaProductos;
+        calcularNumerodeProductos();
         this.costoTransaccion = costoTransaccion;
     }
 
@@ -73,6 +75,15 @@ public abstract class Transaccion implements Listable, Serializable{
         return listaProductos;
     }
 
+    public void calcularNumerodeProductos(){
+        for(Map.Entry<Integer, Integer> pareja : listaProductos.entrySet())
+            numeroProductos += pareja.getValue();
+    }
+
+    public int getNumeroProductos(){
+        return numeroProductos;
+    }
+
     public BigDecimal getCostoTransaccion() {
         return costoTransaccion;
     }
@@ -92,7 +103,7 @@ public abstract class Transaccion implements Listable, Serializable{
             case 3:
                 return String.valueOf(nombreDelTercero);
             case 4:
-                return String.valueOf(listaProductos.size());
+                return String.valueOf(numeroProductos);
             case 5:
                 return String.valueOf(costoTransaccion);
             default:

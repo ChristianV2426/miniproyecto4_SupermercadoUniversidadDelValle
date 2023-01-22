@@ -29,6 +29,8 @@ package co.edu.univalle.modelo;
 import java.io.Serializable;
 import java.math.*;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 public class Producto implements Listable, Serializable {
     public static final long serialVersionUID = 1L;
@@ -75,6 +77,14 @@ public class Producto implements Listable, Serializable {
         this.cantidadStock = cantidadStock;
     }
 
+    public void reducirStock(Integer cantidadAReducir){
+        cantidadStock -= cantidadAReducir;
+    }
+
+    public void aumentarStock(Integer cantidadAAumentar){
+        cantidadStock += cantidadAAumentar;
+    }
+
     public BigDecimal getPrecioVenta() {
         return precioVenta;
     }
@@ -98,7 +108,9 @@ public class Producto implements Listable, Serializable {
             case 3: 
                 return String.valueOf(cantidadStock);
             case 4:
-                DecimalFormat formato = new DecimalFormat("#,###.00");
+                DecimalFormatSymbols puntoDecimal = new DecimalFormatSymbols();
+                puntoDecimal.setDecimalSeparator('.');
+                DecimalFormat formato = new DecimalFormat("###.00", puntoDecimal);
                 return String.valueOf(formato.format(precioVenta));
             default:
                 return "";

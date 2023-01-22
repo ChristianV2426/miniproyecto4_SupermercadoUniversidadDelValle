@@ -30,10 +30,11 @@ package co.edu.univalle.controlador;
 import co.edu.univalle.modelo.*;
 import co.edu.univalle.vista.*;
 import java.awt.event.*;
+import java.math.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
-import java.time.*;
+import java.util.*;
 import java.awt.*;
 
 
@@ -50,6 +51,9 @@ public class ControladorVentanaInicio {
     private Integer serialProducto;
     private Integer serialVenta;
     private Integer serialCompra;
+    private HashMap<Integer, Integer> listaProductosVenta = new HashMap<>();
+    private HashMap<Integer, Integer> listaProductosCompra = new HashMap<>();
+    private HashMap<Integer, BigDecimal> listaPreciosCompra = new HashMap<>();
     
     // Constructor
     public ControladorVentanaInicio(VentanaInicio ventanaInicio){
@@ -93,6 +97,7 @@ public class ControladorVentanaInicio {
                 if(tipoCategoria == "Productos"){
                     if(ControladorProductos.revisarFieldsProductos(ventanaInicio)){
                         Producto nuevoProducto = ControladorProductos.crearProducto(ventanaInicio);
+                        nuevoProducto.setCantidadStock(10); /////////////////////////////////////////////////////
                         Integer idProducto = nuevoProducto.getIdentificacion();
                         String nombrePrdoucto = nuevoProducto.getNombreProducto();
                         if(supermercado.getProductos().añadir(nuevoProducto)){
@@ -135,13 +140,49 @@ public class ControladorVentanaInicio {
 
                 } else if(tipoCategoria == "Ventas (a clientes)"){
                     if(ControladorVentas.revisarFieldsVentas(ventanaInicio)){
-                        Venta nuevaVenta = ControladorVentas.crearVenta(ventanaInicio);
+                        Integer idCliente = Integer.valueOf(ventanaInicio.getFieldCedulaClienteVenta().getText());
+                            if(!listaProductosVenta.isEmpty()){
+                                Venta nuevaVenta = ControladorVentas.crearVenta(ventanaInicio, listaProductosVenta);
+                                Integer idVenta = nuevaVenta.getIdentificacion();
+                                if(supermercado.getVentas().añadir(nuevaVenta)){
+                                    listaProductosVenta = new HashMap<>();
+                                    supermercado.getClientes().getElemento(idCliente).agregarTransaccion(nuevaVenta);
+                                    reducirStock(nuevaVenta);
+                                    serialVenta++;
+                                    JOptionPane.showMessageDialog(null,"¡La venta " + idVenta + " " + " fue agregada correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
+                                    limpiarFormulario(tipoCategoria);
 
+                                } else {
+                                    JOptionPane.showMessageDialog(null,"¡La venta " + idVenta + " ya se encuentra registrada en el sistema, no lo puede volver a registrar.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                                }
+
+                            } else {
+                                JOptionPane.showMessageDialog(null,"Debe agregar al menos un producto a la lista de productos de la venta.\nAgregue una lista de productos, haciendo clic sobre el botón \"Listar\".", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                            }
                     }
 
                 } else if (tipoCategoria == "Compras (a proveedores)"){
                     if(ControladorCompras.revisarFieldsCompras(ventanaInicio)){
-                        Compra nuevaCompra = ControladorCompras.crearCompra(ventanaInicio);
+                        Integer idProveedor = Integer.valueOf(ventanaInicio.getFieldNitProveedorCompra().getText());
+                        if(!listaPreciosCompra.isEmpty()){
+                            Compra nuevaCompra = ControladorCompras.crearCompra(ventanaInicio, listaProductosCompra, listaPreciosCompra);
+                            Integer idCompra = nuevaCompra.getIdentificacion();
+                            if(supermercado.getCompras().añadir(nuevaCompra)){
+                                listaProductosCompra = new HashMap<>();
+                                listaPreciosCompra = new HashMap<>();
+                                supermercado.getProveedores().getElemento(idProveedor).agregarTransaccion(nuevaCompra);
+                                aumentarStock(nuevaCompra);
+                                serialCompra++;
+                                JOptionPane.showMessageDialog(null,"¡La compra " + idCompra + " " + " fue agregada correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
+                                limpiarFormulario(tipoCategoria);
+
+                            } else {
+                                JOptionPane.showMessageDialog(null,"¡La comora " + idCompra + " ya se encuentra registrada en el sistema, no la puede volver a registrar.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null,"Debe agregar al menos un producto a la lista de productos de la compra.\nAgregue una lista de productos, haciendo clic sobre el botón \"Listar\".", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                        }
+
 
                     }
                 }
@@ -149,9 +190,53 @@ public class ControladorVentanaInicio {
 
             } else if (evento.getActionCommand().equalsIgnoreCase("Agregar") && ventanaListados.isActive()){
                 if(tipoCategoria == "Ventas (a clientes)"){
+                    if(ControladorListar.revisarFieldsProductoEnVenta(ventanaListados)){
+                        Integer idProducto = Integer.valueOf(ventanaListados.getId().getText());
+                        Integer cantidadProducto = Integer.valueOf(ventanaListados.getCantidad().getText());
+                        if(supermercado.getProductos().elementoPresente(idProducto)){
+                            Producto producto = supermercado.getProductos().getElemento(idProducto);
+                            if(producto.getCantidadStock() >= cantidadProducto){
+                                if(!listaProductosVenta.containsKey(idProducto)){
+                                    listaProductosVenta.put(idProducto, cantidadProducto);
+                                    ventanaInicio.getFieldCostoVenta().setText(ControladorListar.calcularCostoVenta(supermercado, listaProductosVenta));
+                                    JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + " " + producto.getNombreProducto() + " agregado correctamente a la lista de productos!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
+                                    ////////////////////////////////////////////////////////////////////////// Actualizar tabla en ventana listar
+
+                                } else {
+                                    JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + producto.getNombreProducto() + " ya fue agregado a la lista de productos de la venta.\nSi desea cambiar la cantidad del producto en la transacción, debe hacerlo con el botón editar.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                                }
+
+                            } else {
+                                JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + producto.getNombreProducto() + " No tiene Stock suficiente!\nStock actual: " + producto.getCantidadStock() + ".\nCantidad ingresada: " + cantidadProducto + ".", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                            }
+
+                        } else {
+                            JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + " no es un producto que se venda en el supermercado.\nPor favor verifique el ID del producto.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
         
                 } else if(tipoCategoria == "Compras (a proveedores)"){
+                    if(ControladorListar.revisarFieldsProductoEnCompra(ventanaListados)){
+                        Integer idProducto = Integer.valueOf(ventanaListados.getId().getText());
+                        Integer cantidadProducto = Integer.valueOf(ventanaListados.getCantidad().getText());
+                        BigDecimal costoProducto = BigDecimal.valueOf(Double.valueOf(ventanaListados.getCosto().getText()));
+                        if(supermercado.getProductos().elementoPresente(idProducto)){
+                            Producto producto = supermercado.getProductos().getElemento(idProducto);
+                            if(!listaPreciosCompra.containsKey(idProducto)){
+                                listaProductosCompra.put(idProducto, cantidadProducto);
+                                listaPreciosCompra.put(idProducto, costoProducto);
+                                ventanaInicio.getFieldCostoCompra().setText(ControladorListar.calcularCostoCompra(supermercado, listaProductosCompra, listaPreciosCompra));
+                                JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + " " + producto.getNombreProducto() + " agregado correctamente a la lista de productos!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
+                                ////////////////////////////////////////////////////////////////////////// Actualizar tabla en ventana listar
 
+                            } else {
+                                JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + producto.getNombreProducto() + " ya fue agregado a la lista de productos de la compra.\nSi desea cambiar la cantidad del producto en la transacción, debe hacerlo con el botón editar.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                            }
+
+                        } else {
+                            JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + " no es un producto registrado.\nPor favor verifique el ID del producto, o registrelo desde la categoría \"Productos\".", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
                 }
             
             } else if (evento.getActionCommand().equalsIgnoreCase("limpiar") && !ventanaListados.isActive()){
@@ -205,13 +290,13 @@ public class ControladorVentanaInicio {
 
                 } else if(tipoCategoria == "Ventas (a clientes)"){
                     if(ControladorVentas.revisarFieldsVentas(ventanaInicio)){
-                        Venta nuevaVenta = ControladorVentas.crearVenta(ventanaInicio);
+                        Venta nuevaVenta = ControladorVentas.crearVenta(ventanaInicio, listaProductosVenta);
 
                     }
 
                 } else if (tipoCategoria == "Compras (a proveedores)"){
                     if(ControladorCompras.revisarFieldsCompras(ventanaInicio)){
-                        Compra nuevaCompra = ControladorCompras.crearCompra(ventanaInicio);
+                        Compra nuevaCompra = ControladorCompras.crearCompra(ventanaInicio, listaProductosCompra, listaPreciosCompra);
 
                     }
 
@@ -227,6 +312,7 @@ public class ControladorVentanaInicio {
                         int continuar = JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar el producto " + idProducto + " " + nombreProducto + "? \nEsta acción no se puede deshacer.", "¿Desea proceder con la eliminación?", JOptionPane.YES_NO_OPTION);
                         if(continuar == JOptionPane.YES_OPTION && supermercado.getProductos().eliminar(idProducto))
                             JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + " " + nombreProducto + " fue eliminado correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
+                            limpiarFormulario(tipoCategoria);
 
                     } else {
                         JOptionPane.showMessageDialog(null,"El producto " + idProducto + " no se encuentra registrado en el sistema, no puede eliminarla.", "Advertencia", JOptionPane.ERROR_MESSAGE);
@@ -426,14 +512,27 @@ public class ControladorVentanaInicio {
 
             if(tipoCategoria == "Productos"){
                 ControladorProductos.asignarTabla(modeloTabla, ventanaInicio);
+
             } else if (tipoCategoria == "Clientes") {
                 ControladorClientes.asignarTabla(modeloTabla, ventanaInicio);
+
             } else if (tipoCategoria == "Proveedores") {
                 ControladorProveedores.asignarTabla(modeloTabla, ventanaInicio);
+
             } else if (tipoCategoria == "Ventas (a clientes)" && !ventanaListados.isActive()) {
+                String stringIdVenta = ventanaInicio.getFieldIdVenta().getText();
+                Integer idVenta = Integer.valueOf(stringIdVenta);
+                listaProductosVenta = supermercado.getVentas().getElemento(idVenta).getListaProductos();
+                listaPreciosCompra = new HashMap<>();
                 ControladorVentas.asignarTabla(modeloTabla, ventanaInicio);
+
             } else if (tipoCategoria == "Compras (a proveedores)" && !ventanaListados.isActive()) {
+                String stringIdCompra = ventanaInicio.getFieldIdCompra().getText();
+                Integer idCompra = Integer.valueOf(stringIdCompra);
+                listaProductosCompra = supermercado.getCompras().getElemento(idCompra).getListaProductos();
+                listaPreciosCompra = supermercado.getCompras().getElemento(idCompra).getListaPrecios();
                 ControladorCompras.asignarTabla(modeloTabla, ventanaInicio);
+
             } else if ((tipoCategoria == "Ventas (a clientes)" && ventanaListados.isActive()) || (tipoCategoria == "Compras (a proveedores)" && ventanaListados.isActive())) {
                 ControladorListar.asignarTabla(modeloTablaListado, ventanaListados, tipoCategoria);
             } 
@@ -462,6 +561,18 @@ public class ControladorVentanaInicio {
         @Override
         public void mouseMoved(MouseEvent e) {
         }
+    }
+
+    public void reducirStock(Venta nuevaVenta){
+        HashMap<Integer, Integer> productosVenta = nuevaVenta.getListaProductos();
+        for(Map.Entry<Integer, Integer> pareja : productosVenta.entrySet())
+            supermercado.getProductos().getElemento(pareja.getKey()).reducirStock(pareja.getValue());
+    }
+
+    public void aumentarStock(Compra nuevaCompra){
+        HashMap<Integer, Integer> productosCompra = nuevaCompra.getListaProductos();
+        for(Map.Entry<Integer, Integer> pareja : productosCompra.entrySet())
+            supermercado.getProductos().getElemento(pareja.getKey()).aumentarStock(pareja.getValue());
     }
 
     public static TableModel asignarModelo(String[][] datos, String[] encabezado) {

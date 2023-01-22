@@ -104,7 +104,9 @@ public class ControladorClientes {
     public static boolean revisarIDCliente(VentanaInicio ventanaInicio){
         String stringIdCliente = ventanaInicio.getFieldIdClientes().getText();
         try{
-            Integer.valueOf(stringIdCliente);
+            Integer idCliente = Integer.valueOf(stringIdCliente);
+            if(idCliente <= 0)
+                throw new NumberFormatException();
 
         } catch (NumberFormatException exception){
             JOptionPane.showMessageDialog(null,"Por favor ingrese un número de documento válido, sin puntos ni espacios, solo números.\nEjemplo: 1144000000", "Advertencia", JOptionPane.ERROR_MESSAGE);

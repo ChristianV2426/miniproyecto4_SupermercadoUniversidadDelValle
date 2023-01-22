@@ -31,6 +31,7 @@ import co.edu.univalle.vista.*;
 import javax.swing.*;
 import java.math.*;
 import java.time.*;
+import java.util.*;
 import java.time.format.DateTimeParseException;
 
 public class ControladorVentas {
@@ -45,6 +46,7 @@ public class ControladorVentas {
 
         ventanaInicio.getLabelTexto()[1].setText(labelVenta[1]);
         ventanaInicio.getContenedorTexto()[1].add(ventanaInicio.getFieldFechaVenta());
+        ventanaInicio.getFieldFechaVenta().setText(String.valueOf(LocalDate.now()));
         
         ventanaInicio.getLabelTexto()[2].setText(labelVenta[2]);
         ventanaInicio.getContenedorTexto()[2].add(ventanaInicio.getFieldCedulaClienteVenta());
@@ -92,21 +94,27 @@ public class ControladorVentas {
             return false;
         }
 
-
+        String nombreCliente = ventanaInicio.getFieldNombresClienteVenta().getText();
+        if(nombreCliente.isEmpty() || nombreCliente.isBlank()){
+            JOptionPane.showMessageDialog(null,"El número de documento ingresado no corresponde a ningún cliente registrado en el sistema.\nPor favor verfique que ingresó un número de documento válido, o registre al cliente desde la categoría \"Clientes\".", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
         String stringCostoTransaccion = ventanaInicio.getFieldCostoVenta().getText();
         try{
-            BigDecimal.valueOf(Double.valueOf(stringCostoTransaccion));
+            BigDecimal costoTransaccion = BigDecimal.valueOf(Double.valueOf(stringCostoTransaccion));
+            if(costoTransaccion == BigDecimal.ZERO)
+                throw new NumberFormatException();
 
         } catch (NumberFormatException exception){
-            JOptionPane.showMessageDialog(null,"Por favor ingrese un precio de venta válido. El precio debe escribirse sin puntos ni espacios, solo números.\nEjemplo: 45000 (cuarenta y cinco mil pesos)", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"El valor de la factura debe ser un número diferente de cero. Debe agregar al menos un producto a la lista de productos de la venta.\nAgregue una lista de productos, haciendo clic sobre el botón \"Listar\".", "Advertencia", JOptionPane.ERROR_MESSAGE);
             return false;
         }
 
         return true;
     }
 
-    public static Venta crearVenta(VentanaInicio ventanaInicio){
+    public static Venta crearVenta(VentanaInicio ventanaInicio, HashMap<Integer, Integer> listaProductos){
         String stringIdVenta = ventanaInicio.getFieldIdVenta().getText();
         Integer idVenta = Integer.valueOf(stringIdVenta);
         String stringFechaVenta = ventanaInicio.getFieldFechaVenta().getText();
@@ -114,13 +122,12 @@ public class ControladorVentas {
         String stringIdCliente = ventanaInicio.getFieldCedulaClienteVenta().getText();
         Integer idCliente = Integer.valueOf(stringIdCliente);
         String nombreCliente = ventanaInicio.getFieldNombresClienteVenta().getText();
-
         String stringCostoTransaccion = ventanaInicio.getFieldCostoVenta().getText();
         BigDecimal costoTransaccion = BigDecimal.valueOf(Double.valueOf(stringCostoTransaccion));
 
-        // Venta venta = new Venta(idVenta, fechaVenta, idCliente, nombreCliente, null, costoTransaccion)
+        Venta venta = new Venta(idVenta, fechaVenta, idCliente, nombreCliente, listaProductos, costoTransaccion);
 
-        return null;
+        return venta;
     }
 
 

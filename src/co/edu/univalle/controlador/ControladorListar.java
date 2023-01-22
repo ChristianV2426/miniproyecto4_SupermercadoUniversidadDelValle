@@ -1,5 +1,5 @@
 /*
-    Archivo: ControladorProductos.java
+    Archivo: ControladorListar.java
     Fundamentos de Programación Orientada a Eventos - 750014C Grupo 01
     Proyecto 4 - Supermercado Universidad del Valle
 
@@ -16,8 +16,8 @@
 /**
     CLASE: ControladorProductos
 
-    INTENCIÓN: Esta es la clase controladora de la categoría productos.
-    Esta clase se encarga orientar los eventos relacionados con los productos del supermercado.
+    INTENCIÓN: Esta es la clase controladora de la ventana auxiliar (VentanaListar).
+    Esta clase se encarga orientar los eventos relacionados con la lista de productos involucrados en una transacción (bien sea venta o compra).
     
     RELACIONES:
 */
@@ -26,7 +26,10 @@ package co.edu.univalle.controlador;
 
 import co.edu.univalle.modelo.*;
 import co.edu.univalle.vista.*;
+import java.util.*;
+import java.math.*;
 import javax.swing.*;
+import java.text.*;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -56,20 +59,71 @@ public class ControladorListar {
         return encabezadoListaCompra;
     }
 
-    // public static boolean revisarFieldsProductos(VentanaInicio ventanaInicio){
+    public static boolean revisarFieldsProductoEnVenta(VentanaListar ventanaListados){
+        String stringIdProducto = ventanaListados.getId().getText();
+        try{
+            Integer.valueOf(stringIdProducto);
 
-    //     return true;
-    // }
+        } catch (NumberFormatException exception){
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un número de identificación de producto válido, sin puntos ni espacios, solo números.\nEjemplo: 1250", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
 
-    // public static Producto crearProducto(VentanaInicio ventanaInicio){
-        
-    //     return null;
-    // }
+        String stringCantidadProducto = ventanaListados.getCantidad().getText();
+        try{
+            Integer cantidadProducto = Integer.valueOf(stringCantidadProducto);
+            if(cantidadProducto <= 0)
+                throw new NumberFormatException();
 
-    // public static boolean revisarIDProducto(VentanaInicio ventanaInicio){
-        
-    //     return true;
-    // }
+        } catch (NumberFormatException exception){
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un número de productos válido. ¡Solo números enteros mayores a cero!\nEjemplo: 5", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean revisarFieldsProductoEnCompra(VentanaListar ventanaListados){
+        revisarFieldsProductoEnVenta(ventanaListados);
+
+        String stringCostoProducto = ventanaListados.getCosto().getText();
+        try{
+            BigDecimal costoProducto = BigDecimal.valueOf(Double.valueOf(stringCostoProducto));
+            if(costoProducto.compareTo(BigDecimal.ZERO) <= 0)
+                throw new NumberFormatException();
+
+        } catch (NumberFormatException exception){
+            JOptionPane.showMessageDialog(null,"Por favor ingrese un costo de compra válido. El costo debe escribirse sin puntos ni espacios, solo números mayores a cero.\nEjemplo: 35000 (treinta y cinco mil pesos)", "Advertencia", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
+    }
+
+    public static String calcularCostoVenta(Supermercado supermercado, HashMap<Integer, Integer> listaProductos){
+        BigDecimal valorFactura = BigDecimal.ZERO;
+        for(Map.Entry<Integer, Integer> pareja : listaProductos.entrySet()){
+            BigDecimal cantidad = BigDecimal.valueOf(Double.valueOf(pareja.getValue()));
+            valorFactura = valorFactura.add(supermercado.getProductos().getElemento(pareja.getKey()).getPrecioVenta().multiply(cantidad));
+        }
+        DecimalFormatSymbols puntoDecimal = new DecimalFormatSymbols();
+        puntoDecimal.setDecimalSeparator('.');
+        DecimalFormat formato = new DecimalFormat("###.00", puntoDecimal);
+        return String.valueOf(formato.format(valorFactura));
+    }
+
+    public static String calcularCostoCompra(Supermercado supermercado, HashMap<Integer, Integer> listaProductos, HashMap<Integer, BigDecimal> listaPrecios){
+        BigDecimal valorFactura = BigDecimal.ZERO;
+        for(Map.Entry<Integer, Integer> parejaCantidad : listaProductos.entrySet()){
+            BigDecimal cantidad = BigDecimal.valueOf(Double.valueOf(parejaCantidad.getValue()));
+            BigDecimal costo = listaPrecios.get(parejaCantidad.getKey());
+            valorFactura = valorFactura.add(costo.multiply(cantidad));
+        }
+        DecimalFormatSymbols puntoDecimal = new DecimalFormatSymbols();
+        puntoDecimal.setDecimalSeparator('.');
+        DecimalFormat formato = new DecimalFormat("###.00", puntoDecimal);
+        return String.valueOf(formato.format(valorFactura));
+    }
 
     public static void asignarTabla(DefaultTableModel modeloTabla, VentanaListar ventanaListar, String categoria) {
 

@@ -104,7 +104,9 @@ public class ControladorProveedores {
     public static boolean revisarIDProveedor(VentanaInicio ventanaInicio){
         String stringIdProveedor = ventanaInicio.getFieldIdProveedor().getText();
         try{
-            Integer.valueOf(stringIdProveedor);
+            Integer idProveedor = Integer.valueOf(stringIdProveedor);
+            if(idProveedor <= 0)
+                throw new NumberFormatException();
 
         } catch (NumberFormatException exception){
             JOptionPane.showMessageDialog(null,"Por favor ingrese un número de NIT válido, sin puntos ni espacios, solo números.\nEjemplo: 77581411", "Advertencia", JOptionPane.ERROR_MESSAGE);
