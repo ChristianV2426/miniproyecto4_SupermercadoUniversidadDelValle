@@ -119,7 +119,21 @@ public class ControladorVentanaInicio {
                 }
 
             } else if(tipoCategoria == "Compras (a proveedores)"){
+                String stringIdProveedor = ventanaInicio.getFieldNitProveedorCompra().getText();
+                Integer idProveedor;
+                try{
+                    idProveedor = Integer.valueOf(stringIdProveedor);
 
+                } catch (NumberFormatException exception){
+                    return;
+                }
+                if(supermercado.getProveedores().elementoPresente(idProveedor)){
+                    Proveedor proveedor = supermercado.getProveedores().getElemento(idProveedor);
+                    ventanaInicio.getFieldNombreProveedorCompra().setText(proveedor.getNombre());
+
+                } else {
+                    ventanaInicio.getFieldNombreProveedorCompra().setText("");
+                }
             }
         }
     }
