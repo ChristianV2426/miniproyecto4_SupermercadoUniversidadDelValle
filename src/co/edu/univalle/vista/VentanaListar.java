@@ -83,6 +83,8 @@ public class VentanaListar extends Ventana {
 
         panelPieDerecho.setVisible(false);
 
+        fieldNombre.setEditable(false);
+
         // Coloreados  
         contenedorCategoria.setBackground(new Color(41, 126, 255));
         panelInferiorIzquierdo.setBackground(Color.WHITE);
@@ -122,6 +124,10 @@ public class VentanaListar extends Ventana {
         }
 
         setVisible(true);
+    }
+
+    public void addFocusListener(FocusListener listenControles){
+        fieldNombre.addFocusListener(listenControles);
     }
 
     public void setTablaDatos(JTable tablaDatos){

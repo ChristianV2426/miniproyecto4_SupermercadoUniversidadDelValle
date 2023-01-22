@@ -87,7 +87,7 @@ public class ControladorVentanaInicio {
         this.ventanaInicio.addListener(new CalculateListener());
         this.ventanaInicio.addFocusListener(new CalculateFocus());
         ventanaListados.addListener(new CalculateListener());
-
+        ventanaListados.addFocusListener(new CalculateFocus());
         tipoCategoria = (String)ventanaInicio.getDropCategorias().getSelectedItem();
         pintarFormulario(tipoCategoria);
     }
@@ -100,7 +100,7 @@ public class ControladorVentanaInicio {
 
         @Override
         public void focusLost(FocusEvent e) {
-            if(tipoCategoria == "Ventas (a clientes)"){
+            if(tipoCategoria == "Ventas (a clientes)" && !ventanaListados.isActive()){
                 String stringIdCliente = ventanaInicio.getFieldCedulaClienteVenta().getText();
                 Integer idCliente;
                 try{
@@ -118,7 +118,7 @@ public class ControladorVentanaInicio {
                     ventanaInicio.getFieldNombresClienteVenta().setText("");
                 }
 
-            } else if(tipoCategoria == "Compras (a proveedores)"){
+            } else if(tipoCategoria == "Compras (a proveedores)" && !ventanaListados.isActive()){
                 String stringIdProveedor = ventanaInicio.getFieldNitProveedorCompra().getText();
                 Integer idProveedor;
                 try{
@@ -134,7 +134,24 @@ public class ControladorVentanaInicio {
                 } else {
                     ventanaInicio.getFieldNombreProveedorCompra().setText("");
                 }
-            }
+
+            } else if(ventanaListados.isActive()){
+                String stringIdProducto = ventanaListados.getId().getText();
+                Integer idProducto;
+                try{
+                    idProducto = Integer.valueOf(stringIdProducto);
+                } catch (NumberFormatException exception){
+                    return;
+                }
+                if(supermercado.getProductos().elementoPresente(idProducto)){
+                    Producto producto = supermercado.getProductos().getElemento(idProducto);
+                    ventanaListados.getNombre().setText(producto.getNombreProducto());
+
+                } else {
+                    ventanaListados.getNombre().setText("");
+                }
+
+            } 
         }
     }
 
@@ -145,7 +162,6 @@ public class ControladorVentanaInicio {
                 if(tipoCategoria == "Productos"){
                     if(ControladorProductos.revisarFieldsProductos(ventanaInicio)){
                         Producto nuevoProducto = ControladorProductos.crearProducto(ventanaInicio);
-                        nuevoProducto.setCantidadStock(10); /////////////////////////////////////////////////////
                         Integer idProducto = nuevoProducto.getIdentificacion();
                         String nombrePrdoucto = nuevoProducto.getNombreProducto();
                         if(supermercado.getProductos().añadir(nuevoProducto)){
@@ -350,6 +366,17 @@ public class ControladorVentanaInicio {
 
                 }
                 
+            } else if (evento.getActionCommand().equalsIgnoreCase("Editar") && ventanaListados.isActive()) {
+                if(tipoCategoria == "Ventas (a clientes)"){
+                    // if(ControladorListar.revisarFieldsProductoEnVenta(ventanaListados))
+
+
+                } else if(tipoCategoria == "Compras (a proveedores)"){
+
+
+
+                }
+
             } else if (evento.getActionCommand().equalsIgnoreCase("Eliminar") && !ventanaListados.isActive()){
                 if(tipoCategoria == "Productos"){
                     String stringIDProducto = ventanaInicio.getFieldIdProductos().getText();
@@ -417,6 +444,18 @@ public class ControladorVentanaInicio {
 
                 }
                 
+            } else if (evento.getActionCommand().equalsIgnoreCase("Eliminar") && ventanaListados.isActive()){
+                if(tipoCategoria == "Ventas (a clientes)"){
+
+
+
+                } else if(tipoCategoria == "Compras (a proveedores)"){
+
+
+
+                }
+
+
             } else if (evento.getActionCommand().equalsIgnoreCase("Exportar")){
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);

@@ -42,12 +42,14 @@ public class ControladorListar {
         if(categoria == "Ventas (a clientes)"){
             ventanaListar.getId().setText("");
             ventanaListar.getCantidad().setText("");
+            ventanaListar.getNombre().setText("");
 
 
         } else if(categoria == "Compras (a proveedores)"){
             ventanaListar.getId().setText("");
             ventanaListar.getCantidad().setText("");
             ventanaListar.getCosto().setText("");
+            ventanaListar.getNombre().setText("");
         }
     }
 
