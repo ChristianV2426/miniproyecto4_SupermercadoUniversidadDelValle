@@ -27,6 +27,7 @@
 
 package co.edu.univalle.controlador;
 
+import co.edu.univalle.dao.Arreglo;
 import co.edu.univalle.modelo.*;
 import co.edu.univalle.vista.*;
 import java.awt.event.*;
@@ -95,14 +96,28 @@ public class ControladorVentanaInicio {
 
         @Override
         public void focusGained(FocusEvent e) {
-            // TODO Auto-generated method stub
-            
         }
 
         @Override
         public void focusLost(FocusEvent e) {
             if(tipoCategoria == "Ventas (a clientes)"){
-                ventanaInicio.getFieldNombresClienteVenta().setText("rutaArchivoBinario");
+                String stringIdCliente = ventanaInicio.getFieldCedulaClienteVenta().getText();
+                Integer idCliente;
+                try{
+                    idCliente = Integer.valueOf(stringIdCliente);
+
+                } catch (NumberFormatException exception){
+                    return;
+                }
+
+                if(supermercado.getClientes().elementoPresente(idCliente)){
+                    Cliente cliente = supermercado.getClientes().getElemento(idCliente);
+                    ventanaInicio.getFieldNombresClienteVenta().setText(cliente.getNombre());
+
+                } else {
+                    ventanaInicio.getFieldNombresClienteVenta().setText("");
+                }
+
             } else if(tipoCategoria == "Compras (a proveedores)"){
 
             }
@@ -219,7 +234,7 @@ public class ControladorVentanaInicio {
                                     listaProductosVenta.put(idProducto, cantidadProducto);
                                     ventanaInicio.getFieldCostoVenta().setText(ControladorListar.calcularCostoVenta(supermercado, listaProductosVenta));
                                     JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + " " + producto.getNombreProducto() + " agregado correctamente a la lista de productos!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
-                                    ////////////////////////////////////////////////////////////////////////// Actualizar tabla en ventana listar
+                                    pintarListado(tipoCategoria);
 
                                 } else {
                                     JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + producto.getNombreProducto() + " ya fue agregado a la lista de productos de la venta.\nSi desea cambiar la cantidad del producto en la transacción, debe hacerlo con el botón editar.", "Advertencia", JOptionPane.ERROR_MESSAGE);
@@ -246,7 +261,7 @@ public class ControladorVentanaInicio {
                                 listaPreciosCompra.put(idProducto, costoProducto);
                                 ventanaInicio.getFieldCostoCompra().setText(ControladorListar.calcularCostoCompra(supermercado, listaProductosCompra, listaPreciosCompra));
                                 JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + " " + producto.getNombreProducto() + " agregado correctamente a la lista de productos!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
-                                ////////////////////////////////////////////////////////////////////////// Actualizar tabla en ventana listar
+                                pintarListado(tipoCategoria);
 
                             } else {
                                 JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + producto.getNombreProducto() + " ya fue agregado a la lista de productos de la compra.\nSi desea cambiar la cantidad del producto en la transacción, debe hacerlo con el botón editar.", "Advertencia", JOptionPane.ERROR_MESSAGE);
@@ -272,7 +287,7 @@ public class ControladorVentanaInicio {
                         String nombrePrdoucto = nuevoProducto.getNombreProducto();
                         if(supermercado.getProductos().elementoPresente(idProducto) && supermercado.getProductos().actualizar(idProducto, nuevoProducto)){
                             JOptionPane.showMessageDialog(null,"¡Datos del producto " + idProducto + " " + nombrePrdoucto + " actualizados correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
-                            limpiarFormulario(tipoCategoria);
+                            pintarFormulario(tipoCategoria);
 
                         } else {
                             JOptionPane.showMessageDialog(null,"El producto " + idProducto + " " + nombrePrdoucto + " no se encuentra registrado en el sistema, primero debe registrarlo.", "Advertencia", JOptionPane.ERROR_MESSAGE);
@@ -286,7 +301,7 @@ public class ControladorVentanaInicio {
                         String nombreCliente = nuevoCliente.getNombre();
                         if(supermercado.getClientes().elementoPresente(idCliente) && supermercado.getClientes().actualizar(idCliente, nuevoCliente)){
                             JOptionPane.showMessageDialog(null,"¡Datos del cliente " + idCliente + " " + nombreCliente + " actualizados correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
-                            limpiarFormulario(tipoCategoria);
+                            pintarFormulario(tipoCategoria);
 
                         } else {
                             JOptionPane.showMessageDialog(null,"El cliente " + idCliente + " " + nombreCliente + " no se encuentra registrado en el sistema, primero debe registrarlo.", "Advertencia", JOptionPane.ERROR_MESSAGE);
@@ -300,7 +315,7 @@ public class ControladorVentanaInicio {
                         String nombreProveedor = nuevoProveedor.getNombre();
                         if(supermercado.getProveedores().elementoPresente(idProveedor) && supermercado.getProveedores().actualizar(idProveedor, nuevoProveedor)){
                             JOptionPane.showMessageDialog(null,"¡Datos del proveedor " + idProveedor + " " + nombreProveedor + " actualizados correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
-                            limpiarFormulario(tipoCategoria);
+                            pintarFormulario(tipoCategoria);
 
                         } else {
                             JOptionPane.showMessageDialog(null,"El proveedor " + idProveedor + " " + nombreProveedor + " no se encuentra registrado en el sistema, primero debe registrarlo.", "Advertencia", JOptionPane.ERROR_MESSAGE);
@@ -320,7 +335,6 @@ public class ControladorVentanaInicio {
                     }
 
                 }
-                pintarFormulario(tipoCategoria);
                 
             } else if (evento.getActionCommand().equalsIgnoreCase("Eliminar") && !ventanaListados.isActive()){
                 if(tipoCategoria == "Productos"){
@@ -329,9 +343,10 @@ public class ControladorVentanaInicio {
                     if(supermercado.getProductos().elementoPresente(idProducto)){
                         String nombreProducto = supermercado.getProductos().getElemento(idProducto).getNombreProducto();
                         int continuar = JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar el producto " + idProducto + " " + nombreProducto + "? \nEsta acción no se puede deshacer.", "¿Desea proceder con la eliminación?", JOptionPane.YES_NO_OPTION);
-                        if(continuar == JOptionPane.YES_OPTION && supermercado.getProductos().eliminar(idProducto))
+                        if(continuar == JOptionPane.YES_OPTION && supermercado.getProductos().eliminar(idProducto)){
                             JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + " " + nombreProducto + " fue eliminado correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
-                            limpiarFormulario(tipoCategoria);
+                            pintarFormulario(tipoCategoria);
+                        }
 
                     } else {
                         JOptionPane.showMessageDialog(null,"El producto " + idProducto + " no se encuentra registrado en el sistema, no puede eliminarla.", "Advertencia", JOptionPane.ERROR_MESSAGE);
@@ -347,7 +362,7 @@ public class ControladorVentanaInicio {
                                 int continuar = JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar al cliente " + idCliente + "? \nEsta acción no se puede deshacer.", "¿Desea proceder con la eliminación?", JOptionPane.YES_NO_OPTION);
                                 if(continuar == JOptionPane.YES_OPTION && supermercado.getClientes().eliminar(idCliente)){
                                     JOptionPane.showMessageDialog(null,"¡El cliente " + idCliente + " fue eliminado correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
-                                    limpiarFormulario(tipoCategoria);
+                                    pintarFormulario(tipoCategoria);
                                 }
                                          
                             } else {
@@ -369,7 +384,7 @@ public class ControladorVentanaInicio {
                                 int continuar = JOptionPane.showConfirmDialog(null, "¿Realmente desea eliminar al proveedor " + idProveedor + "? \nEsta acción no se puede deshacer.", "¿Desea proceder con la eliminación?", JOptionPane.YES_NO_OPTION);
                                 if(continuar == JOptionPane.YES_OPTION && supermercado.getProveedores().eliminar(idProveedor)){
                                     JOptionPane.showMessageDialog(null,"¡El proveedor " + idProveedor + " fue eliminado correctamente!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
-                                    limpiarFormulario(tipoCategoria);
+                                    pintarFormulario(tipoCategoria);
                                 }
                                             
                             } else {
@@ -387,7 +402,6 @@ public class ControladorVentanaInicio {
                 } else if (tipoCategoria == "Compras (a proveedores)"){
 
                 }
-                pintarFormulario(tipoCategoria);
                 
             } else if (evento.getActionCommand().equalsIgnoreCase("Exportar")){
                 JFileChooser fileChooser = new JFileChooser();
@@ -444,20 +458,15 @@ public class ControladorVentanaInicio {
 
         
         if(tipoCategoria == "Ventas (a clientes)"){
-            // String[][] datosProductos = supermercado.getProductos().getListables();
-            String[][] datosListadoVeentas = {{"1","20"}}; // Datos de prueba
+            String[][] datosListadosVentas = Arreglo.getArregloProductosVenta(supermercado, listaProductosVenta);
             // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            tablaDatos = new JTable(ControladorVentanaInicio.asignarModelo(datosListadoVeentas, ControladorListar.getEncabezadoListaVenta()));
-            // ControladorProductos.pintar(ventanaInicio);
+            tablaDatos = new JTable(ControladorVentanaInicio.asignarModelo(datosListadosVentas, ControladorListar.getEncabezadoListaVenta()));
 
 
         } else if (tipoCategoria == "Compras (a proveedores)") {
-            // String[][] datosClientes = supermercado.getClientes().getListables();
-            String[][] datosListadoCompras = {{"2","30","5000"}}; // Datos de prueba
+            String[][] datosListadoCompras = Arreglo.getArregloProductosCompra(supermercado, listaProductosCompra, listaPreciosCompra);
             tablaDatos = new JTable(asignarModelo(datosListadoCompras, ControladorListar.getEncabezadoListaCompra()));
             // ControladorClientes.pintar(ventanaInicio);
-            // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
         }
 
         ventanaListados.setTablaDatos(tablaDatos);
@@ -528,7 +537,7 @@ public class ControladorVentanaInicio {
             ventanaInicio.setPane(pane);
             
             ControladorVentas.pintar(ventanaInicio, serialVenta);
-            ventanaInicio.getContenedorTexto()[2].add(labelFormatoFecha);
+            ventanaInicio.getContenedorTexto()[3].add(labelFormatoFecha);
 
 
         } else if (tipoCategoria == "Compras (a proveedores)") {
@@ -541,7 +550,7 @@ public class ControladorVentanaInicio {
             ventanaInicio.setPane(pane);
 
             ControladorCompras.pintar(ventanaInicio, serialCompra);
-            ventanaInicio.getContenedorTexto()[2].add(labelFormatoFecha);
+            ventanaInicio.getContenedorTexto()[3].add(labelFormatoFecha);
         } 
         
         // Se actualiza la tabla:
@@ -565,18 +574,17 @@ public class ControladorVentanaInicio {
                 ControladorProveedores.asignarTabla(modeloTabla, ventanaInicio);
 
             } else if (tipoCategoria == "Ventas (a clientes)" && !ventanaListados.isActive()) {
+                ControladorVentas.asignarTabla(modeloTabla, ventanaInicio);
                 String stringIdVenta = ventanaInicio.getFieldIdVenta().getText();
                 Integer idVenta = Integer.valueOf(stringIdVenta);
                 listaProductosVenta = supermercado.getVentas().getElemento(idVenta).getListaProductos();
-                listaPreciosCompra = new HashMap<>();
-                ControladorVentas.asignarTabla(modeloTabla, ventanaInicio);
 
             } else if (tipoCategoria == "Compras (a proveedores)" && !ventanaListados.isActive()) {
+                ControladorCompras.asignarTabla(modeloTabla, ventanaInicio);
                 String stringIdCompra = ventanaInicio.getFieldIdCompra().getText();
                 Integer idCompra = Integer.valueOf(stringIdCompra);
                 listaProductosCompra = supermercado.getCompras().getElemento(idCompra).getListaProductos();
                 listaPreciosCompra = supermercado.getCompras().getElemento(idCompra).getListaPrecios();
-                ControladorCompras.asignarTabla(modeloTabla, ventanaInicio);
 
             } else if ((tipoCategoria == "Ventas (a clientes)" && ventanaListados.isActive()) || (tipoCategoria == "Compras (a proveedores)" && ventanaListados.isActive())) {
                 ControladorListar.asignarTabla(modeloTablaListado, ventanaListados, tipoCategoria);

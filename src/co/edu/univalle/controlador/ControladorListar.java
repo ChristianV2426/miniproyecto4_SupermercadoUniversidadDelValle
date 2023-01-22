@@ -34,8 +34,8 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class ControladorListar {
-    private static String encabezadoListaVenta[] = {"ID del producto", "Cantidad"};
-    private static String encabezadoListaCompra[] = {"ID del producto", "Cantidad", "Costo"};
+    private static String encabezadoListaVenta[] = {"ID del producto", "Nombre del producto", "Cantidad"};
+    private static String encabezadoListaCompra[] = {"ID del producto", "Nombre del producto", "Cantidad", "Costo"};
     
     public static void limpiar(VentanaListar ventanaListar, String categoria) {
 
@@ -84,7 +84,8 @@ public class ControladorListar {
     }
 
     public static boolean revisarFieldsProductoEnCompra(VentanaListar ventanaListados){
-        revisarFieldsProductoEnVenta(ventanaListados);
+        if(!revisarFieldsProductoEnVenta(ventanaListados))
+            return false;
 
         String stringCostoProducto = ventanaListados.getCosto().getText();
         try{
