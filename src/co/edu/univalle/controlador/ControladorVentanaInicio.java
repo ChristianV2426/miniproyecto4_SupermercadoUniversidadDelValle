@@ -266,7 +266,7 @@ public class ControladorVentanaInicio {
                                     pintarListado(tipoCategoria);
 
                                 } else {
-                                    JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + producto.getNombreProducto() + " ya fue agregado a la lista de productos de la venta.\nSi desea modificar una transacción, primero debe eliminarla y después volver a crearla correctamente.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                                    JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + " " + producto.getNombreProducto() + " ya fue agregado a la lista de productos de la venta.\nSi desea modificar una transacción, primero debe eliminarla y después volver a crearla correctamente.", "Advertencia", JOptionPane.ERROR_MESSAGE);
                                 }
 
                             } else {
@@ -293,7 +293,7 @@ public class ControladorVentanaInicio {
                                 pintarListado(tipoCategoria);
 
                             } else {
-                                JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + producto.getNombreProducto() + " ya fue agregado a la lista de productos de la compra.\nSi desea modificar una transacción, primero debe eliminarla y después volver a crearla correctamente.", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + " " + producto.getNombreProducto() + " ya fue agregado a la lista de productos de la compra.\nSi desea modificar una transacción, primero debe eliminarla y después volver a crearla correctamente.", "Advertencia", JOptionPane.ERROR_MESSAGE);
                             }
 
                         } else {
@@ -489,14 +489,17 @@ public class ControladorVentanaInicio {
                     Producto producto = supermercado.getProductos().getElemento(idProducto);
                     if(!listaProductosCompra.containsKey(idProducto)){
                         JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + " " + producto.getNombreProducto() + " no se encuentra en la lista de productos agregados, no lo puede eliminar.\nEn la tabla de la derecha puede observar los productos agregados hasta el momento.", "Advertencia", JOptionPane.ERROR_MESSAGE);
-                    return ;
+                        return ;
                     }
 
                     listaProductosCompra.remove(idProducto);
+                    listaPreciosCompra.remove(idProducto);
                     ventanaInicio.getFieldCostoCompra().setText(ControladorListar.calcularCostoCompra(supermercado, listaProductosCompra, listaPreciosCompra));
                     JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + " " + producto.getNombreProducto() + " fue eliminado de la lista de productos!", "Operación realizada con éxito", JOptionPane.INFORMATION_MESSAGE);
                     pintarListado(tipoCategoria);
                 }
+
+                limpiarFormulario(tipoCategoria);
 
 
             } else if (evento.getActionCommand().equalsIgnoreCase("Exportar")){
