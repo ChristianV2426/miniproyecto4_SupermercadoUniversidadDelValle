@@ -84,10 +84,29 @@ public class ControladorVentanaInicio {
         // Mostrar Pantalla Inicial.
         ventanaInicio.setVisible(true);
         this.ventanaInicio.addListener(new CalculateListener());
+        this.ventanaInicio.addFocusListener(new CalculateFocus());
         ventanaListados.addListener(new CalculateListener());
 
         tipoCategoria = (String)ventanaInicio.getDropCategorias().getSelectedItem();
         pintarFormulario(tipoCategoria);
+    }
+
+    class CalculateFocus implements FocusListener{
+
+        @Override
+        public void focusGained(FocusEvent e) {
+            // TODO Auto-generated method stub
+            
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            if(tipoCategoria == "Ventas (a clientes)"){
+                ventanaInicio.getFieldNombresClienteVenta().setText("rutaArchivoBinario");
+            } else if(tipoCategoria == "Compras (a proveedores)"){
+
+            }
+        }
     }
 
     class CalculateListener implements ActionListener{
@@ -392,37 +411,8 @@ public class ControladorVentanaInicio {
 
 
             } else if (evento.getActionCommand().equalsIgnoreCase("Listar")){
-                ControladorListar.limpiar(ventanaListados, tipoCategoria);
-
-                tablaDatos = ventanaListados.getTablaDatos();
-                pane = ventanaListados.getPane();
-                pane.removeAll();
-                tablaDatos.removeAll();
-
-                
-                if(tipoCategoria == "Ventas (a clientes)"){
-                    // String[][] datosProductos = supermercado.getProductos().getListables();
-                    String[][] datosListadoVeentas = {{"1","20"}}; // Datos de prueba
-                    // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-                    tablaDatos = new JTable(ControladorVentanaInicio.asignarModelo(datosListadoVeentas, ControladorListar.getEncabezadoListaVenta()));
-                    // ControladorProductos.pintar(ventanaInicio);
-        
-        
-                } else if (tipoCategoria == "Compras (a proveedores)") {
-                    // String[][] datosClientes = supermercado.getClientes().getListables();
-                    String[][] datosListadoCompras = {{"2","30","5000"}}; // Datos de prueba
-                    tablaDatos = new JTable(asignarModelo(datosListadoCompras, ControladorListar.getEncabezadoListaCompra()));
-                    // ControladorClientes.pintar(ventanaInicio);
-                    // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        
-                }
-
-                tablaDatos.addMouseListener(new CalculateMouseListener());
-                ventanaListados.setTablaDatos(tablaDatos);
-                pane = new JScrollPane(ventanaListados.getTablaDatos());
-                ventanaListados.setPane(pane);
-                ventanaListados.mostrarListado(tipoCategoria); // Correspondiente a pintar
-            } 
+                pintarListado(tipoCategoria);
+            }
         }
     }
 
@@ -444,6 +434,40 @@ public class ControladorVentanaInicio {
         } 
     }
 
+    public void pintarListado(String tipoCategoria){
+        ControladorListar.limpiar(ventanaListados, tipoCategoria);
+
+        tablaDatos = ventanaListados.getTablaDatos();
+        pane = ventanaListados.getPane();
+        pane.removeAll();
+        tablaDatos.removeAll();
+
+        
+        if(tipoCategoria == "Ventas (a clientes)"){
+            // String[][] datosProductos = supermercado.getProductos().getListables();
+            String[][] datosListadoVeentas = {{"1","20"}}; // Datos de prueba
+            // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            tablaDatos = new JTable(ControladorVentanaInicio.asignarModelo(datosListadoVeentas, ControladorListar.getEncabezadoListaVenta()));
+            // ControladorProductos.pintar(ventanaInicio);
+
+
+        } else if (tipoCategoria == "Compras (a proveedores)") {
+            // String[][] datosClientes = supermercado.getClientes().getListables();
+            String[][] datosListadoCompras = {{"2","30","5000"}}; // Datos de prueba
+            tablaDatos = new JTable(asignarModelo(datosListadoCompras, ControladorListar.getEncabezadoListaCompra()));
+            // ControladorClientes.pintar(ventanaInicio);
+            // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+        }
+
+        ventanaListados.setTablaDatos(tablaDatos);
+        pane = new JScrollPane(ventanaListados.getTablaDatos());
+        ventanaListados.setPane(pane);
+
+        tablaDatos.addMouseListener(new CalculateMouseListener());
+        ventanaListados.mostrarListado(tipoCategoria); // Correspondiente a pintar
+    }
+
     public void pintarFormulario(String tipoCategoria){
         tablaDatos = ventanaInicio.getTablaDatos();
         pane = ventanaInicio.getPane();
@@ -461,15 +485,25 @@ public class ControladorVentanaInicio {
         tablaDatos.removeAll();
         
         if(tipoCategoria == "Productos"){
+
             String[][] datosProductos = supermercado.getProductos().getListables();
             // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             tablaDatos = new JTable(ControladorVentanaInicio.asignarModelo(datosProductos, ControladorProductos.getEncabezadoProductos()));
+            
+            ventanaInicio.setTablaDatos(tablaDatos);
+            pane = new JScrollPane(ventanaInicio.getTablaDatos());
+            ventanaInicio.setPane(pane);
+            
             ControladorProductos.pintar(ventanaInicio, serialProducto);
-
 
         } else if (tipoCategoria == "Clientes") {
             String[][] datosClientes = supermercado.getClientes().getListables();
             tablaDatos = new JTable(asignarModelo(datosClientes, ControladorClientes.getEncabezadoClientes()));
+            
+            ventanaInicio.setTablaDatos(tablaDatos);
+            pane = new JScrollPane(ventanaInicio.getTablaDatos());
+            ventanaInicio.setPane(pane);
+            
             ControladorClientes.pintar(ventanaInicio);
             // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
@@ -477,30 +511,41 @@ public class ControladorVentanaInicio {
             String[][] datosProveedores = supermercado.getProveedores().getListables();
             tablaDatos = new JTable(asignarModelo(datosProveedores, ControladorProveedores.getEncabezadoProveedores()));
             // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            
+            ventanaInicio.setTablaDatos(tablaDatos);
+            pane = new JScrollPane(ventanaInicio.getTablaDatos());
+            ventanaInicio.setPane(pane);
+            
             ControladorProveedores.pintar(ventanaInicio);
 
         } else if (tipoCategoria == "Ventas (a clientes)") {
             String[][] datosVentas = supermercado.getVentas().getListables();
             tablaDatos = new JTable(asignarModelo(datosVentas, ControladorVentas.getEncabezadoVenta()));
             tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            
+            ventanaInicio.setTablaDatos(tablaDatos);
+            pane = new JScrollPane(ventanaInicio.getTablaDatos());
+            ventanaInicio.setPane(pane);
+            
             ControladorVentas.pintar(ventanaInicio, serialVenta);
-            ventanaInicio.getContenedorTexto()[1].add(labelFormatoFecha);
+            ventanaInicio.getContenedorTexto()[2].add(labelFormatoFecha);
 
 
         } else if (tipoCategoria == "Compras (a proveedores)") {
             String[][] datosCompras = supermercado.getCompras().getListables();
             tablaDatos = new JTable(asignarModelo(datosCompras, ControladorCompras.getEncabezadoCompra()));
             tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            ControladorCompras.pintar(ventanaInicio, serialCompra);
-            ventanaInicio.getContenedorTexto()[1].add(labelFormatoFecha);
             
+            ventanaInicio.setTablaDatos(tablaDatos);
+            pane = new JScrollPane(ventanaInicio.getTablaDatos());
+            ventanaInicio.setPane(pane);
+
+            ControladorCompras.pintar(ventanaInicio, serialCompra);
+            ventanaInicio.getContenedorTexto()[2].add(labelFormatoFecha);
         } 
         
         // Se actualiza la tabla:
         tablaDatos.addMouseListener(new CalculateMouseListener());
-        ventanaInicio.setTablaDatos(tablaDatos);
-        pane = new JScrollPane(ventanaInicio.getTablaDatos());
-        ventanaInicio.setPane(pane);
     }
 
     // Asigna los valores de la tabla a los respectivos fields.

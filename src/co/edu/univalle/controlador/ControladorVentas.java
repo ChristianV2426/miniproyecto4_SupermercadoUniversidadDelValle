@@ -44,12 +44,12 @@ public class ControladorVentas {
         ventanaInicio.getContenedorTexto()[0].add(ventanaInicio.getFieldIdVenta());
         ventanaInicio.getFieldIdVenta().setText(String.valueOf(serialVenta));
 
-        ventanaInicio.getLabelTexto()[1].setText(labelVenta[1]);
-        ventanaInicio.getContenedorTexto()[1].add(ventanaInicio.getFieldFechaVenta());
+        ventanaInicio.getLabelTexto()[2].setText(labelVenta[1]);
+        ventanaInicio.getContenedorTexto()[2].add(ventanaInicio.getFieldFechaVenta());
         ventanaInicio.getFieldFechaVenta().setText(String.valueOf(LocalDate.now()));
         
-        ventanaInicio.getLabelTexto()[2].setText(labelVenta[2]);
-        ventanaInicio.getContenedorTexto()[2].add(ventanaInicio.getFieldCedulaClienteVenta());
+        ventanaInicio.getLabelTexto()[1].setText(labelVenta[2]);
+        ventanaInicio.getContenedorTexto()[1].add(ventanaInicio.getFieldCedulaClienteVenta());
 
         ventanaInicio.getLabelTexto()[3].setText(labelVenta[3]);
         ventanaInicio.getContenedorTexto()[3].add(ventanaInicio.getFieldNombresClienteVenta());
