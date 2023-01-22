@@ -38,7 +38,7 @@ public class VentanaListar extends Ventana {
     private JPanel contenedorCategoria = new JPanel();
     
     // Labels:
-    private JLabel[] labelTexto = {new JLabel("Id "), new JLabel("Cantidad "), new JLabel(""), new JLabel(""), new JLabel(""),new JLabel(""),new JLabel(""),new JLabel(""),new JLabel(""),new JLabel(""),new JLabel(""),new JLabel(""),new JLabel(""),new JLabel(""),new JLabel("")};
+    private JLabel[] labelTexto = {new JLabel(""), new JLabel(""), new JLabel(""), new JLabel(""), new JLabel(""),new JLabel(""),new JLabel(""),new JLabel(""),new JLabel(""),new JLabel(""),new JLabel(""),new JLabel(""),new JLabel(""),new JLabel(""),new JLabel("")};
     private JPanel[] contenedorTexto = {new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel(),new JPanel()};
 
     private JPanel panelInferiorIzquierdo = new JPanel();
@@ -52,6 +52,7 @@ public class VentanaListar extends Ventana {
 
     // Productos:
     private JTextField fieldId = new JTextField(4);
+    private JTextField fieldNombre = new JTextField(12);
     private JTextField fieldCantidad = new JTextField(6);
     private JTextField fieldCosto = new JTextField(6);
     
@@ -105,15 +106,19 @@ public class VentanaListar extends Ventana {
     }
 
     public void mostrarListado(String categoria){
+        labelTexto[0].setText("Id ");
         contenedorTexto[0].add(fieldId);
-        contenedorTexto[1].add(fieldCantidad);
+        labelTexto[1].setText("Nombre ");
+        contenedorTexto[1].add(fieldNombre);
+        labelTexto[2].setText("Cantidad ");
+        contenedorTexto[2].add(fieldCantidad);
         if(categoria == "Ventas (a clientes)"){
             setTitle("Supermercado Universidad del Valle - Listado de productos vendidos");
 
         } else if(categoria == "Compras (a proveedores)"){
             setTitle("Supermercado Universidad del Valle - Listado de productos comprados");
-            labelTexto[2].setText("Costo ");
-            contenedorTexto[2].add(fieldCosto);
+            labelTexto[3].setText("Costo ");
+            contenedorTexto[3].add(fieldCosto);
         }
 
         setVisible(true);
@@ -125,6 +130,10 @@ public class VentanaListar extends Ventana {
     
     public JTextField getId(){
         return fieldId;
+    }
+
+    public JTextField getNombre(){
+        return fieldNombre;
     }
 
     public JTextField getCosto(){
@@ -148,4 +157,15 @@ public class VentanaListar extends Ventana {
         panelInferiorDerecho.add(pane);
     }
 
+    public JPanel[] getContenedorTexto(){
+        return contenedorTexto;
+    }  
+
+    public JLabel[] getLabelTexto(){
+        return labelTexto;
+    }
+
+    public JPanel getPanelInferior(){
+        return panelInferiorDerecho;
+    }
 }

@@ -28,9 +28,8 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import co.edu.univalle.controlador.*;
  
- public class VentanaInicio extends Ventana{
+public class VentanaInicio extends Ventana{
     // Atributos:
     private JTable tablaDatos = new JTable(); // Se pasa (datos, encabezados).
     // private JTableHeader encabezadoTabla = tablaDatos.getTableHeader();
@@ -57,7 +56,7 @@ import co.edu.univalle.controlador.*;
     private JButton botonLimpiar = new JButton("Limpiar");
     private JButton botonEditar = new JButton("Editar");
     private JButton botonEliminar = new JButton("Eliminar");
-    private JButton botonExportar = new JButton("Exportar");
+    private JButton botonExportar = new JButton("Exportar"); 
 
     // Productos:
     private JTextField fieldIdProductos = new JTextField(6);

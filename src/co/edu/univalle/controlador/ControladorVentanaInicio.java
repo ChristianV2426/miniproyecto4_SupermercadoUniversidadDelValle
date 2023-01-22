@@ -450,18 +450,25 @@ public class ControladorVentanaInicio {
 
     public void pintarListado(String tipoCategoria){
         ControladorListar.limpiar(ventanaListados, tipoCategoria);
-
         tablaDatos = ventanaListados.getTablaDatos();
         pane = ventanaListados.getPane();
+        
+        for(int limpiador = 0; limpiador < 15; limpiador++){
+            ventanaListados.getContenedorTexto()[limpiador].removeAll();
+            ventanaListados.getLabelTexto()[limpiador].setText("");
+            ventanaListados.getContenedorTexto()[limpiador].add(ventanaListados.getLabelTexto()[limpiador]);
+        }
+
+        ventanaListados.getPanelInferior().removeAll();
+        ventanaListados.getPanelInferior().removeAll();
+
         pane.removeAll();
         tablaDatos.removeAll();
 
-        
         if(tipoCategoria == "Ventas (a clientes)"){
             String[][] datosListadosVentas = Arreglo.getArregloProductosVenta(supermercado, listaProductosVenta);
             // tablaDatos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             tablaDatos = new JTable(ControladorVentanaInicio.asignarModelo(datosListadosVentas, ControladorListar.getEncabezadoListaVenta()));
-
 
         } else if (tipoCategoria == "Compras (a proveedores)") {
             String[][] datosListadoCompras = Arreglo.getArregloProductosCompra(supermercado, listaProductosCompra, listaPreciosCompra);

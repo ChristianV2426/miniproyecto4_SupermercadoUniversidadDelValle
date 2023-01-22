@@ -130,17 +130,21 @@ public class ControladorListar {
 
         if(categoria == "Ventas (a clientes)"){
             String tablaIdVentasListado = modeloTabla.getValueAt(ventanaListar.getTablaDatos().getSelectedRow(), 0).toString();
-            String tablaCantidadListado = modeloTabla.getValueAt(ventanaListar.getTablaDatos().getSelectedRow(), 1).toString();
+            String tablaNombreListado = modeloTabla.getValueAt(ventanaListar.getTablaDatos().getSelectedRow(), 1).toString();
+            String tablaCantidadListado = modeloTabla.getValueAt(ventanaListar.getTablaDatos().getSelectedRow(), 2).toString();
 
             ventanaListar.getId().setText(tablaIdVentasListado);
+            ventanaListar.getNombre().setText(tablaNombreListado);
             ventanaListar.getCantidad().setText(tablaCantidadListado);
-
+            
         } else if(categoria == "Compras (a proveedores)"){
             String tablaIdVentasListado = modeloTabla.getValueAt(ventanaListar.getTablaDatos().getSelectedRow(), 0).toString();
-            String tablaCantidadListado = modeloTabla.getValueAt(ventanaListar.getTablaDatos().getSelectedRow(), 1).toString();
-            String tablaCostoListado = modeloTabla.getValueAt(ventanaListar.getTablaDatos().getSelectedRow(), 2).toString();
+            String tablaNombreListado = modeloTabla.getValueAt(ventanaListar.getTablaDatos().getSelectedRow(), 1).toString();
+            String tablaCantidadListado = modeloTabla.getValueAt(ventanaListar.getTablaDatos().getSelectedRow(), 2).toString();
+            String tablaCostoListado = modeloTabla.getValueAt(ventanaListar.getTablaDatos().getSelectedRow(), 3).toString();
 
             ventanaListar.getId().setText(tablaIdVentasListado);
+            ventanaListar.getNombre().setText(tablaNombreListado);
             ventanaListar.getCantidad().setText(tablaCantidadListado);
             ventanaListar.getCosto().setText(tablaCostoListado);
         }
