@@ -27,7 +27,7 @@
 
 package co.edu.univalle.controlador;
 
-import co.edu.univalle.dao.Arreglo;
+import co.edu.univalle.dao.*;
 import co.edu.univalle.modelo.*;
 import co.edu.univalle.vista.*;
 import java.awt.event.*;
@@ -241,7 +241,7 @@ public class ControladorVentanaInicio {
                                 }
 
                             } else {
-                                JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + producto.getNombreProducto() + " No tiene Stock suficiente!\nStock actual: " + producto.getCantidadStock() + ".\nCantidad ingresada: " + cantidadProducto + ".", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                                JOptionPane.showMessageDialog(null,"¡El producto " + idProducto + " " + producto.getNombreProducto() + " No tiene Stock suficiente!\nStock actual: " + producto.getCantidadStock() + ".\nCantidad ingresada: " + cantidadProducto + ".", "Advertencia", JOptionPane.ERROR_MESSAGE);
                             }
 
                         } else {
@@ -442,9 +442,12 @@ public class ControladorVentanaInicio {
 
         } else if (tipoCategoria == "Ventas (a clientes)") {
             ControladorVentas.limpiar(ventanaInicio, serialVenta);
+            listaProductosVenta = new HashMap<>();
 
         } else if (tipoCategoria == "Compras (a proveedores)") {
             ControladorCompras.limpiar(ventanaInicio, serialCompra);
+            listaProductosCompra = new HashMap<>();
+            listaPreciosCompra = new HashMap<>();
         } 
     }
 
