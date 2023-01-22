@@ -47,7 +47,6 @@ public class VentanaListar extends Ventana {
     private JPanel panelPieDerecho = new JPanel();
     private JButton botonAgregar = new JButton("Agregar");
     private JButton botonLimpiar = new JButton("Limpiar");
-    // private JButton botonEditar = new JButton("Editar");
     private JButton botonEliminar = new JButton("Eliminar");
 
     // Productos:
@@ -77,9 +76,7 @@ public class VentanaListar extends Ventana {
 
         panelPieIzquierdo.add(botonAgregar);
         panelPieIzquierdo.add(botonLimpiar);
-        // panelPieIzquierdo.add(botonEditar);
         panelPieIzquierdo.add(botonEliminar);
-        // panelPieIzquierdo.add(botonEditar);
 
         panelPieDerecho.setVisible(false);
 
@@ -103,7 +100,6 @@ public class VentanaListar extends Ventana {
     public void addListener(ActionListener listenControles){
         botonAgregar.addActionListener(listenControles);
         botonLimpiar.addActionListener(listenControles);
-        // botonEditar.addActionListener(listenControles);
         botonEliminar.addActionListener(listenControles);
     }
 

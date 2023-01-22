@@ -38,7 +38,6 @@ import javax.swing.table.*;
 import java.util.*;
 import java.awt.*;
 
-
 public class ControladorVentanaInicio {
     // Atributos:
     private VentanaListar ventanaListados = new VentanaListar(); 

@@ -24,15 +24,14 @@
 
 package co.edu.univalle.controlador;
 
-import javax.swing.table.DefaultTableModel;
-
+import javax.swing.table.*;
 import co.edu.univalle.modelo.*;
 import co.edu.univalle.vista.*;
 import javax.swing.*;
 import java.math.*;
 import java.time.*;
 import java.util.*;
-import java.time.format.DateTimeParseException;
+import java.time.format.*;
 
 public class ControladorVentas {
     

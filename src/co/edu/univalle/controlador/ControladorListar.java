@@ -30,7 +30,7 @@ import java.util.*;
 import java.math.*;
 import javax.swing.*;
 import java.text.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 
 
 public class ControladorListar {

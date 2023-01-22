@@ -28,9 +28,7 @@ package co.edu.univalle.modelo;
 
 import java.io.Serializable;
 import java.math.*;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
+import java.text.*;
 
 public class Producto implements Listable, Serializable {
     public static final long serialVersionUID = 1L;

@@ -22,9 +22,10 @@
     -Inicializa una ventaInicio y un ControladorVentanaInicio, que se encargan de arrancar el programa.
 */
 
-package co.edu.univalle.vista;
+package co.edu.univalle;
 
 import co.edu.univalle.controlador.*;
+import co.edu.univalle.vista.*;
 
 public class Principal {
     public static void main(String[] args) {

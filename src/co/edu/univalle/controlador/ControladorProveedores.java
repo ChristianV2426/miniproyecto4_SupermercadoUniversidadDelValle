@@ -29,7 +29,7 @@ package co.edu.univalle.controlador;
 import co.edu.univalle.vista.*;
 import co.edu.univalle.modelo.*;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 
 
 public class ControladorProveedores {

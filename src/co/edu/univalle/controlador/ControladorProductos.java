@@ -28,7 +28,7 @@ import co.edu.univalle.modelo.*;
 import co.edu.univalle.vista.*;
 import java.math.*;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 
 
 public class ControladorProductos {
@@ -58,7 +58,6 @@ public class ControladorProductos {
     }
 
     public static void limpiar(VentanaInicio ventanaInicio, Integer serialProducto) {
-        // ventanaInicio.getContenedorTexto()[2].setVisible(false); // Se hace para solucionar bugs de swing
         ventanaInicio.getFieldIdProductos().setText(String.valueOf(serialProducto));
         ventanaInicio.getFieldNombresProductos().setText("");
         dropCategoriaProducto.setSelectedItem("Seleccionar");

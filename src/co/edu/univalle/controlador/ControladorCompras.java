@@ -24,8 +24,7 @@
 
 package co.edu.univalle.controlador;
 
-import javax.swing.table.DefaultTableModel;
-
+import javax.swing.table.*;
 import co.edu.univalle.modelo.*;
 import co.edu.univalle.vista.*;
 import java.time.*;
