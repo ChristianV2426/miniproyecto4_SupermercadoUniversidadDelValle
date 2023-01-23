@@ -2,6 +2,5 @@ Juan Camilo Narvaez Tascon - juan.narvaez.tascon@correounivalle.edu.co - 2140112
 Christian David Vargas Gutiérrez - vargas.christian@correounivalle.edu.co - 2179172-3743
 
 
-Link del vídeo: 
 Link del repositorio en GitHub: https://github.com/ChristianV2426/miniproyecto4_SupermercadoUniversidadDelValle
 

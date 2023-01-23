@@ -33,7 +33,7 @@ import javax.swing.table.*;
 
 public class ControladorProductos {
     private static String[] labelProductos = {"ID del producto ", "Nombre del producto ", "Categoría ", "Cantidad en Stock ", "Precio de venta $ "};
-    private static String[] opcionesCategoriaProducto = {"Seleccionar", "Categoría 1", "Categoría 2", "Categoría 3"};
+    private static String[] opcionesCategoriaProducto = {"Seleccionar", "Frutas", "Verduras", "Enlatados", "Aseo del hogar", "Aseo personal", "Mascotas"};
     private static JComboBox<String> dropCategoriaProducto = new JComboBox<>(opcionesCategoriaProducto);
     private static String encabezadoProductos[] = {"ID del producto", "Nombre producto", "Categoría", "Cantidad en Stock", "Precio de venta"};
     

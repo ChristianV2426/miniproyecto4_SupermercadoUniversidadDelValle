@@ -1,0 +1,74 @@
+Fecha: 2023-1-22
+
+------------------------------------------------------------------------------------------------ LISTA DE PRODUCTOS -------------------------------------------------------------------------------------------------
+
+ID producto                             Producto                                Categoría                               Cantidad en Stock                       Precio de venta                         
+1000                                    Paquete manzanas x 6                    Frutas                                  145                                     22.35                                   
+1001                                    Paquete peras x 6                       Frutas                                  99                                      25.15                                   
+1002                                    Bandeja uva x 100 g                     Frutas                                  85                                      32.45                                   
+1003                                    Piña x libra                            Frutas                                  99                                      55.20                                   
+1004                                    Papaya x libra                          Frutas                                  119                                     46.95                                   
+1005                                    Tomate x libra                          Verduras                                65                                      52.00                                   
+1006                                    Cebolla cabezona x libra                Verduras                                85                                      32.72                                   
+1007                                    Cebolla larga x libra                   Verduras                                78                                      48.60                                   
+1008                                    Pasta de tomate en lata                 Enlatados                               89                                      198.25                                  
+1009                                    Paquete atún x 6 latas                  Enlatados                               112                                     690.50                                  
+1010                                    Duraznos dulces x lata                  Enlatados                               23                                      149.99                                  
+1011                                    Crema dental tubo 100 g                 Aseo personal                           65                                      110.38                                  
+1012                                    Crema hidratante piel sensible x 500 mL Aseo personal                           97                                      545.35                                  
+1013                                    Repelente mosquitos x 150 mL            Aseo personal                           85                                      350.22                                  
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------------------ LISTA DE CLIENTES -------------------------------------------------------------------------------------------------
+
+Documento                               Nombre y apellidos                      Correo Electrónico                      Teléfono                                Número de transacciones                 
+36989524                                Juan Pablo López                        lopez.jp@gmail.com                      3178546930                              1                                       
+1427281                                 Miguel Muñoz                            muñoz.miguel@gmail.com                  6024587412                              2                                       
+52484852                                Daniela Paz                             paz.daniela@gmail.com                   602369851                               1                                       
+31177079                                Lorena Torres                           torres.lorena@gmail.com                 +5731176552310                          0                                       
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------------------ LISTA DE PROVEEDORES ---------------------------------------------------------------------------------------------
+
+NIT                                     Nombre de la empresa                    Correo Electrónico                      Teléfono                                Número de transacciones                 
+3330003                                 Mayoristas LTDA                         mayoristas.ltda@gmail.com               6023145874                              1                                       
+5550005                                 La Bodega - Productos de cuidado personalcontacto@labodega.com                   6025812155                              1                                       
+2220002                                 Fruticola de Colombia                   fruticola.colombia@fruticola.com        6021477882                              4                                       
+4440004                                 Mascotas y más                          ventas@mascotas.com                     6025874254                              0                                       
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------------------ LISTA DE VENTAS -------------------------------------------------------------------------------------------------
+
+ID venta                                Fecha                                   Documento del cliente                   Nombre y apellidos                      Número de productos de la venta         Precio total                            
+200003                                  2023-01-22                              1427281                                 Miguel Muñoz                            10                                      324.5                                   
+200002                                  2023-01-22                              36989524                                Juan Pablo López                        6                                       422.75                                  
+200001                                  2023-01-22                              52484852                                Daniela Paz                             11                                      7160.05                                 
+200000                                  2023-01-22                              1427281                                 Miguel Muñoz                            12                                      573.98                                  
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------------------ LISTA DE COMPRAS -------------------------------------------------------------------------------------------------
+
+ID compra                               Fecha                                   NIT                                     Nombre de la empresa                    Número de productos de la compra        Precio total                            
+300004                                  2023-01-22                              3330003                                 Mayoristas LTDA                         235                                     8150.8                                  
+300005                                  2023-01-22                              5550005                                 La Bodega - Productos de cuidado personal250                                     18704.7                                 
+300000                                  2023-01-22                              2220002                                 Fruticola de Colombia                   300                                     3615.0                                  
+300001                                  2023-01-22                              2220002                                 Fruticola de Colombia                   100                                     1096.0                                  
+300002                                  2023-01-22                              2220002                                 Fruticola de Colombia                   170                                     4203.0                                  
+300003                                  2023-01-22                              2220002                                 Fruticola de Colombia                   230                                     5423.7                                  
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
