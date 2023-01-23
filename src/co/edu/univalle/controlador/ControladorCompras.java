@@ -128,11 +128,6 @@ public class ControladorCompras {
         return compra;
     }
 
-    public static boolean revisarIDCompra(VentanaInicio ventanaInicio){
-
-        return true;
-    }
-
     public static void asignarTabla(DefaultTableModel modeloTabla, VentanaInicio ventanaInicio) {
         String tablaIdCompra = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 0).toString();
         String tablaFechaCompra = modeloTabla.getValueAt(ventanaInicio.getTablaDatos().getSelectedRow(), 1).toString();

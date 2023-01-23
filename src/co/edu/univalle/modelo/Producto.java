@@ -43,7 +43,7 @@ public class Producto implements Listable, Serializable {
         this.identificacion = identificacion;
         this.nombreProducto = nombreProducto;
         this.categoriaProducto = categoriaProducto;
-        this.cantidadStock = 0;  // Cuando recién se crea un producto desde la categoría PRODUCTOS, el stock es cero. Hay que agregar stock comprándole producto a los proovedores.
+        this.cantidadStock = 0;  // Cuando recién se crea un producto desde la categoría Productos, el stock es cero. Hay que agregar stock comprándole producto a los proovedores.
         this.precioVenta = precioVenta;
     }
 

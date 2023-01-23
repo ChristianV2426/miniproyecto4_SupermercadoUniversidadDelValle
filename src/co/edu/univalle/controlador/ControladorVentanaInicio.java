@@ -499,8 +499,6 @@ public class ControladorVentanaInicio {
                     pintarListado(tipoCategoria);
                 }
 
-                limpiarFormulario(tipoCategoria);
-
 
             } else if (evento.getActionCommand().equalsIgnoreCase("Exportar")){
                 JFileChooser fileChooser = new JFileChooser();
